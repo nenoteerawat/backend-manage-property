@@ -1,0 +1,32 @@
+server:
+  port: 8085
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+    arun: DEBUG
+    root: DEBUG
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8089/auth/realms/property
+          jwk-set-uri: http://localhost:8089/auth/realms/property/protocol/openid-connect/certs
+          public-key-location: classpath:property-key.pub
+          jws-algorithm: RS512
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
