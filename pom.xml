@@ -9,12 +9,11 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bezkoder</groupId>
-	<artifactId>spring-boot-security-jwt-mongodb</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-security-jwt-mongodb</name>
-	<description>Demo project for Spring Boot Auth with Spring Security,
-		JWT, MongoDB</description>
+	<groupId>com.bayneno</groupId>
+	<artifactId>backend-manage-property</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>Backend Property Management</name>
+	<description>Backend Service Property Management</description>
 
 	<properties>
 		<java.version>1.8</java.version>
