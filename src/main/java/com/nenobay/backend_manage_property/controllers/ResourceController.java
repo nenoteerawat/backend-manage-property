@@ -1,16 +1,18 @@
 package com.nenobay.backend_manage_property.controllers;
 
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 public class ResourceController {
 
     @GetMapping("/api/admin")
     public String admin(){
         return "Admin";
+    }
+
+    @PostMapping("/api/sale")
+    public @ResponseBody SaleModel sale(@RequestBody SaleModel sale){
+        return sale;
     }
 }
