@@ -1,10 +1,10 @@
-package com.nenobay.backend_manage_property;
+package com.bezkoder.spring.jwt.mongodb;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendPropertyManagementApplicationTests {
+class SpringBootSecurityJwtMongodbApplicationTests {
 
 	@Test
 	void contextLoads() {
