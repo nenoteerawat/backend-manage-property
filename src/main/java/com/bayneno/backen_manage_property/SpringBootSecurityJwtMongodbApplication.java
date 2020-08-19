@@ -1,13 +1,13 @@
-package com.nenobay.backend_manage_property;
+package com.bayneno.backen_manage_property;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BackendPropertyManagementApplication {
+public class SpringBootSecurityJwtMongodbApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BackendPropertyManagementApplication.class, args);
+		SpringApplication.run(SpringBootSecurityJwtMongodbApplication.class, args);
 	}
 
 }

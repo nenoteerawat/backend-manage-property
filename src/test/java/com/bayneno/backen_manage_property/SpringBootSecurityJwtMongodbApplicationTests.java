@@ -1,10 +1,10 @@
-package com.nenobay.backend_manage_property;
+package com.bayneno.backen_manage_property;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendPropertyManagementApplicationTests {
+class SpringBootSecurityJwtMongodbApplicationTests {
 
 	@Test
 	void contextLoads() {
