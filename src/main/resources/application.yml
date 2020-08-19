@@ -8,11 +8,11 @@ spring:
   data:
     mongodb:
       database: property
-      host: localhost
+      host: mongodb
       port: 27017
       authentication-database: admin
       username: root
-      password: password
+      password: p@ssw0rd
 
 
 # App Properties
