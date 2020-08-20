@@ -1,0 +1,22 @@
+# Server Config
+server:
+  port : 8090
+
+
+# Mongo Db Config
+spring:
+  data:
+    mongodb:
+      database: property
+      host: localhost
+      port: 27017
+      authentication-database: admin
+      username: root
+      password: p@ssw0rd
+
+
+# App Properties
+bezkoder:
+  app:
+    jwtSecret: bezKoderSecretKey
+    jwtExpirationMs: 86400000
