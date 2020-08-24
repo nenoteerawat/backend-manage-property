@@ -2,6 +2,9 @@
 server:
   port : 8090
 
+logging:
+  level:
+    ROOT: DEBUG
 
 # Mongo Db Config
 spring:
