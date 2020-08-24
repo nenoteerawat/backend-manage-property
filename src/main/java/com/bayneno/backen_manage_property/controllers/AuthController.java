@@ -33,7 +33,7 @@ import com.bayneno.backen_manage_property.payload.request.LoginRequest;
 import com.bayneno.backen_manage_property.payload.request.SignupRequest;
 import com.bayneno.backen_manage_property.repository.RoleRepository;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

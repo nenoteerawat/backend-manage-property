@@ -2,16 +2,13 @@
 server:
   port : 8090
 
-logging:
-  level:
-    ROOT: DEBUG
 
 # Mongo Db Config
 spring:
   data:
     mongodb:
       database: property
-      host: mongo
+      host: localhost
       port: 27017
       authentication-database: admin
       username: root
