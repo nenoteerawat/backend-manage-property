@@ -12,27 +12,30 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectRequest {
-	private String id;
-	@NotBlank
+public class ProjectSearchRequest {
+
+	private String role;
+
+	private String userId;
+
 	private String type;
-	@NotBlank
+
 	private String name;
-	@NotBlank
+
 	private String floor;
-	@NotBlank
+
 	private String building;
-	@NotBlank
+
 	private String developer;
-	@NotBlank
+
 	private String address;
-	@NotBlank
+
 	private String district;
-	@NotBlank
+
 	private String amphoe;
-	@NotBlank
+
 	private String province;
-	@NotBlank
+
 	private String zipcode;
 	private List<String> facilities;
 	private List<TransportRequest> transports;
