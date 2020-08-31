@@ -45,7 +45,7 @@ public class ProjectServiceImpl implements ProjectService  {
 						.zipcode(projectRequest.getZipcode())
 						.facilities(projectRequest.getFacilities())
 						.transports(projectRequest.getTransports())
-						.createdBy("")
+						.createdBy(projectRequest.getUsername())
 						.createdDateTime(formatter.format(date))
 						.build()
 		);
@@ -87,11 +87,16 @@ public class ProjectServiceImpl implements ProjectService  {
 			project.get().setZipcode(projectRequest.getZipcode());
 			project.get().setFacilities(projectRequest.getFacilities());
 			project.get().setTransports(projectRequest.getTransports());
-			project.get().setUpdatedBy("");
+			project.get().setUpdatedBy(projectRequest.getUsername());
 			project.get().setUpdatedDateTime(formatter.format(date));
 			projectRepository.save(project.get());
 			return project.get().getId();
 		}
 		return "Not Found";
+	}
+
+	@Override
+	public void deletedProject(ProjectSearchRequest projectSearchRequest) {
+		projectRepository.deleteById(projectSearchRequest.getId());
 	}
 }

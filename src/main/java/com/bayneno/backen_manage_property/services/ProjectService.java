@@ -16,4 +16,6 @@ public interface ProjectService {
     List<Project> getProject(ProjectSearchRequest projectSearchRequest);
 
     String editProject(ProjectRequest projectRequest);
+
+    void deletedProject(ProjectSearchRequest projectRequest);
 }

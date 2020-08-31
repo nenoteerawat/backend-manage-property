@@ -34,6 +34,8 @@ public class ProjectRequest {
 	private String province;
 	@NotBlank
 	private String zipcode;
+	@NotBlank
+	private String username;
 	private List<String> facilities;
 	private List<TransportRequest> transports;
 	

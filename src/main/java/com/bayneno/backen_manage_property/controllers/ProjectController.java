@@ -44,6 +44,14 @@ public class ProjectController {
         return ResponseEntity.ok(projectId);
     }
 
+    @PostMapping("/project/delete")
+    @PreAuthorize("hasRole('USER') or hasRole('SALE') or hasRole('ADMIN')")
+    public ResponseEntity<?> projectDelete(@Valid @RequestBody ProjectSearchRequest projectSearchRequest) {
+
+        projectService.deletedProject(projectSearchRequest);
+        return ResponseEntity.ok("delete success");
+    }
+
     @PostMapping("/project/list")
     public ResponseEntity<?> projectList(@Valid @RequestBody ProjectSearchRequest projectSearchRequest) {
 

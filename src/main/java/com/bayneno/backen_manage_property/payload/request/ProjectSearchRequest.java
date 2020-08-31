@@ -14,6 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ProjectSearchRequest {
 
+	private String id;
+
 	private String role;
 
 	private String userId;
