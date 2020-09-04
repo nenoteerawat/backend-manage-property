@@ -18,8 +18,6 @@ public class ProjectSearchRequest {
 
 	private String role;
 
-	private String userId;
-
 	private String type;
 
 	private String name;

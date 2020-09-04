@@ -55,8 +55,8 @@ public class ProjectServiceImpl implements ProjectService  {
 	@Override
 	public List<Project> getProject(ProjectSearchRequest projectSearchRequest) {
 
-		if(projectSearchRequest.getUserId() != null && !"".equals(projectSearchRequest.getUserId())) {
-			Optional<Project> project = projectRepository.findById(projectSearchRequest.getUserId());
+		if(projectSearchRequest.getId() != null && !"".equals(projectSearchRequest.getId())) {
+			Optional<Project> project = projectRepository.findById(projectSearchRequest.getId());
 			if(project.isPresent()) {
 				List<Project> projects = new ArrayList<>();
 				projects.add(project.get());

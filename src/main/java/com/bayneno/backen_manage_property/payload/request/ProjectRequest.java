@@ -26,13 +26,9 @@ public class ProjectRequest {
 	private String developer;
 	@NotBlank
 	private String address;
-	@NotBlank
 	private String district;
-	@NotBlank
 	private String amphoe;
-	@NotBlank
 	private String province;
-	@NotBlank
 	private String zipcode;
 	@NotBlank
 	private String username;
