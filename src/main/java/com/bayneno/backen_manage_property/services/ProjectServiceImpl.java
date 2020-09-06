@@ -66,6 +66,17 @@ public class ProjectServiceImpl implements ProjectService  {
 				return new ArrayList<>();
 			}
 		}
+        if(projectSearchRequest.getName() != null && !"".equals(projectSearchRequest.getName())) {
+            Optional<Project> project = projectRepository.findByName(projectSearchRequest.getName());
+            if(project.isPresent()) {
+                List<Project> projects = new ArrayList<>();
+                projects.add(project.get());
+                return projects;
+            }
+            else {
+                return new ArrayList<>();
+            }
+        }
 		return projectRepository.findAll();
 	}
 
