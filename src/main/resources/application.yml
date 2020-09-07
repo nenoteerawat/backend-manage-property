@@ -4,7 +4,7 @@ server:
 
 logging:
   level:
-    ROOT: DEBUG
+    ROOT: INFO
 
 # Mongo Db Config
 spring:
@@ -23,3 +23,9 @@ bezkoder:
   app:
     jwtSecret: bezKoderSecretKey
     jwtExpirationMs: 86400000
+
+# Aws Properties
+aws:
+  access-key: AKIAXCM6J3AOG6Y24WOE
+  secret-key: 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
+  bucket-name: property-s3
