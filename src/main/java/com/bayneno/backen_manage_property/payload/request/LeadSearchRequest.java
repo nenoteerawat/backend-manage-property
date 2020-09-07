@@ -12,7 +12,8 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LeadRequest {
+public class LeadSearchRequest {
+
     private String id;
 
     private OwnerRequest ownerRequest;
@@ -21,6 +22,5 @@ public class LeadRequest {
 
     private List<String> fileIds;
 
-    @NotBlank
     private String username;
 }

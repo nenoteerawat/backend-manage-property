@@ -23,13 +23,16 @@ public class RoomRequest {
     private String area;
     private String floor;
     private String price;
+    private String priceRent;
+    private String rentDetail;
     private String direction;
     private List<String> position;
     private List<String> scenery;
     private String feature;
     private List<String> tags;
+    private List<String> sellDetail;
     private String description;
     private String remark;
-    private String exclusive;
+    private Boolean exclusive;
     private String exclusiveDate;
 }
