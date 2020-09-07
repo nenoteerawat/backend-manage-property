@@ -8,11 +8,11 @@ spring:
   data:
     mongodb:
       database: property
-      host: ec2-13-251-81-73.ap-southeast-1.compute.amazonaws.com
+      host: localhost
       port: 27017
       authentication-database: admin
       username: root
-      password: p@ssw0rd
+      password: password
 
 
 # App Properties
