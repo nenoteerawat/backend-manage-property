@@ -9,11 +9,12 @@ import lombok.*;
 @Builder
 public class FileResponse {
 
-    String id;
+    private String id;
 
-    String name;
+    private String name;
 
-    String path;
-
-    Boolean flag = true;
+    private String path;
+    private String highlight;
+    private String fileDefault;
+    private Boolean flag = true;
 }
