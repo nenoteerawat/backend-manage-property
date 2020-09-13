@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApproveReq {
-    private String changeLog;
+    private String changeLogId;
     private boolean isApprove;
 }
