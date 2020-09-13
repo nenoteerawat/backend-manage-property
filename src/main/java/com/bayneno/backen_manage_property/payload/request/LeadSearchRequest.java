@@ -1,5 +1,6 @@
 package com.bayneno.backen_manage_property.payload.request;
 
+import com.bayneno.backen_manage_property.payload.response.FileResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class LeadSearchRequest {
 
     private RoomRequest roomRequest;
 
-    private List<String> fileIds;
+    private List<FileResponse> files;
 
     private String username;
 }

@@ -30,7 +30,7 @@ public class RoomRequest {
     private List<String> scenery;
     private String feature;
     private List<String> tags;
-    private List<String> sellDetail;
+    private String sellDetail;
     private String description;
     private String remark;
     private Boolean exclusive;

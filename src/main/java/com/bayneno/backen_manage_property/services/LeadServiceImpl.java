@@ -36,7 +36,7 @@ public class LeadServiceImpl implements LeadService  {
 						.builder()
 						.owner(leadRequest.getOwnerRequest())
 						.room(leadRequest.getRoomRequest())
-						.fileIds(leadRequest.getFileIds())
+						.files(leadRequest.getFiles())
 						.createdBy(leadRequest.getUsername())
 						.createdDateTime(formatter.format(date))
 						.build()
@@ -63,6 +63,7 @@ public class LeadServiceImpl implements LeadService  {
 						.updatedBy(lead.get().getUpdatedBy())
 						.updatedDateTime(lead.get().getUpdatedDateTime())
 						.projects(projects)
+						.files(lead.get().getFiles())
 						.id(lead.get().getId())
 						.build();
 				leads.add(leadResponse);
@@ -87,6 +88,7 @@ public class LeadServiceImpl implements LeadService  {
 								.stream()
 								.filter(project -> project.getId().equals(lead.getRoom().getProjectId()))
 								.collect(Collectors.toList()))
+						.files(lead.getFiles())
 						.createdBy(lead.getCreatedBy())
 						.createdDateTime(lead.getCreatedDateTime())
 						.build()
@@ -104,7 +106,7 @@ public class LeadServiceImpl implements LeadService  {
 		if(lead.isPresent()) {
 			lead.get().setOwner(leadRequest.getOwnerRequest());
 			lead.get().setRoom(leadRequest.getRoomRequest());
-			lead.get().setFileIds(leadRequest.getFileIds());
+			lead.get().setFiles(leadRequest.getFiles());
 			lead.get().setUpdatedBy(leadRequest.getUsername());
 			lead.get().setUpdatedDateTime(formatter.format(date));
 			leadRepository.save(lead.get());

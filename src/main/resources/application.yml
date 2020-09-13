@@ -29,3 +29,4 @@ aws:
   access-key: AKIAXCM6J3AOG6Y24WOE
   secret-key: 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
   bucket-name: property-s3
+  url: https://${aws.bucket-name}.s3-ap-southeast-1.amazonaws.com/

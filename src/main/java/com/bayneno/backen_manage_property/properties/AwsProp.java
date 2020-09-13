@@ -11,4 +11,5 @@ public class AwsProp {
     private String accessKey;
     private String secretKey;
     private String bucketName;
+    private String url;
 }

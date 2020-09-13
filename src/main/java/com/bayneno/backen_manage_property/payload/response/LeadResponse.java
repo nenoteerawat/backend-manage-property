@@ -18,7 +18,7 @@ public class LeadResponse {
     private String id;
     private OwnerRequest owner;
     private RoomRequest room;
-    private List<String> fileIds;
+    private List<FileResponse> files;
     private List<Project> projects;
     private String createdBy;
     private String createdDateTime;
