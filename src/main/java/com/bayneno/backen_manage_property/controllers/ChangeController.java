@@ -64,7 +64,7 @@ public class ChangeController {
                 changeLogShowResponses.add(ChangeLogShowResponse.builder()
                         .key(oldField.getName())
                         .fromValue(Optional.ofNullable(oldField.get(fromValue)).map(Object::toString).orElse(""))
-                        .toValue(Optional.ofNullable(oldField.get(fromValue)).map(Object::toString).orElse(""))
+                        .toValue(Optional.ofNullable(oldField.get(toValue)).map(Object::toString).orElse(""))
                         .build());
                 oldField.setAccessible(false);
                 newField.setAccessible(false);

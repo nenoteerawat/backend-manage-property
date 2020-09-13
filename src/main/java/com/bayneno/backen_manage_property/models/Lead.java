@@ -2,6 +2,7 @@ package com.bayneno.backen_manage_property.models;
 
 import com.bayneno.backen_manage_property.payload.request.OwnerRequest;
 import com.bayneno.backen_manage_property.payload.request.RoomRequest;
+import com.bayneno.backen_manage_property.payload.response.FileResponse;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,7 +20,7 @@ public class Lead {
     private String id;
     private OwnerRequest owner;
     private RoomRequest room;
-    private List<String> fileIds;
+    private List<FileResponse> files;
     private String createdBy;
     private String createdDateTime;
     private String updatedBy;

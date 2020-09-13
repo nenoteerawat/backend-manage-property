@@ -14,4 +14,9 @@ import java.io.File;
 public class FileRequest {
 
     private File file;
+
+    private String name;
+    private String path;
+    private String highlight;
+    private String fileDefault;
 }

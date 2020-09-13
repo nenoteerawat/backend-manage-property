@@ -5,7 +5,6 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.bayneno.backen_manage_property.properties.AwsProp;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
