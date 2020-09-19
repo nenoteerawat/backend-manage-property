@@ -16,8 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(collection = "lead")
-public class Lead {
+@Document(collection = "listing")
+public class Listing {
     @Id
     private String id;
     private OwnerRequest owner;

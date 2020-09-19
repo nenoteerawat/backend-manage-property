@@ -5,7 +5,7 @@ import com.bayneno.backen_manage_property.enums.ChangeLogType;
 import com.bayneno.backen_manage_property.enums.ChangeSubmitType;
 import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.repository.ChangeLogRepository;
-import com.bayneno.backen_manage_property.repository.LeadRepository;
+import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;
 import com.bayneno.backen_manage_property.repository.UserRepository;
 import com.bayneno.backen_manage_property.payload.request.change_log.ApproveReq;
@@ -22,16 +22,16 @@ import java.util.stream.Collectors;
 @Service
 public class ChangeServiceImpl {
     private final ChangeLogRepository changeLogRepository;
-    private final LeadRepository leadRepository;
+    private final ListingRepository listingRepository;
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
 
     public ChangeServiceImpl(ChangeLogRepository changeLogRepository
-            , LeadRepository leadRepository
+            , ListingRepository listingRepository
             , ProjectRepository projectRepository
             , UserRepository userRepository) {
         this.changeLogRepository = changeLogRepository;
-        this.leadRepository = leadRepository;
+        this.listingRepository = listingRepository;
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
     }
@@ -39,9 +39,9 @@ public class ChangeServiceImpl {
     public void submit(SubmitReq req){
         Object changeFromValue = null;
         if(req.getSubmitType().equals(ChangeSubmitType.EDIT.name())) {
-            if (req.getType().equals(ChangeLogType.LEAD.name())) {
+            if (req.getType().equals(ChangeLogType.LISTING.name())) {
                 if (req.getId() != null) {
-                    changeFromValue = leadRepository.findById(req.getId()).orElse(null);
+                    changeFromValue = listingRepository.findById(req.getId()).orElse(null);
                 }
 
             } else if (req.getType().equals(ChangeLogType.PROJECT.name())) {
@@ -72,8 +72,8 @@ public class ChangeServiceImpl {
         if(req.getIsApprove()){
             changeLog.setState(ChangeLogState.APPROVED.name());
             changeLog.setApproveBy(approveUser);
-            if(changeLog.getType().equals(ChangeLogType.LEAD.name())){
-                leadRepository.save((Lead) changeLog.getToValue());
+            if(changeLog.getType().equals(ChangeLogType.LISTING.name())){
+                listingRepository.save((Listing) changeLog.getToValue());
             } else if(changeLog.getType().equals(ChangeLogType.PROJECT.name())){
                 projectRepository.save((Project) changeLog.getToValue());
             }

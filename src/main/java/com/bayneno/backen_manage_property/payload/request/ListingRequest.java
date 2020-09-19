@@ -13,8 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LeadSearchRequest {
-
+public class ListingRequest {
     private String id;
 
     private OwnerRequest ownerRequest;
@@ -23,5 +22,6 @@ public class LeadSearchRequest {
 
     private List<FileResponse> files;
 
+    @NotBlank
     private String username;
 }

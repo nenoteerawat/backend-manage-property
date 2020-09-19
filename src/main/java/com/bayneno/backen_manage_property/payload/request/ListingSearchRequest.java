@@ -6,14 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LeadRequest {
+public class ListingSearchRequest {
+
     private String id;
 
     private OwnerRequest ownerRequest;
@@ -22,6 +22,5 @@ public class LeadRequest {
 
     private List<FileResponse> files;
 
-    @NotBlank
     private String username;
 }
