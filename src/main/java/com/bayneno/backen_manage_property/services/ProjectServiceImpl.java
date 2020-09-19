@@ -1,15 +1,15 @@
 package com.bayneno.backen_manage_property.services;
 
 import com.bayneno.backen_manage_property.models.Project;
+import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.ProjectRequest;
 import com.bayneno.backen_manage_property.payload.request.ProjectSearchRequest;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;
+import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,9 +27,7 @@ public class ProjectServiceImpl implements ProjectService  {
 	}
 
 	@Override
-	public String createProject(ProjectRequest projectRequest) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		Date date = new Date();
+	public String createProject(ProjectRequest projectRequest, User user) {
 		Project project = projectRepository.save(
 				Project
 						.builder()
@@ -45,8 +43,8 @@ public class ProjectServiceImpl implements ProjectService  {
 						.zipcode(projectRequest.getZipcode())
 						.facilities(projectRequest.getFacilities())
 						.transports(projectRequest.getTransports())
-						.createdBy(projectRequest.getUsername())
-						.createdDateTime(formatter.format(date))
+						.createdBy(user)
+						.createdDateTime(ZonedDateTimeUtil.now())
 						.build()
 		);
 		return project.getId();
@@ -81,9 +79,7 @@ public class ProjectServiceImpl implements ProjectService  {
 	}
 
 	@Override
-	public String editProject(ProjectRequest projectRequest) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		Date date = new Date();
+	public String editProject(ProjectRequest projectRequest, User user) {
 		Optional<Project> project = projectRepository.findById(projectRequest.getId());
 		if(project.isPresent()) {
 			project.get().setType(projectRequest.getType());
@@ -98,8 +94,8 @@ public class ProjectServiceImpl implements ProjectService  {
 			project.get().setZipcode(projectRequest.getZipcode());
 			project.get().setFacilities(projectRequest.getFacilities());
 			project.get().setTransports(projectRequest.getTransports());
-			project.get().setUpdatedBy(projectRequest.getUsername());
-			project.get().setUpdatedDateTime(formatter.format(date));
+			project.get().setUpdatedBy(user);
+			project.get().setUpdatedDateTime(ZonedDateTimeUtil.now());
 			projectRepository.save(project.get());
 			return project.get().getId();
 		}

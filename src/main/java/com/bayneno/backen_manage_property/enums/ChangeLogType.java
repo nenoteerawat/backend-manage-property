@@ -1,4 +1,4 @@
-package com.bayneno.backen_manage_property.models;
+package com.bayneno.backen_manage_property.enums;
 
 public enum ChangeLogType {
     PROJECT,

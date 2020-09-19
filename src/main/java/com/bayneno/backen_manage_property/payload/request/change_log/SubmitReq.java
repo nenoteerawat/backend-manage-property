@@ -1,4 +1,4 @@
-package com.bayneno.backen_manage_property.requests.change_log;
+package com.bayneno.backen_manage_property.payload.request.change_log;
 
 import lombok.*;
 
@@ -13,4 +13,5 @@ public class SubmitReq {
     private String submitType;
     private String comment;
     private Object toValue;
+    private String username;
 }

@@ -21,7 +21,9 @@ public class ChangeLog {
     private String comment;
     private String submitType;
     @DBRef
-    private User user;
+    private User submitBy;
+    @DBRef
+    private User approveBy;
     private String state;
     private ZonedDateTime createDate;
     private ZonedDateTime updateDate;

@@ -5,8 +5,10 @@ import com.bayneno.backen_manage_property.payload.request.RoomRequest;
 import com.bayneno.backen_manage_property.payload.response.FileResponse;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Setter
@@ -21,8 +23,10 @@ public class Lead {
     private OwnerRequest owner;
     private RoomRequest room;
     private List<FileResponse> files;
-    private String createdBy;
-    private String createdDateTime;
-    private String updatedBy;
-    private String updatedDateTime;
+    @DBRef
+    private User createdBy;
+    private ZonedDateTime createdDateTime;
+    @DBRef
+    private User updatedBy;
+    private ZonedDateTime updatedDateTime;
 }

@@ -1,29 +1,26 @@
 package com.bayneno.backen_manage_property.controllers;
 
-import com.bayneno.backen_manage_property.models.ChangeLogType;
-import com.bayneno.backen_manage_property.models.ChangeSubmitType;
-import com.bayneno.backen_manage_property.models.ERole;
+import com.bayneno.backen_manage_property.enums.ChangeLogType;
+import com.bayneno.backen_manage_property.enums.ChangeSubmitType;
+import com.bayneno.backen_manage_property.enums.ERole;
 import com.bayneno.backen_manage_property.models.Project;
+import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.ProjectRequest;
 import com.bayneno.backen_manage_property.payload.request.ProjectSearchRequest;
+import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ProjectResponse;
-import com.bayneno.backen_manage_property.requests.change_log.SubmitReq;
-import com.bayneno.backen_manage_property.security.services.ChangeServiceImpl;
+import com.bayneno.backen_manage_property.repository.UserRepository;
+import com.bayneno.backen_manage_property.services.ChangeServiceImpl;
 import com.bayneno.backen_manage_property.services.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -31,26 +28,34 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class ProjectController {
 
-    @Autowired
-    private ProjectService projectService;
+    private final ProjectService projectService;
 
-    @Autowired
-    private ChangeServiceImpl changeService;
+    private final ChangeServiceImpl changeService;
+
+    private final UserRepository userRepository;
+
+    public ProjectController(ChangeServiceImpl changeService
+            , ProjectService projectService
+            , UserRepository userRepository) {
+        this.changeService = changeService;
+        this.projectService = projectService;
+        this.userRepository = userRepository;
+    }
 
 
     @PostMapping("/project/create")
-    @PreAuthorize("hasRole('USER') or hasRole('SALE') or hasRole('ADMIN')")
-    public ResponseEntity<?> projectCreate(@Valid @RequestBody ProjectRequest projectRequest, HttpServletRequest request) {
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> projectCreate(@Valid @RequestBody ProjectRequest projectRequest, HttpServletRequest request, Principal principal) {
         String projectId = null;
+        User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
         if(request.isUserInRole(ERole.ROLE_SALE.name())){
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            Date date = new Date();
             changeService.submit(SubmitReq.builder()
                     .comment("Auto Comment")
                     .submitType(ChangeSubmitType.ADD.name())
+                    .username(principal.getName())
                     .type(ChangeLogType.PROJECT.name())
-                    .toValue(Project
-                            .builder()
+                    .toValue(Project.builder()
+                            .id(projectRequest.getId())
                             .type(projectRequest.getType())
                             .name(projectRequest.getName())
                             .floor(projectRequest.getFloor())
@@ -63,8 +68,8 @@ public class ProjectController {
                             .zipcode(projectRequest.getZipcode())
                             .facilities(projectRequest.getFacilities())
                             .transports(projectRequest.getTransports())
-                            .createdBy(projectRequest.getUsername())
-                            .createdDateTime(formatter.format(date))
+                            .createdBy(createdByUser)
+                            .createdDateTime(ZonedDateTimeUtil.now())
                             .build())
                     .build());
 
@@ -73,26 +78,26 @@ public class ProjectController {
             if (projectService.validateProjectName(projectRequest.getName())) {
                 return ResponseEntity.badRequest().body("Project Name Duplicate");
             }
-            projectId = projectService.createProject(projectRequest);
+            projectId = projectService.createProject(projectRequest, createdByUser);
         }
         assert projectId != null;
         return ResponseEntity.ok(projectId);
     }
 
     @PostMapping("/project/edit")
-    @PreAuthorize("hasRole('USER') or hasRole('SALE') or hasRole('ADMIN')")
-    public ResponseEntity<?> projectEdit(@Valid @RequestBody ProjectRequest projectRequest, HttpServletRequest request) {
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> projectEdit(@Valid @RequestBody ProjectRequest projectRequest, HttpServletRequest request, Principal principal) {
         String projectId = null;
+        User updatedByUser = userRepository.findByUsername(principal.getName()).orElse(null);
         if(request.isUserInRole(ERole.ROLE_SALE.name())) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            Date date = new Date();
             changeService.submit(SubmitReq.builder()
                     .id(projectRequest.getId())
                     .comment("Auto Comment")
                     .submitType(ChangeSubmitType.EDIT.name())
                     .type(ChangeLogType.PROJECT.name())
-                    .toValue(Project
-                            .builder()
+                    .username(principal.getName())
+                    .toValue(Project.builder()
+                            .id(projectRequest.getId())
                             .type(projectRequest.getType())
                             .name(projectRequest.getName())
                             .floor(projectRequest.getFloor())
@@ -105,27 +110,28 @@ public class ProjectController {
                             .zipcode(projectRequest.getZipcode())
                             .facilities(projectRequest.getFacilities())
                             .transports(projectRequest.getTransports())
-                            .updatedBy(projectRequest.getUsername())
-                            .updatedDateTime(formatter.format(date))
+                            .updatedBy(updatedByUser)
+                            .updatedDateTime(ZonedDateTimeUtil.now())
                             .build())
                     .build());
         } else {
             //validate project name
-            projectId = projectService.editProject(projectRequest);
+            projectId = projectService.editProject(projectRequest, updatedByUser);
         }
         assert projectId != null;
         return ResponseEntity.ok(projectId);
     }
 
     @PostMapping("/project/delete")
-    @PreAuthorize("hasRole('USER') or hasRole('SALE') or hasRole('ADMIN')")
-    public ResponseEntity<?> projectDelete(@Valid @RequestBody ProjectSearchRequest projectSearchRequest, Principal principal) {
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> projectDelete(@Valid @RequestBody ProjectSearchRequest projectSearchRequest) {
 
         projectService.deletedProject(projectSearchRequest);
         return ResponseEntity.ok("delete success");
     }
 
     @PostMapping("/project/list")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> projectList(@Valid @RequestBody ProjectSearchRequest projectSearchRequest) {
 
         //validate project name

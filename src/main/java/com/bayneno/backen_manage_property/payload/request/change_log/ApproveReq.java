@@ -1,4 +1,4 @@
-package com.bayneno.backen_manage_property.requests.change_log;
+package com.bayneno.backen_manage_property.payload.request.change_log;
 
 import lombok.*;
 
@@ -9,5 +9,5 @@ import lombok.*;
 @AllArgsConstructor
 public class ApproveReq {
     private String changeLogId;
-    private boolean isApprove;
+    private Boolean isApprove;
 }

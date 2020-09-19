@@ -2,17 +2,16 @@ package com.bayneno.backen_manage_property.services;
 
 import com.bayneno.backen_manage_property.models.Lead;
 import com.bayneno.backen_manage_property.models.Project;
+import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.LeadRequest;
-import com.bayneno.backen_manage_property.payload.response.LeadResponse;
 import com.bayneno.backen_manage_property.payload.request.LeadSearchRequest;
+import com.bayneno.backen_manage_property.payload.response.LeadResponse;
 import com.bayneno.backen_manage_property.repository.LeadRepository;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,24 +20,25 @@ import java.util.stream.Collectors;
 @Service
 public class LeadServiceImpl implements LeadService  {
 
-	@Autowired
-	LeadRepository leadRepository;
+	private final LeadRepository leadRepository;
 
-	@Autowired
-	ProjectRepository projectRepository;
+	private final ProjectRepository projectRepository;
+
+	public LeadServiceImpl(LeadRepository leadRepository, ProjectRepository projectRepository) {
+		this.leadRepository = leadRepository;
+		this.projectRepository = projectRepository;
+	}
 
 	@Override
-	public String createLead(LeadRequest leadRequest) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		Date date = new Date();
+	public String createLead(LeadRequest leadRequest, User user) {
 		Lead lead = leadRepository.save(
 				Lead
 						.builder()
 						.owner(leadRequest.getOwnerRequest())
 						.room(leadRequest.getRoomRequest())
 						.files(leadRequest.getFiles())
-						.createdBy(leadRequest.getUsername())
-						.createdDateTime(formatter.format(date))
+						.createdBy(user)
+						.createdDateTime(ZonedDateTimeUtil.now())
 						.build()
 		);
 		return lead.getId();
@@ -56,15 +56,21 @@ public class LeadServiceImpl implements LeadService  {
 				project.ifPresent(projects::add);
 
 				LeadResponse leadResponse = LeadResponse.builder()
-						.owner(lead.get().getOwner())
-						.room(lead.get().getRoom())
-						.createdBy(lead.get().getCreatedBy())
-						.createdDateTime(lead.get().getCreatedDateTime())
-						.updatedBy(lead.get().getUpdatedBy())
-						.updatedDateTime(lead.get().getUpdatedDateTime())
+						.owner(lead.map(Lead::getOwner).orElse(null))
+						.room(lead.map(Lead::getRoom).orElse(null))
+						.createdBy(lead.map(Lead::getCreatedBy).map(User::getFirstName).orElse("")
+								+ " "
+								+ lead.map(Lead::getCreatedBy).map(User::getLastName).orElse(""))
+						.createdDateTime(ZonedDateTimeUtil.zonedDateTimeToString(lead.map(Lead::getCreatedDateTime).orElse(null)
+								, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.bangkokAsiaZoneId))
+						.updatedBy(lead.map(Lead::getUpdatedBy).map(User::getFirstName).orElse("")
+								+ " "
+								+ lead.map(Lead::getUpdatedBy).map(User::getLastName).orElse(""))
+						.updatedDateTime(ZonedDateTimeUtil.zonedDateTimeToString(lead.map(Lead::getUpdatedDateTime).orElse(null)
+								, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.bangkokAsiaZoneId))
 						.projects(projects)
-						.files(lead.get().getFiles())
-						.id(lead.get().getId())
+						.files(lead.map(Lead::getFiles).orElse(new ArrayList<>()))
+						.id(lead.map(Lead::getId).orElse(null))
 						.build();
 				leads.add(leadResponse);
 				return leads;
@@ -89,8 +95,9 @@ public class LeadServiceImpl implements LeadService  {
 								.filter(project -> project.getId().equals(lead.getRoom().getProjectId()))
 								.collect(Collectors.toList()))
 						.files(lead.getFiles())
-						.createdBy(lead.getCreatedBy())
-						.createdDateTime(lead.getCreatedDateTime())
+						.createdBy(lead.getCreatedBy().getFirstName() + " " +lead.getCreatedBy().getLastName())
+						.createdDateTime(ZonedDateTimeUtil.zonedDateTimeToString(lead.getCreatedDateTime()
+								, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.bangkokAsiaZoneId))
 						.build()
 				)
 				.collect(Collectors.toList());
@@ -99,16 +106,14 @@ public class LeadServiceImpl implements LeadService  {
 	}
 
 	@Override
-	public String editLead(LeadRequest leadRequest) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		Date date = new Date();
+	public String editLead(LeadRequest leadRequest, User user) {
 		Optional<Lead> lead = leadRepository.findById(leadRequest.getId());
 		if(lead.isPresent()) {
 			lead.get().setOwner(leadRequest.getOwnerRequest());
 			lead.get().setRoom(leadRequest.getRoomRequest());
 			lead.get().setFiles(leadRequest.getFiles());
-			lead.get().setUpdatedBy(leadRequest.getUsername());
-			lead.get().setUpdatedDateTime(formatter.format(date));
+			lead.get().setUpdatedBy(user);
+			lead.get().setUpdatedDateTime(ZonedDateTimeUtil.now());
 			leadRepository.save(lead.get());
 			return lead.get().getId();
 		}
