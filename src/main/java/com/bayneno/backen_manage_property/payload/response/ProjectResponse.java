@@ -1,5 +1,6 @@
 package com.bayneno.backen_manage_property.payload.response;
 
+import com.bayneno.backen_manage_property.payload.request.BuildingRequest;
 import com.bayneno.backen_manage_property.payload.request.TransportRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +27,6 @@ public class ProjectResponse {
 	private String zipcode;
 	private List<String> facilities;
 	private List<TransportRequest> transports;
-	
+	private List<BuildingRequest> buildings;
+
 }

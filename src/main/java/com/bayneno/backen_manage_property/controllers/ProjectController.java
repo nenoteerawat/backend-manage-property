@@ -58,9 +58,7 @@ public class ProjectController {
                             .id(projectRequest.getId())
                             .type(projectRequest.getType())
                             .name(projectRequest.getName())
-                            .floor(projectRequest.getFloor())
-                            .building(projectRequest.getBuilding())
-                            .developer(projectRequest.getDeveloper())
+                            .buildings(projectRequest.getBuildings())
                             .address(projectRequest.getAddress())
                             .district(projectRequest.getDistrict())
                             .amphoe(projectRequest.getAmphoe())
@@ -100,9 +98,7 @@ public class ProjectController {
                             .id(projectRequest.getId())
                             .type(projectRequest.getType())
                             .name(projectRequest.getName())
-                            .floor(projectRequest.getFloor())
-                            .building(projectRequest.getBuilding())
-                            .developer(projectRequest.getDeveloper())
+                            .buildings(projectRequest.getBuildings())
                             .address(projectRequest.getAddress())
                             .district(projectRequest.getDistrict())
                             .amphoe(projectRequest.getAmphoe())
@@ -134,25 +130,56 @@ public class ProjectController {
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> projectList(@Valid @RequestBody ProjectSearchRequest projectSearchRequest) {
 
-        //validate project name
         List<Project> projects = projectService.getProject(projectSearchRequest);
-        List<ProjectResponse> projectResponses = projects.stream().map(project -> new ProjectResponse(
-                project.getId(),
-                project.getType(),
-                project.getName(),
-                project.getFloor(),
-                project.getBuilding(),
-                project.getDeveloper(),
-                project.getAddress(),
-                project.getDistrict(),
-                project.getAmphoe(),
-                project.getProvince(),
-                project.getZipcode(),
-                project.getFacilities(),
-                project.getTransports()
-                )
-        ).collect(Collectors.toList());
+        List<ProjectResponse> projectResponses = new ArrayList<>();
+        if(!projectSearchRequest.isGroupBuilding())
+        {
+            for (Project p:projects
+                 ) {
+                projectResponses.addAll(
+                        p.getBuildings().stream().map(project ->
+                                new ProjectResponse(
+                                        p.getId(),
+                                        p.getType(),
+                                        p.getName(),
+                                        project.getFloor(),
+                                        project.getBuilding(),
+                                        project.getDevelop(),
+                                        p.getAddress(),
+                                        p.getDistrict(),
+                                        p.getAmphoe(),
+                                        p.getProvince(),
+                                        p.getZipcode(),
+                                        p.getFacilities(),
+                                        p.getTransports(),
+                                        p.getBuildings()
+                                )
+                        ).collect(Collectors.toList())
+                );
+            }
+        } else {
+            projectResponses = projects.stream().map(project -> new ProjectResponse(
+                            project.getId(),
+                            project.getType(),
+                            project.getName(),
+                            "",
+                            "",
+                            "",
+                            project.getAddress(),
+                            project.getDistrict(),
+                            project.getAmphoe(),
+                            project.getProvince(),
+                            project.getZipcode(),
+                            project.getFacilities(),
+                            project.getTransports(),
+                    project.getBuildings()
+                    )
+            ).collect(Collectors.toList());
+        }
+
         return ResponseEntity.ok(projectResponses);
     }
+
+
 
 }

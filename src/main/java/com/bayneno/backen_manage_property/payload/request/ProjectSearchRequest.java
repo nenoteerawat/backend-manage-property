@@ -39,5 +39,7 @@ public class ProjectSearchRequest {
 	private String zipcode;
 	private List<String> facilities;
 	private List<TransportRequest> transports;
+
+	private boolean groupBuilding = true;
 	
 }

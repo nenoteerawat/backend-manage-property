@@ -18,12 +18,7 @@ public class ProjectRequest {
 	private String type;
 	@NotBlank
 	private String name;
-	@NotBlank
-	private String floor;
-	@NotBlank
-	private String building;
-	@NotBlank
-	private String developer;
+	private List<BuildingRequest> buildings;
 	@NotBlank
 	private String address;
 	private String district;
