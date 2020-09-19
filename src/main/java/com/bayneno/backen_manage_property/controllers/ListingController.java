@@ -3,15 +3,15 @@ package com.bayneno.backen_manage_property.controllers;
 import com.bayneno.backen_manage_property.enums.ChangeLogType;
 import com.bayneno.backen_manage_property.enums.ChangeSubmitType;
 import com.bayneno.backen_manage_property.enums.ERole;
-import com.bayneno.backen_manage_property.models.Lead;
+import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.User;
-import com.bayneno.backen_manage_property.payload.request.LeadRequest;
-import com.bayneno.backen_manage_property.payload.request.LeadSearchRequest;
+import com.bayneno.backen_manage_property.payload.request.ListingRequest;
+import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
-import com.bayneno.backen_manage_property.payload.response.LeadResponse;
+import com.bayneno.backen_manage_property.payload.response.ListingResponse;
 import com.bayneno.backen_manage_property.repository.UserRepository;
 import com.bayneno.backen_manage_property.services.ChangeServiceImpl;
-import com.bayneno.backen_manage_property.services.LeadService;
+import com.bayneno.backen_manage_property.services.ListingService;
 import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,83 +25,83 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
-public class LeadController {
+public class ListingController {
 
-    private final LeadService leadService;
+    private final ListingService listingService;
 
     private final ChangeServiceImpl changeService;
 
     private final UserRepository userRepository;
 
-    public LeadController(LeadService leadService
+    public ListingController(ListingService listingService
             , ChangeServiceImpl changeService
             , UserRepository userRepository) {
-        this.leadService = leadService;
+        this.listingService = listingService;
         this.changeService = changeService;
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/lead/create")
+    @PostMapping("/listing/create")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> leadCreate(@Valid @RequestBody LeadRequest leadRequest, HttpServletRequest request, Principal principal) {
-        String leadId = null;
+    public ResponseEntity<?> listingCreate(@Valid @RequestBody ListingRequest listingRequest, HttpServletRequest request, Principal principal) {
+        String listingId = null;
         User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
         if(request.isUserInRole(ERole.ROLE_SALE.name())) {
             changeService.submit(SubmitReq.builder()
                     .comment("Auto Comment")
                     .submitType(ChangeSubmitType.ADD.name())
                     .username(principal.getName())
-                    .type(ChangeLogType.LEAD.name())
-                    .toValue(Lead.builder()
-                            .owner(leadRequest.getOwnerRequest())
-                            .room(leadRequest.getRoomRequest())
-                            .files(leadRequest.getFiles())
+                    .type(ChangeLogType.LISTING.name())
+                    .toValue(Listing.builder()
+                            .owner(listingRequest.getOwnerRequest())
+                            .room(listingRequest.getRoomRequest())
+                            .files(listingRequest.getFiles())
                             .createdBy(createdByUser)
                             .createdDateTime(ZonedDateTimeUtil.now())
                             .build())
                     .build());
         } else {
-            leadId = leadService.createLead(leadRequest, createdByUser);
+            listingId = listingService.createListing(listingRequest, createdByUser);
         }
-        assert leadId != null;
-        return ResponseEntity.ok(leadId);
+        assert listingId != null;
+        return ResponseEntity.ok(listingId);
     }
 
-    @PostMapping("/lead/list")
+    @PostMapping("/listing/list")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> leadList(@Valid @RequestBody LeadSearchRequest leadSearchRequest) {
+    public ResponseEntity<?> listingList(@Valid @RequestBody ListingSearchRequest listingSearchRequest) {
 
         //validate project name
-        List<LeadResponse> lead = leadService.getLead(leadSearchRequest);
+        List<ListingResponse> listing = listingService.getListing(listingSearchRequest);
 
-        return ResponseEntity.ok(lead);
+        return ResponseEntity.ok(listing);
     }
 
-    @PostMapping("/lead/edit")
+    @PostMapping("/listing/edit")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> leadEdit(@Valid @RequestBody LeadRequest leadRequest, HttpServletRequest request, Principal principal) {
-        String leadId = null;
+    public ResponseEntity<?> listingEdit(@Valid @RequestBody ListingRequest listingRequest, HttpServletRequest request, Principal principal) {
+        String listingId = null;
         User updatedByUser = userRepository.findByUsername(principal.getName()).orElse(null);
         if(request.isUserInRole(ERole.ROLE_SALE.name())) {
             changeService.submit(SubmitReq.builder()
                     .comment("Auto Comment")
                     .submitType(ChangeSubmitType.EDIT.name())
                     .username(principal.getName())
-                    .type(ChangeLogType.LEAD.name())
-                    .toValue(Lead.builder()
-                            .owner(leadRequest.getOwnerRequest())
-                            .room(leadRequest.getRoomRequest())
-                            .files(leadRequest.getFiles())
+                    .type(ChangeLogType.LISTING.name())
+                    .toValue(Listing.builder()
+                            .owner(listingRequest.getOwnerRequest())
+                            .room(listingRequest.getRoomRequest())
+                            .files(listingRequest.getFiles())
                             .updatedBy(updatedByUser)
                             .updatedDateTime(ZonedDateTimeUtil.now())
                             .build())
                     .build());
         } else {
             //validate project name
-            leadId = leadService.editLead(leadRequest, updatedByUser);
+            listingId = listingService.editListing(listingRequest, updatedByUser);
         }
-        assert leadId != null;
-        return ResponseEntity.ok(leadId);
+        assert listingId != null;
+        return ResponseEntity.ok(listingId);
     }
 
 }

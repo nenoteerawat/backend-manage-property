@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LeadResponse {
+public class ListingResponse {
     @Id
     private String id;
     private OwnerRequest owner;
