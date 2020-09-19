@@ -1,5 +1,6 @@
 package com.bayneno.backen_manage_property.models;
 
+import com.bayneno.backen_manage_property.payload.request.BuildingRequest;
 import com.bayneno.backen_manage_property.payload.request.TransportRequest;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -18,9 +19,7 @@ public class Project {
     private String id;
     private String type;
     private String name;
-    private String floor;
-    private String building;
-    private String developer;
+    private List<BuildingRequest> buildings;
     private String address;
     private String district;
     private String amphoe;

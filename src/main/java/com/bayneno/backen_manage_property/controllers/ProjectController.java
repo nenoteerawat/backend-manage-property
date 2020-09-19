@@ -13,10 +13,6 @@ import com.bayneno.backen_manage_property.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,9 +49,7 @@ public class ProjectController {
                             .builder()
                             .type(projectRequest.getType())
                             .name(projectRequest.getName())
-                            .floor(projectRequest.getFloor())
-                            .building(projectRequest.getBuilding())
-                            .developer(projectRequest.getDeveloper())
+                            .buildings(projectRequest.getBuildings())
                             .address(projectRequest.getAddress())
                             .district(projectRequest.getDistrict())
                             .amphoe(projectRequest.getAmphoe())
@@ -95,9 +89,7 @@ public class ProjectController {
                             .builder()
                             .type(projectRequest.getType())
                             .name(projectRequest.getName())
-                            .floor(projectRequest.getFloor())
-                            .building(projectRequest.getBuilding())
-                            .developer(projectRequest.getDeveloper())
+                            .buildings(projectRequest.getBuildings())
                             .address(projectRequest.getAddress())
                             .district(projectRequest.getDistrict())
                             .amphoe(projectRequest.getAmphoe())
@@ -128,25 +120,56 @@ public class ProjectController {
     @PostMapping("/project/list")
     public ResponseEntity<?> projectList(@Valid @RequestBody ProjectSearchRequest projectSearchRequest) {
 
-        //validate project name
         List<Project> projects = projectService.getProject(projectSearchRequest);
-        List<ProjectResponse> projectResponses = projects.stream().map(project -> new ProjectResponse(
-                project.getId(),
-                project.getType(),
-                project.getName(),
-                project.getFloor(),
-                project.getBuilding(),
-                project.getDeveloper(),
-                project.getAddress(),
-                project.getDistrict(),
-                project.getAmphoe(),
-                project.getProvince(),
-                project.getZipcode(),
-                project.getFacilities(),
-                project.getTransports()
-                )
-        ).collect(Collectors.toList());
+        List<ProjectResponse> projectResponses = new ArrayList<>();
+        if(!projectSearchRequest.isGroupBuilding())
+        {
+            for (Project p:projects
+                 ) {
+                projectResponses.addAll(
+                        p.getBuildings().stream().map(project ->
+                                new ProjectResponse(
+                                        p.getId(),
+                                        p.getType(),
+                                        p.getName(),
+                                        project.getFloor(),
+                                        project.getBuilding(),
+                                        project.getDevelop(),
+                                        p.getAddress(),
+                                        p.getDistrict(),
+                                        p.getAmphoe(),
+                                        p.getProvince(),
+                                        p.getZipcode(),
+                                        p.getFacilities(),
+                                        p.getTransports(),
+                                        p.getBuildings()
+                                )
+                        ).collect(Collectors.toList())
+                );
+            }
+        } else {
+            projectResponses = projects.stream().map(project -> new ProjectResponse(
+                            project.getId(),
+                            project.getType(),
+                            project.getName(),
+                            "",
+                            "",
+                            "",
+                            project.getAddress(),
+                            project.getDistrict(),
+                            project.getAmphoe(),
+                            project.getProvince(),
+                            project.getZipcode(),
+                            project.getFacilities(),
+                            project.getTransports(),
+                    project.getBuildings()
+                    )
+            ).collect(Collectors.toList());
+        }
+
         return ResponseEntity.ok(projectResponses);
     }
+
+
 
 }

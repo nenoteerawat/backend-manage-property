@@ -35,9 +35,7 @@ public class ProjectServiceImpl implements ProjectService  {
 						.builder()
 						.type(projectRequest.getType())
 						.name(projectRequest.getName())
-						.floor(projectRequest.getFloor())
-						.building(projectRequest.getBuilding())
-						.developer(projectRequest.getDeveloper())
+						.buildings(projectRequest.getBuildings())
 						.address(projectRequest.getAddress())
 						.district(projectRequest.getDistrict())
 						.amphoe(projectRequest.getAmphoe())
@@ -88,9 +86,7 @@ public class ProjectServiceImpl implements ProjectService  {
 		if(project.isPresent()) {
 			project.get().setType(projectRequest.getType());
 			project.get().setName(projectRequest.getName());
-			project.get().setFloor(projectRequest.getFloor());
-			project.get().setBuilding(projectRequest.getBuilding());
-			project.get().setDeveloper(projectRequest.getDeveloper());
+			project.get().setBuildings(projectRequest.getBuildings());
 			project.get().setAddress(projectRequest.getAddress());
 			project.get().setDistrict(projectRequest.getDistrict());
 			project.get().setAmphoe(projectRequest.getAmphoe());
