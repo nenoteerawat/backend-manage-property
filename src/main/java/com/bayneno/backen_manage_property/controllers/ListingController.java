@@ -41,7 +41,7 @@ public class ListingController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/Listing/create")
+    @PostMapping("/listing/create")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> listingCreate(@Valid @RequestBody ListingRequest listingRequest, HttpServletRequest request, Principal principal) {
         String listingId = null;
@@ -67,7 +67,7 @@ public class ListingController {
         return ResponseEntity.ok(listingId);
     }
 
-    @PostMapping("/Listing/list")
+    @PostMapping("/listing/list")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> listingList(@Valid @RequestBody ListingSearchRequest listingSearchRequest) {
 
@@ -77,7 +77,7 @@ public class ListingController {
         return ResponseEntity.ok(listing);
     }
 
-    @PostMapping("/Listing/edit")
+    @PostMapping("/listing/edit")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> listingEdit(@Valid @RequestBody ListingRequest listingRequest, HttpServletRequest request, Principal principal) {
         String listingId = null;
