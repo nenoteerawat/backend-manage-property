@@ -1,11 +1,15 @@
-package com.bayneno.backen_manage_property.security.services;
+package com.bayneno.backen_manage_property.services;
 
+import com.bayneno.backen_manage_property.enums.ChangeLogState;
+import com.bayneno.backen_manage_property.enums.ChangeLogType;
+import com.bayneno.backen_manage_property.enums.ChangeSubmitType;
 import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.repository.ChangeLogRepository;
 import com.bayneno.backen_manage_property.repository.LeadRepository;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;
-import com.bayneno.backen_manage_property.requests.change_log.ApproveReq;
-import com.bayneno.backen_manage_property.requests.change_log.SubmitReq;
+import com.bayneno.backen_manage_property.repository.UserRepository;
+import com.bayneno.backen_manage_property.payload.request.change_log.ApproveReq;
+import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +24,16 @@ public class ChangeServiceImpl {
     private final ChangeLogRepository changeLogRepository;
     private final LeadRepository leadRepository;
     private final ProjectRepository projectRepository;
+    private final UserRepository userRepository;
 
     public ChangeServiceImpl(ChangeLogRepository changeLogRepository
             , LeadRepository leadRepository
-            , ProjectRepository projectRepository) {
+            , ProjectRepository projectRepository
+            , UserRepository userRepository) {
         this.changeLogRepository = changeLogRepository;
         this.leadRepository = leadRepository;
         this.projectRepository = projectRepository;
+        this.userRepository = userRepository;
     }
 
     public void submit(SubmitReq req){
@@ -43,8 +50,10 @@ public class ChangeServiceImpl {
                 }
             }
         }
+        User submitUser = userRepository.findByUsername(req.getUsername()).orElse(null);
         changeLogRepository.save(ChangeLog.builder()
                 .state(ChangeLogState.WAIT_APPROVE.name())
+                .submitBy(submitUser)
                 .typeId(req.getId())
                 .type(req.getType())
                 .submitType(req.getSubmitType())
@@ -56,15 +65,17 @@ public class ChangeServiceImpl {
                 .build());
     }
 
-    public void approve(ApproveReq req){
+    public void approve(ApproveReq req, String username){
         ChangeLog changeLog = changeLogRepository.findById(req.getChangeLogId()).orElse(null);
+        User approveUser = userRepository.findByUsername(username).orElse(null);
         assert changeLog != null;
-        if(req.isApprove()){
+        if(req.getIsApprove()){
             changeLog.setState(ChangeLogState.APPROVED.name());
+            changeLog.setApproveBy(approveUser);
             if(changeLog.getType().equals(ChangeLogType.LEAD.name())){
-
+                leadRepository.save((Lead) changeLog.getToValue());
             } else if(changeLog.getType().equals(ChangeLogType.PROJECT.name())){
-
+                projectRepository.save((Project) changeLog.getToValue());
             }
         } else {
             changeLog.setState(ChangeLogState.CANCEL.name());

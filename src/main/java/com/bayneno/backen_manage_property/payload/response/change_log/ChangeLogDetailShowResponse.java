@@ -1,4 +1,4 @@
-package com.bayneno.backen_manage_property.payload.response;
+package com.bayneno.backen_manage_property.payload.response.change_log;
 
 import lombok.*;
 @Setter
@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangeLogShowResponse {
+public class ChangeLogDetailShowResponse {
     private String key;
     private String fromValue;
     private String toValue;

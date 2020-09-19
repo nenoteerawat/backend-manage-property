@@ -1,6 +1,5 @@
 package com.bayneno.backen_manage_property.models;
 
-import com.bayneno.backen_manage_property.enums.ERole;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,11 +9,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "roles")
-public class Role {
-  @Id
-  private String id;
-
-  private ERole name;
+@Document(collection = "field_object_map")
+public class FieldObjectMap {
+    @Id
+    private String id;
+    private String fieldName;
+    private String type;
+    private String th;
+    private String en;
 }
-

@@ -16,7 +16,7 @@ spring:
       port: 27017
       authentication-database: admin
       username: root
-      password: p@ssw0rd
+      password: password
 
 
 # App Properties

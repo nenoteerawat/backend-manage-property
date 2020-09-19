@@ -3,8 +3,10 @@ package com.bayneno.backen_manage_property.models;
 import com.bayneno.backen_manage_property.payload.request.TransportRequest;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Setter
@@ -26,10 +28,12 @@ public class Project {
     private String amphoe;
     private String province;
     private String zipcode;
-    private String createdBy;
-    private String createdDateTime;
-    private String updatedBy;
-    private String updatedDateTime;
+    @DBRef
+    private User createdBy;
+    private ZonedDateTime createdDateTime;
+    @DBRef
+    private User updatedBy;
+    private ZonedDateTime updatedDateTime;
     private List<String> facilities;
     private List<TransportRequest> transports;
 }
