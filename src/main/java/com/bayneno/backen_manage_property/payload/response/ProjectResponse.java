@@ -19,7 +19,7 @@ public class ProjectResponse {
 	private String name;
 	private String floor;
 	private String building;
-	private String developer;
+	private String develop;
 	private String address;
 	private String district;
 	private String amphoe;

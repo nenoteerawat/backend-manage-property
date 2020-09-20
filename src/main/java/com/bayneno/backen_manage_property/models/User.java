@@ -24,7 +24,7 @@ public class User {
   private String firstName;
   @Size(max = 50)
   private String lastName;
-
+  private String nickName;
   @Id
   private String id;
 

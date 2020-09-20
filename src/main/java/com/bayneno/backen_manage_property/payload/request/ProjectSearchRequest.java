@@ -26,7 +26,7 @@ public class ProjectSearchRequest {
 
 	private String building;
 
-	private String developer;
+	private String develop;
 
 	private String address;
 
