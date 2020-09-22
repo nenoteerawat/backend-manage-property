@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bayneno.backen_manage_property.models.ERole;
+import com.bayneno.backen_manage_property.enums.ERole;
 import com.bayneno.backen_manage_property.models.Role;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.LoginRequest;
@@ -96,6 +96,7 @@ public class AuthController {
 				.firstName(signUpRequest.getFirstName())
 				.lastName(signUpRequest.getLastName())
 				.username(signUpRequest.getUsername())
+				.nickName(signUpRequest.getNickName())
 				.email(signUpRequest.getEmail())
 				.password(encoder.encode(signUpRequest.getPassword()))
 				.build();

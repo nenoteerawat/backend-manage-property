@@ -4,7 +4,7 @@ server:
 
 logging:
   level:
-    ROOT: DEBUG
+    ROOT: INFO
 
 # Mongo Db Config
 spring:
@@ -23,3 +23,10 @@ bezkoder:
   app:
     jwtSecret: bezKoderSecretKey
     jwtExpirationMs: 86400000
+
+# Aws Properties
+aws:
+  access-key: AKIAJ4BCHLWN6QAQPR5A
+  secret-key: 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
+  bucket-name: property-s3
+  url: https://${aws.bucket-name}.s3-ap-southeast-1.amazonaws.com/
