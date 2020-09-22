@@ -51,7 +51,7 @@ public class ProjectController {
         User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
         if(request.isUserInRole(ERole.ROLE_SALE.name())){
             changeService.submit(SubmitReq.builder()
-                    .comment("Auto Comment")
+                    .comment(projectRequest.getComment())
                     .submitType(ChangeSubmitType.ADD.name())
                     .username(principal.getName())
                     .type(ChangeLogType.PROJECT.name())
@@ -91,7 +91,7 @@ public class ProjectController {
         if(request.isUserInRole(ERole.ROLE_SALE.name())) {
             changeService.submit(SubmitReq.builder()
                     .id(projectRequest.getId())
-                    .comment("Auto Comment")
+                    .comment(projectRequest.getComment())
                     .submitType(ChangeSubmitType.EDIT.name())
                     .type(ChangeLogType.PROJECT.name())
                     .username(principal.getName())

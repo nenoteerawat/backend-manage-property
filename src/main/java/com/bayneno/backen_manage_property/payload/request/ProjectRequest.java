@@ -25,9 +25,7 @@ public class ProjectRequest {
 	private String amphoe;
 	private String province;
 	private String zipcode;
-	@NotBlank
-	private String username;
 	private List<String> facilities;
 	private List<TransportRequest> transports;
-	
+	private String comment;
 }

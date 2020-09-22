@@ -9,6 +9,7 @@ import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
+import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.UserRepository;
 import com.bayneno.backen_manage_property.services.ChangeServiceImpl;
 import com.bayneno.backen_manage_property.services.ListingService;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -33,12 +35,17 @@ public class ListingController {
 
     private final UserRepository userRepository;
 
+    private final ListingRepository listingRepository;
+
     public ListingController(ListingService listingService
             , ChangeServiceImpl changeService
-            , UserRepository userRepository) {
+            , UserRepository userRepository
+            , ListingRepository listingRepository
+    ) {
         this.listingService = listingService;
         this.changeService = changeService;
         this.userRepository = userRepository;
+        this.listingRepository = listingRepository;
     }
 
     @PostMapping("/listing/create")
@@ -48,7 +55,7 @@ public class ListingController {
         User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
         if(request.isUserInRole(ERole.ROLE_SALE.name())) {
             changeService.submit(SubmitReq.builder()
-                    .comment("Auto Comment")
+                    .comment(listingRequest.getComment())
                     .submitType(ChangeSubmitType.ADD.name())
                     .username(principal.getName())
                     .type(ChangeLogType.LISTING.name())
@@ -84,7 +91,7 @@ public class ListingController {
         User updatedByUser = userRepository.findByUsername(principal.getName()).orElse(null);
         if(request.isUserInRole(ERole.ROLE_SALE.name())) {
             changeService.submit(SubmitReq.builder()
-                    .comment("Auto Comment")
+                    .comment(listingRequest.getComment())
                     .submitType(ChangeSubmitType.EDIT.name())
                     .username(principal.getName())
                     .type(ChangeLogType.LISTING.name())
@@ -104,4 +111,12 @@ public class ListingController {
         return ResponseEntity.ok(listingId);
     }
 
+    @PostMapping("/listing/delete")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> listingDelete(@RequestParam String id) {
+
+        Optional<Listing> listing = listingRepository.findById(id);
+        listingRepository.delete(listing.get());
+        return ResponseEntity.ok("delete success");
+    }
 }

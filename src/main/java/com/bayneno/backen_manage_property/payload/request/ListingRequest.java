@@ -22,6 +22,5 @@ public class ListingRequest {
 
     private List<FileResponse> files;
 
-    @NotBlank
-    private String username;
+    private String comment;
 }

@@ -1,9 +1,7 @@
 package com.bayneno.backen_manage_property.controllers;
 
-import com.bayneno.backen_manage_property.enums.FieldObjectType;
 import com.bayneno.backen_manage_property.models.FieldObjectMap;
 import com.bayneno.backen_manage_property.models.User;
-import com.bayneno.backen_manage_property.payload.request.BuildingRequest;
 import com.bayneno.backen_manage_property.payload.request.OwnerRequest;
 import com.bayneno.backen_manage_property.payload.request.RoomRequest;
 import com.bayneno.backen_manage_property.payload.request.change_log.ApproveReq;
@@ -12,6 +10,7 @@ import com.bayneno.backen_manage_property.payload.response.change_log.ChangeLogS
 import com.bayneno.backen_manage_property.repository.ChangeLogRepository;
 import com.bayneno.backen_manage_property.repository.FieldObjectMapRepository;
 import com.bayneno.backen_manage_property.services.ChangeServiceImpl;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
@@ -45,6 +44,7 @@ public class ChangeController {
     }
 
     @GetMapping("/query")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public List<ChangeLogShowResponse> query(@RequestParam String state) {
         return changeLogRepository.findAllByState(state).stream().map(changeLog -> {
             ChangeLogShowResponse logShowResponse = new ChangeLogShowResponse();
