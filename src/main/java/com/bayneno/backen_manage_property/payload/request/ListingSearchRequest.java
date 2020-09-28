@@ -21,6 +21,4 @@ public class ListingSearchRequest {
     private RoomRequest roomRequest;
 
     private List<FileResponse> files;
-
-    private String username;
 }

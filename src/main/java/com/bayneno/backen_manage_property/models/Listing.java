@@ -29,4 +29,6 @@ public class Listing {
     @DBRef
     private User updatedBy;
     private ZonedDateTime updatedDateTime;
+
+    private String saleUser;
 }

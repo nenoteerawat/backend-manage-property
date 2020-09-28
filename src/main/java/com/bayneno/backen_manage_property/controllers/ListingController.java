@@ -84,6 +84,38 @@ public class ListingController {
         return ResponseEntity.ok(listing);
     }
 
+    @GetMapping("/listing/getLastCode")
+    public ResponseEntity<?> getListingCode(@RequestParam String saleUser) {
+
+        List<Listing> listings = listingRepository.findAllBySaleUser(saleUser);
+        String listingCode = "";
+        int beforeListingCode = 0;
+        if(listings.size() > 0) {
+            for (Listing item:listings
+            ) {
+                String temp = item.getOwner().getListingCode();
+                temp = temp.substring(2);
+                if(Integer.parseInt(temp) > beforeListingCode) {
+                    beforeListingCode = Integer.parseInt(temp);
+                    listingCode = item.getOwner().getListingCode().substring(0,2);
+                }
+            }
+            if(beforeListingCode >= 100) {
+                listingCode += "0" + (beforeListingCode +1);
+            } else if(beforeListingCode >= 10) {
+                listingCode += "00" + (beforeListingCode +1);
+            } else {
+                listingCode += "000" + (beforeListingCode +1);
+            }
+        } else {
+            Optional<User> user = userRepository.findByUsername(saleUser);
+            if(user.isPresent()) {
+                listingCode = user.get().getFirstName().substring(0,1) + user.get().getNickName().substring(0,1) + "0001";
+            }
+        }
+        return ResponseEntity.ok(listingCode);
+    }
+
     @PostMapping("/listing/edit")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> listingEdit(@Valid @RequestBody ListingRequest listingRequest, HttpServletRequest request, Principal principal) {

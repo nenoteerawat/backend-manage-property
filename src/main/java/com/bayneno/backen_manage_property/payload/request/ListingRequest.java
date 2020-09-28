@@ -23,4 +23,6 @@ public class ListingRequest {
     private List<FileResponse> files;
 
     private String comment;
+
+    private String saleUser;
 }

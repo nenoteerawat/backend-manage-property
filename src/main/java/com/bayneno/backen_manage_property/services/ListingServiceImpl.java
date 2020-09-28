@@ -39,6 +39,7 @@ public class ListingServiceImpl implements ListingService {
 						.files(listingRequest.getFiles())
 						.createdBy(user)
 						.createdDateTime(ZonedDateTimeUtil.now())
+						.saleUser(listingRequest.getSaleUser())
 						.build()
 		);
 		return listing.getId();
@@ -71,6 +72,7 @@ public class ListingServiceImpl implements ListingService {
 						.projects(projects)
 						.files(listing.map(Listing::getFiles).orElse(new ArrayList<>()))
 						.id(listing.map(Listing::getId).orElse(null))
+						.saleUser(listing.map(Listing::getSaleUser).orElse(""))
 						.build();
 				listings.add(listingResponse);
 				return listings;
@@ -98,6 +100,7 @@ public class ListingServiceImpl implements ListingService {
 						.createdBy(listing.getCreatedBy().getFirstName() + " " + listing.getCreatedBy().getLastName())
 						.createdDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.getCreatedDateTime()
 								, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.bangkokAsiaZoneId))
+						.saleUser(listing.getSaleUser())
 						.build()
 				)
 				.collect(Collectors.toList());
@@ -114,6 +117,7 @@ public class ListingServiceImpl implements ListingService {
 			listing.get().setFiles(listingRequest.getFiles());
 			listing.get().setUpdatedBy(user);
 			listing.get().setUpdatedDateTime(ZonedDateTimeUtil.now());
+			listing.get().setSaleUser(listingRequest.getSaleUser());
 			listingRepository.save(listing.get());
 			return listing.get().getId();
 		}
