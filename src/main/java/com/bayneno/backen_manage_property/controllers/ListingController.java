@@ -1,15 +1,15 @@
 package com.bayneno.backen_manage_property.controllers;
 
-import com.bayneno.backen_manage_property.enums.ChangeLogType;
-import com.bayneno.backen_manage_property.enums.ChangeSubmitType;
-import com.bayneno.backen_manage_property.enums.ERole;
+import com.bayneno.backen_manage_property.models.ActionLog;
 import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.Role;
 import com.bayneno.backen_manage_property.models.User;
+import com.bayneno.backen_manage_property.payload.request.BookingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
+import com.bayneno.backen_manage_property.repository.ActionLogRepository;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.UserRepository;
 import com.bayneno.backen_manage_property.services.ChangeServiceImpl;
@@ -18,6 +18,7 @@ import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import com.bayneno.backen_manage_property.enums.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -25,7 +26,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -40,15 +40,19 @@ public class ListingController {
 
     private final ListingRepository listingRepository;
 
+    private final ActionLogRepository actionLogRepository;
+
     public ListingController(ListingService listingService
             , ChangeServiceImpl changeService
             , UserRepository userRepository
             , ListingRepository listingRepository
+                             ,ActionLogRepository actionLogRepository
     ) {
         this.listingService = listingService;
         this.changeService = changeService;
         this.userRepository = userRepository;
         this.listingRepository = listingRepository;
+        this.actionLogRepository = actionLogRepository;
     }
 
     @PostMapping("/listing/create")
@@ -157,5 +161,29 @@ public class ListingController {
         Optional<Listing> listing = listingRepository.findById(id);
         listingRepository.delete(listing.get());
         return ResponseEntity.ok("delete success");
+    }
+
+    @PostMapping("/listing/booking")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> listingBooking(@Valid @RequestBody BookingRequest bookingRequest, HttpServletRequest request, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
+        Role role = user.getRoles().iterator().next();
+        Listing listing = listingRepository.findById(bookingRequest.getListingId()).orElse(null);
+        User sale = user;
+
+        if(role.getName().equals(ERole.ROLE_ADMIN)) {
+            sale = userRepository.findByUsername(bookingRequest.getSaleUsername()).orElse(null);
+        }
+        actionLogRepository.save(
+                ActionLog.builder()
+                        .status(ActionLogType.BOOKING.name())
+                        .sale(sale)
+                        .comment("auto comment")
+                        .listing(listing)
+                        .createdBy(user)
+                        .createdDateTime(ZonedDateTimeUtil.now())
+                        .build()
+        );
+        return ResponseEntity.ok("");
     }
 }
