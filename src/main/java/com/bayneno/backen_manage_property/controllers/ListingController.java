@@ -4,6 +4,7 @@ import com.bayneno.backen_manage_property.enums.ChangeLogType;
 import com.bayneno.backen_manage_property.enums.ChangeSubmitType;
 import com.bayneno.backen_manage_property.enums.ERole;
 import com.bayneno.backen_manage_property.models.Listing;
+import com.bayneno.backen_manage_property.models.Role;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
@@ -21,8 +22,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -76,10 +79,14 @@ public class ListingController {
 
     @PostMapping("/listing/list")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> listingList(@Valid @RequestBody ListingSearchRequest listingSearchRequest) {
+    public ResponseEntity<?> listingList(@Valid @RequestBody ListingSearchRequest listingSearchRequest, Principal principal) {
+        List<ListingResponse> listing = new ArrayList<>();
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
 
-        //validate project name
-        List<ListingResponse> listing = listingService.getListing(listingSearchRequest);
+        if(user != null) {
+            listingSearchRequest.setUser(user);
+                listing = listingService.getListing(listingSearchRequest);
+        }
 
         return ResponseEntity.ok(listing);
     }

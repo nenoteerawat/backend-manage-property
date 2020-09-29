@@ -1,7 +1,9 @@
 package com.bayneno.backen_manage_property.services;
 
+import com.bayneno.backen_manage_property.enums.ERole;
 import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.Project;
+import com.bayneno.backen_manage_property.models.Role;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
@@ -81,31 +83,38 @@ public class ListingServiceImpl implements ListingService {
 				return new ArrayList<>();
 			}
 		}
-
-		List<Listing> listingModels = listingRepository.findAll();
-		List<String> projectIds = listingModels.stream().map(listing -> listing.getRoom().getProjectId()).collect(Collectors.toList());
-		List<Project> projects = projectRepository.findByIdIn(projectIds);
-		listings = listingModels
-				.stream()
-				.map(listing -> ListingResponse
-						.builder()
-						.id(listing.getId())
-						.owner(listing.getOwner())
-						.room(listing.getRoom())
-						.projects(projects
-								.stream()
-								.filter(project -> project.getId().equals(listing.getRoom().getProjectId()))
-								.collect(Collectors.toList()))
-						.files(listing.getFiles())
-						.createdBy(listing.getCreatedBy().getFirstName() + " " + listing.getCreatedBy().getLastName())
-						.createdDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.getCreatedDateTime()
-								, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.bangkokAsiaZoneId))
-						.saleUser(listing.getSaleUser())
-						.build()
-				)
-				.collect(Collectors.toList());
-
+		List<Listing> listingModels;
+		Role role = listingSearchRequest.getUser().getRoles().iterator().next();
+		if(role.getName().equals(ERole.ROLE_SALE)) {
+			listingModels = listingRepository.findAllBySaleUser(listingSearchRequest.getUser().getUsername());
+		} else {
+			listingModels = listingRepository.findAll();
+		}
+		if (listingModels.size() > 0) {
+			List<String> projectIds = listingModels.stream().map(listing -> listing.getRoom().getProjectId()).collect(Collectors.toList());
+			List<Project> projects = projectRepository.findByIdIn(projectIds);
+			listings = listingModels
+					.stream()
+					.map(listing -> ListingResponse
+							.builder()
+							.id(listing.getId())
+							.owner(listing.getOwner())
+							.room(listing.getRoom())
+							.projects(projects
+									.stream()
+									.filter(project -> project.getId().equals(listing.getRoom().getProjectId()))
+									.collect(Collectors.toList()))
+							.files(listing.getFiles())
+							.createdBy(listing.getCreatedBy().getFirstName() + " " + listing.getCreatedBy().getLastName())
+							.createdDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.getCreatedDateTime()
+									, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.bangkokAsiaZoneId))
+							.saleUser(listing.getSaleUser())
+							.build()
+					)
+					.collect(Collectors.toList());
+		}
 		return listings;
+
 	}
 
 	@Override

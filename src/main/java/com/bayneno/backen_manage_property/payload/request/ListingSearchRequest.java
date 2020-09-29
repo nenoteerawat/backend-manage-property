@@ -1,5 +1,7 @@
 package com.bayneno.backen_manage_property.payload.request;
 
+import com.bayneno.backen_manage_property.models.Role;
+import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.response.FileResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,4 +23,6 @@ public class ListingSearchRequest {
     private RoomRequest roomRequest;
 
     private List<FileResponse> files;
+
+    private User user;
 }
