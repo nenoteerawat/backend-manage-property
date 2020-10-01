@@ -7,11 +7,16 @@ import com.bayneno.backen_manage_property.models.Role;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
+import com.bayneno.backen_manage_property.payload.request.RoomRequest;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;
 import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +31,14 @@ public class ListingServiceImpl implements ListingService {
 
 	private final ProjectRepository projectRepository;
 
-	public ListingServiceImpl(ListingRepository listingRepository, ProjectRepository projectRepository) {
+	private final MongoTemplate mongoTemplate;
+
+	public ListingServiceImpl(ListingRepository listingRepository
+			, ProjectRepository projectRepository
+			, MongoTemplate mongoTemplate) {
 		this.listingRepository = listingRepository;
 		this.projectRepository = projectRepository;
+		this.mongoTemplate = mongoTemplate;
 	}
 
 	@Override
@@ -51,7 +61,7 @@ public class ListingServiceImpl implements ListingService {
 	public List<ListingResponse> getListing(ListingSearchRequest listingSearchRequest) {
 		List<ListingResponse> listings = new ArrayList<>();
 
-		if(listingSearchRequest.getId() != null && !"".equals(listingSearchRequest.getId())) {
+		if(!StringUtils.isEmpty(listingSearchRequest.getId())) {
 			Optional<Listing> listing = listingRepository.findById(listingSearchRequest.getId());
 			if(listing.isPresent()) {
 				List<Project> projects = new ArrayList<>();
@@ -83,13 +93,7 @@ public class ListingServiceImpl implements ListingService {
 				return new ArrayList<>();
 			}
 		}
-		List<Listing> listingModels;
-		Role role = listingSearchRequest.getUser().getRoles().iterator().next();
-		if(role.getName().equals(ERole.ROLE_SALE)) {
-			listingModels = listingRepository.findAllBySaleUser(listingSearchRequest.getUser().getUsername());
-		} else {
-			listingModels = listingRepository.findAll();
-		}
+		List<Listing> listingModels = queryListing(listingSearchRequest);
 		if (listingModels.size() > 0) {
 			List<String> projectIds = listingModels.stream().map(listing -> listing.getRoom().getProjectId()).collect(Collectors.toList());
 			List<Project> projects = projectRepository.findByIdIn(projectIds);
@@ -131,5 +135,42 @@ public class ListingServiceImpl implements ListingService {
 			return listing.get().getId();
 		}
 		return "Not Found";
+	}
+
+	public List<Listing> queryListing(ListingSearchRequest criteria){
+		Query query = new Query();
+
+		// User criteria
+		Optional.of(criteria).map(ListingSearchRequest::getUser)
+				.filter(user -> {
+					boolean isAdmin = false;
+					for (Role role: user.getRoles()) {
+						if(role.getName() == ERole.ROLE_ADMIN
+								|| role.getName() == ERole.ROLE_SALE_MANAGER
+								|| role.getName() == ERole.ROLE_MANAGER) {
+							isAdmin = true;
+							break;
+						}
+					}
+					return !isAdmin;
+				})
+				.map(User::getUsername).ifPresent(username -> addQueryIsIfNotEmpty(query, "saleUser", username));
+
+		// Id criteria
+		Optional.of(criteria).map(ListingSearchRequest::getId).filter(id -> !StringUtils.isEmpty(id))
+				.ifPresent(id -> addQueryIsIfNotEmpty(query, "id", id));
+
+		// Room criteria
+		Optional.of(criteria).map(ListingSearchRequest::getRoomRequest).ifPresent(room -> {
+			Optional.of(room).map(RoomRequest::getProjectId).ifPresent(projectId -> addQueryIsIfNotEmpty(query, "room.projectId", projectId));
+			Optional.of(room).map(RoomRequest::getType).ifPresent(type -> addQueryIsIfNotEmpty(query, "room.type", type));
+			Optional.of(room).map(RoomRequest::getBed).ifPresent(bed -> addQueryIsIfNotEmpty(query, "room.bed", bed));
+		});
+		return mongoTemplate.find(query, Listing.class);
+	}
+
+	public void addQueryIsIfNotEmpty(Query query, String searchKey, String searchValue){
+		if(!StringUtils.isEmpty(searchValue))
+			query.addCriteria(Criteria.where(searchKey).is(searchValue));
 	}
 }
