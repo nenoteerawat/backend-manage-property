@@ -20,6 +20,7 @@ public class ListingResponse {
     private RoomRequest room;
     private List<FileResponse> files;
     private List<Project> projects;
+    private String status;
     private String saleUser;
     private String createdBy;
     private String createdDateTime;
