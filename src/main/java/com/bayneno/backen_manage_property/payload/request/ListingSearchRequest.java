@@ -21,8 +21,10 @@ public class ListingSearchRequest {
     private OwnerRequest ownerRequest;
 
     private RoomRequest roomRequest;
+    private RoomSearchRequest roomSearchRequest;
 
     private List<FileResponse> files;
 
     private User user;
+    private String saleUser;
 }

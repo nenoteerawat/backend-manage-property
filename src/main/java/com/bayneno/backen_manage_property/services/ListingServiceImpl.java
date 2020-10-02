@@ -1,10 +1,12 @@
 package com.bayneno.backen_manage_property.services;
 
+import com.bayneno.backen_manage_property.enums.EQuery;
 import com.bayneno.backen_manage_property.enums.ERole;
 import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
 import com.bayneno.backen_manage_property.payload.request.RoomRequest;
+import com.bayneno.backen_manage_property.payload.request.RoomSearchRequest;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
 import com.bayneno.backen_manage_property.repository.ActionLogRepository;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
@@ -156,36 +158,55 @@ public class ListingServiceImpl implements ListingService {
 		Query query = new Query();
 
 		// User criteria
-		Optional.of(criteria).map(ListingSearchRequest::getUser)
-				.filter(user -> {
-					boolean isAdmin = false;
-					for (Role role: user.getRoles()) {
-						if(role.getName() == ERole.ROLE_ADMIN
-								|| role.getName() == ERole.ROLE_SALE_MANAGER
-								|| role.getName() == ERole.ROLE_MANAGER) {
-							isAdmin = true;
-							break;
-						}
-					}
-					return !isAdmin;
-				})
-				.map(User::getUsername).ifPresent(username -> addQueryIsIfNotEmpty(query, "saleUser", username));
+//		Optional.of(criteria).map(ListingSearchRequest::getUser)
+//				.filter(user -> {
+//					boolean isAdmin = false;
+//					for (Role role: user.getRoles()) {
+//						if(role.getName() == ERole.ROLE_ADMIN
+//								|| role.getName() == ERole.ROLE_SALE_MANAGER
+//								|| role.getName() == ERole.ROLE_MANAGER) {
+//							isAdmin = true;
+//							break;
+//						}
+//					}
+//					return !isAdmin;
+//				})
+//				.map(User::getUsername).ifPresent(username -> addQueryIsIfNotEmpty(query, "saleUser", username, EQuery.IS));
+
+		// Sale user criteria
+		Optional.of(criteria).map(ListingSearchRequest::getSaleUser).ifPresent(saleUser -> addQueryIsIfNotEmpty(query, "saleUser", saleUser, EQuery.IS));
 
 		// Id criteria
 		Optional.of(criteria).map(ListingSearchRequest::getId).filter(id -> !StringUtils.isEmpty(id))
-				.ifPresent(id -> addQueryIsIfNotEmpty(query, "id", id));
+				.ifPresent(id -> addQueryIsIfNotEmpty(query, "id", id, EQuery.IS));
 
 		// Room criteria
-		Optional.of(criteria).map(ListingSearchRequest::getRoomRequest).ifPresent(room -> {
-			Optional.of(room).map(RoomRequest::getProjectId).ifPresent(projectId -> addQueryIsIfNotEmpty(query, "room.projectId", projectId));
-			Optional.of(room).map(RoomRequest::getType).ifPresent(type -> addQueryIsIfNotEmpty(query, "room.type", type));
-			Optional.of(room).map(RoomRequest::getBed).ifPresent(bed -> addQueryIsIfNotEmpty(query, "room.bed", bed));
+		Optional.of(criteria).map(ListingSearchRequest::getRoomSearchRequest).ifPresent(room -> {
+			Optional.of(room).map(RoomSearchRequest::getProjectId).ifPresent(projectId -> addQueryIsIfNotEmpty(query, "room.projectId", projectId, EQuery.IS));
+			Optional.of(room).map(RoomSearchRequest::getType).ifPresent(type -> addQueryIsIfNotEmpty(query, "room.type", type, EQuery.IS));
+			Optional.of(room).map(RoomSearchRequest::getBed).ifPresent(bed -> addQueryIsIfNotEmpty(query, "room.bed", bed, EQuery.IS));
+			Optional.of(room).map(RoomSearchRequest::getToilet).ifPresent(toilet -> addQueryIsIfNotEmpty(query, "room.toilet", toilet, EQuery.IS));
+			Optional.of(room).map(RoomSearchRequest::getPrice).ifPresent(price -> addQueryIsIfNotEmpty(query, "room.price", price, EQuery.BETWEEN, 10000));
+			Optional.of(room).map(RoomSearchRequest::getArea).ifPresent(area-> addQueryIsIfNotEmpty(query, "room.area", area, EQuery.BETWEEN, 3));
 		});
 		return mongoTemplate.find(query, Listing.class);
 	}
 
-	public void addQueryIsIfNotEmpty(Query query, String searchKey, String searchValue){
-		if(!StringUtils.isEmpty(searchValue))
-			query.addCriteria(Criteria.where(searchKey).is(searchValue));
+	public void addQueryIsIfNotEmpty(Query query, String searchKey, String searchValue, EQuery eQuery){
+		this.addQueryIsIfNotEmpty(query, searchKey, searchValue, eQuery, 0);
+	}
+	public void addQueryIsIfNotEmpty(Query query, String searchKey, String searchValue, EQuery eQuery, double multipleValue){
+		if(!StringUtils.isEmpty(searchValue)) {
+			switch (eQuery){
+				case IS: query.addCriteria(Criteria.where(searchKey).is(searchValue)); break;
+				case BETWEEN:
+					String[] split = searchValue.split(",");
+					double lower = Double.parseDouble(split[0]);
+					double upper = Double.parseDouble(split[1]);
+					if(upper > 0 && lower > 0 && upper > lower)
+						query.addCriteria(Criteria.where(searchKey).gte(lower * multipleValue).lte(upper * multipleValue));
+					break;
+			}
+		}
 	}
 }
