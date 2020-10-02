@@ -29,7 +29,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/listing")
 public class ListingController {
 
     private final ListingService listingService;
@@ -55,7 +55,7 @@ public class ListingController {
         this.actionLogRepository = actionLogRepository;
     }
 
-    @PostMapping("/listing/create")
+    @PostMapping("create")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> listingCreate(@Valid @RequestBody ListingRequest listingRequest, HttpServletRequest request, Principal principal) {
         String listingId = null;
@@ -81,7 +81,7 @@ public class ListingController {
         return ResponseEntity.ok(listingId);
     }
 
-    @PostMapping("/listing/list")
+    @PostMapping("list")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> listingList(@Valid @RequestBody ListingSearchRequest listingSearchRequest, Principal principal) {
         List<ListingResponse> listing = new ArrayList<>();
@@ -95,7 +95,7 @@ public class ListingController {
         return ResponseEntity.ok(listing);
     }
 
-    @GetMapping("/listing/getLastCode")
+    @GetMapping("getLastCode")
     public ResponseEntity<?> getListingCode(@RequestParam String saleUser) {
 
         List<Listing> listings = listingRepository.findAllBySaleUser(saleUser);
@@ -127,7 +127,7 @@ public class ListingController {
         return ResponseEntity.ok(listingCode);
     }
 
-    @PostMapping("/listing/edit")
+    @PostMapping("edit")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> listingEdit(@Valid @RequestBody ListingRequest listingRequest, HttpServletRequest request, Principal principal) {
         String listingId = null;
@@ -154,7 +154,7 @@ public class ListingController {
         return ResponseEntity.ok(listingId);
     }
 
-    @PostMapping("/listing/delete")
+    @PostMapping("delete")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> listingDelete(@RequestParam String id) {
 
