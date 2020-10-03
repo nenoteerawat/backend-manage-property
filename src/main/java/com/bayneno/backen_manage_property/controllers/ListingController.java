@@ -1,15 +1,13 @@
 package com.bayneno.backen_manage_property.controllers;
 
-import com.bayneno.backen_manage_property.models.ActionLog;
-import com.bayneno.backen_manage_property.models.Listing;
-import com.bayneno.backen_manage_property.models.Role;
-import com.bayneno.backen_manage_property.models.User;
+import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.payload.request.BookingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
 import com.bayneno.backen_manage_property.repository.ActionLogRepository;
+import com.bayneno.backen_manage_property.repository.LeadRepository;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.UserRepository;
 import com.bayneno.backen_manage_property.services.ChangeServiceImpl;
@@ -42,17 +40,21 @@ public class ListingController {
 
     private final ActionLogRepository actionLogRepository;
 
+    private final LeadRepository leadRepository;
+
     public ListingController(ListingService listingService
             , ChangeServiceImpl changeService
             , UserRepository userRepository
             , ListingRepository listingRepository
-                             ,ActionLogRepository actionLogRepository
+            , ActionLogRepository actionLogRepository
+            , LeadRepository leadRepository
     ) {
         this.listingService = listingService;
         this.changeService = changeService;
         this.userRepository = userRepository;
         this.listingRepository = listingRepository;
         this.actionLogRepository = actionLogRepository;
+        this.leadRepository = leadRepository;
     }
 
     @PostMapping("/listing/create")
@@ -169,6 +171,7 @@ public class ListingController {
         User user = userRepository.findByUsername(principal.getName()).orElse(null);
         Role role = user.getRoles().iterator().next();
         Listing listing = listingRepository.findById(bookingRequest.getListingId()).orElse(null);
+        Lead lead = leadRepository.findById(bookingRequest.getLeadId()).orElse(null);
         User sale = user;
 
         if(role.getName().equals(ERole.ROLE_ADMIN)) {
@@ -178,6 +181,7 @@ public class ListingController {
                 ActionLog.builder()
                         .status(ActionLogType.BOOKING.name())
                         .sale(sale)
+                        .lead(lead)
                         .comment("auto comment")
                         .listing(listing)
                         .createdBy(user)

@@ -17,5 +17,7 @@ public class BookingRequest {
 
     private String listingId;
 
+    private String leadId;
+
     private String saleUsername;
 }
