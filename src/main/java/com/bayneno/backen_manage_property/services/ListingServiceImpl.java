@@ -182,29 +182,77 @@ public class ListingServiceImpl implements ListingService {
 
 		// Room criteria
 		Optional.of(criteria).map(ListingSearchRequest::getRoomSearchRequest).ifPresent(room -> {
-			Optional.of(room).map(RoomSearchRequest::getProjectId).ifPresent(projectId -> addQueryIsIfNotEmpty(query, "room.projectId", projectId, EQuery.IS));
-			Optional.of(room).map(RoomSearchRequest::getType).ifPresent(type -> addQueryIsIfNotEmpty(query, "room.type", type, EQuery.IS));
-			Optional.of(room).map(RoomSearchRequest::getBed).ifPresent(bed -> addQueryIsIfNotEmpty(query, "room.bed", bed, EQuery.IS));
-			Optional.of(room).map(RoomSearchRequest::getToilet).ifPresent(toilet -> addQueryIsIfNotEmpty(query, "room.toilet", toilet, EQuery.IS));
-			Optional.of(room).map(RoomSearchRequest::getPrice).ifPresent(price -> addQueryIsIfNotEmpty(query, "room.price", price, EQuery.BETWEEN, 10000));
-			Optional.of(room).map(RoomSearchRequest::getArea).ifPresent(area-> addQueryIsIfNotEmpty(query, "room.area", area, EQuery.BETWEEN, 3));
+			Optional.of(room).map(RoomSearchRequest::getProjectId).ifPresent(projectId
+					-> addQueryIsIfNotEmpty(query, "room.projectId", projectId, EQuery.IS));
+			Optional.of(room).map(RoomSearchRequest::getType).ifPresent(type
+					-> addQueryIsIfNotEmpty(query, "room.type", type, EQuery.IS));
+			Optional.of(room).map(RoomSearchRequest::getBed).ifPresent(bed
+					-> addQueryIsIfNotEmpty(query, "room.bed", bed, EQuery.IS));
+			Optional.of(room).map(RoomSearchRequest::getToilet).ifPresent(toilet
+					-> addQueryIsIfNotEmpty(query, "room.toilet", toilet, EQuery.IS));
+			Optional.of(room).map(RoomSearchRequest::getPrice).ifPresent(price
+					-> addQueryIsIfNotEmpty(query, "room.price", price, EQuery.BETWEEN, 10000));
+			Optional.of(room).map(RoomSearchRequest::getArea).ifPresent(area
+					-> addQueryIsIfNotEmpty(query, "room.area", area, EQuery.BETWEEN, 3));
 		});
+
+		// Search criteria
+		Optional.of(criteria).map(ListingSearchRequest::getSearch).ifPresent(search
+				-> addQueryIsIfNotEmpty(query, "owner.name", search, EQuery.LIKE));
+
+		if(StringUtils.isEmpty(Optional.of(criteria).map(ListingSearchRequest::getRoomSearchRequest)
+				.map(RoomSearchRequest::getProjectId).orElse(""))) {
+
+			// search project
+			Query projectQuery = new Query();
+			Optional.of(criteria).map(ListingSearchRequest::getTransportType).ifPresent(tranType
+					-> addQueryIsIfNotEmpty(projectQuery, "transports.type", tranType, EQuery.IS));
+			Optional.of(criteria).map(ListingSearchRequest::getTransportName).ifPresent(tranName
+					-> addQueryIsIfNotEmpty(projectQuery, "transports.name", tranName, EQuery.IS));
+			List<Project> projects = mongoTemplate.find(projectQuery, Project.class);
+			List<String> projectIds = projects.stream().map(Project::getId).collect(Collectors.toList());
+
+			query.addCriteria(Criteria.where("room.projectId").in(projectIds));
+		}
+
 		return mongoTemplate.find(query, Listing.class);
 	}
 
 	public void addQueryIsIfNotEmpty(Query query, String searchKey, String searchValue, EQuery eQuery){
-		this.addQueryIsIfNotEmpty(query, searchKey, searchValue, eQuery, 0);
+		this.addQueryIsIfNotEmpty(query, new String[]{searchKey}, new String[]{searchValue}, eQuery, 0);
 	}
 	public void addQueryIsIfNotEmpty(Query query, String searchKey, String searchValue, EQuery eQuery, double multipleValue){
-		if(!StringUtils.isEmpty(searchValue)) {
+		this.addQueryIsIfNotEmpty(query, new String[]{searchKey}, new String[]{searchValue}, eQuery, multipleValue);
+	}
+	public void addQueryIsIfNotEmpty(Query query, String[] searchKey, String[] searchValue, EQuery eQuery, double multipleValue){
+		boolean haveValueSearch = false;
+		int i = 0;
+		int loopLength = Math.min(searchKey.length, searchValue.length);
+		while(i < loopLength){
+			if (!StringUtils.isEmpty(searchValue[i])) {
+				haveValueSearch = true;
+				break;
+			}
+			i++;
+		}
+		if(haveValueSearch) {
 			switch (eQuery){
-				case IS: query.addCriteria(Criteria.where(searchKey).is(searchValue)); break;
+				case IS: query.addCriteria(Criteria.where(searchKey[0]).is(searchValue[0])); break;
 				case BETWEEN:
-					String[] split = searchValue.split(",");
+					String[] split = searchValue[0].split(",");
 					double lower = Double.parseDouble(split[0]);
 					double upper = Double.parseDouble(split[1]);
 					if(upper > 0 && lower > 0 && upper > lower)
-						query.addCriteria(Criteria.where(searchKey).gte(lower * multipleValue).lte(upper * multipleValue));
+						query.addCriteria(Criteria.where(searchKey[0]).gte(lower * multipleValue).lte(upper * multipleValue));
+					break;
+				case LIKE:
+					i = 1;
+					Criteria criteria = Criteria.where(searchKey[0]).regex(".*" + searchValue[0] + ".*");
+					while (i < loopLength ) {
+						i++;
+						criteria.orOperator(Criteria.where(searchKey[i]).regex(".*" + searchValue[i] + ".*"));
+					}
+					query.addCriteria(criteria);
 					break;
 			}
 		}

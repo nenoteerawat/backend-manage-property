@@ -27,4 +27,7 @@ public class ListingSearchRequest {
 
     private User user;
     private String saleUser;
+    private String search;
+    private String transportType;
+    private String transportName;
 }
