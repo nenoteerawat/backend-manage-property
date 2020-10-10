@@ -15,6 +15,7 @@ public class RoomRequest {
 
     private String projectId;
     private String type;
+    private String propertyType;
     private String level;
     private String standard;
     private String grade;

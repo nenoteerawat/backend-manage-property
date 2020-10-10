@@ -43,7 +43,6 @@ public class ProjectController {
         this.userRepository = userRepository;
     }
 
-
     @PostMapping("/project/create")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> projectCreate(@Valid @RequestBody ProjectRequest projectRequest, HttpServletRequest request, Principal principal) {
