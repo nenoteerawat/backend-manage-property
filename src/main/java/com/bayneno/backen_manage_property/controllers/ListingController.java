@@ -1,9 +1,7 @@
 package com.bayneno.backen_manage_property.controllers;
 
 import com.bayneno.backen_manage_property.models.*;
-import com.bayneno.backen_manage_property.payload.request.BookingRequest;
-import com.bayneno.backen_manage_property.payload.request.ListingRequest;
-import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
+import com.bayneno.backen_manage_property.payload.request.*;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
 import com.bayneno.backen_manage_property.repository.ActionLogRepository;
@@ -59,21 +57,23 @@ public class ListingController {
 
     @PostMapping("create")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> listingCreate(@Valid @RequestBody ListingRequest listingRequest, HttpServletRequest request, Principal principal) {
+    public ResponseEntity<?> listingCreate(@Valid @RequestBody ListingRequest listingRequest, HttpServletRequest httpServletRequest, Principal principal) {
         String listingId = null;
         User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
-        if(request.isUserInRole(ERole.ROLE_SALE.name())) {
+        if(httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())) {
             changeService.submit(SubmitReq.builder()
                     .comment(listingRequest.getComment())
-                    .submitType(ChangeSubmitType.ADD.name())
+                    .submitType(ESubmitTypeChangeLog.ADD)
                     .username(principal.getName())
-                    .type(ChangeLogType.LISTING.name())
+                    .type(ETypeChangeLog.LISTING)
                     .toValue(Listing.builder()
+                            .id(listingRequest.getId())
                             .owner(listingRequest.getOwnerRequest())
                             .room(listingRequest.getRoomRequest())
                             .files(listingRequest.getFiles())
                             .createdBy(createdByUser)
                             .createdDateTime(ZonedDateTimeUtil.now())
+                            .saleUser(listingRequest.getSaleUser())
                             .build())
                     .build());
         } else {
@@ -131,21 +131,24 @@ public class ListingController {
 
     @PostMapping("edit")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> listingEdit(@Valid @RequestBody ListingRequest listingRequest, HttpServletRequest request, Principal principal) {
+    public ResponseEntity<?> listingEdit(@Valid @RequestBody ListingRequest listingRequest, HttpServletRequest httpServletRequest, Principal principal) {
         String listingId = null;
         User updatedByUser = userRepository.findByUsername(principal.getName()).orElse(null);
-        if(request.isUserInRole(ERole.ROLE_SALE.name())) {
+        if(httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())) {
             changeService.submit(SubmitReq.builder()
+                    .id(listingRequest.getId())
                     .comment(listingRequest.getComment())
-                    .submitType(ChangeSubmitType.EDIT.name())
+                    .submitType(ESubmitTypeChangeLog.EDIT)
                     .username(principal.getName())
-                    .type(ChangeLogType.LISTING.name())
+                    .type(ETypeChangeLog.LISTING)
                     .toValue(Listing.builder()
+                            .id(listingRequest.getId())
                             .owner(listingRequest.getOwnerRequest())
                             .room(listingRequest.getRoomRequest())
                             .files(listingRequest.getFiles())
                             .updatedBy(updatedByUser)
                             .updatedDateTime(ZonedDateTimeUtil.now())
+                            .saleUser(listingRequest.getSaleUser())
                             .build())
                     .build());
         } else {
@@ -158,16 +161,41 @@ public class ListingController {
 
     @PostMapping("delete")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> listingDelete(@RequestParam String id) {
-
-        Optional<Listing> listing = listingRepository.findById(id);
-        listingRepository.delete(listing.get());
+    public ResponseEntity<?> listingDelete(@RequestBody ListingRequest listingRequest, HttpServletRequest httpServletRequest, Principal principal) {
+        listingRepository.findById(listingRequest.getId()).ifPresent(listing -> {
+            User updatedByUser = userRepository.findByUsername(principal.getName()).orElse(null);
+            if(httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())) {
+                changeService.submit(SubmitReq.builder()
+                        .id(listing.getId())
+                        .comment(listingRequest.getComment())
+                        .submitType(ESubmitTypeChangeLog.DELETE)
+                        .username(principal.getName())
+                        .type(ETypeChangeLog.LISTING)
+                        .toValue(Listing.builder()
+                                .id(listing.getId())
+                                .owner(OwnerRequest.builder()
+                                        .build())
+                                .room(RoomRequest.builder()
+                                        .position(new ArrayList<>())
+                                        .scenery(new ArrayList<>())
+                                        .tags(new ArrayList<>())
+                                        .build())
+                                .files(new ArrayList<>())
+                                .updatedBy(updatedByUser)
+                                .updatedDateTime(ZonedDateTimeUtil.now())
+                                .build())
+                        .build());
+            } else {
+                //validate project name
+                listingRepository.delete(listing);
+            }
+        });
         return ResponseEntity.ok("delete success");
     }
 
     @PostMapping("/listing/booking")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> listingBooking(@Valid @RequestBody BookingRequest bookingRequest, HttpServletRequest request, Principal principal) {
+    public ResponseEntity<?> listingBooking(@Valid @RequestBody BookingRequest bookingRequest, HttpServletRequest httpServletRequest, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).orElse(null);
         Role role = user.getRoles().iterator().next();
         Listing listing = listingRepository.findById(bookingRequest.getListingId()).orElse(null);
@@ -179,7 +207,7 @@ public class ListingController {
         }
         actionLogRepository.save(
                 ActionLog.builder()
-                        .status(ActionLogType.BOOKING.name())
+                        .status(ETypeActionLog.BOOKING.name())
                         .sale(sale)
                         .lead(lead)
                         .comment("auto comment")

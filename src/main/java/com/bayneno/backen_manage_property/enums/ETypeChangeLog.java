@@ -1,6 +1,6 @@
 package com.bayneno.backen_manage_property.enums;
 
-public enum ChangeLogType {
+public enum ETypeChangeLog {
     PROJECT,
     LISTING
 }

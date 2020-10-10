@@ -1,6 +1,7 @@
 package com.bayneno.backen_manage_property.enums;
 
-public enum ChangeSubmitType {
+public enum ESubmitTypeChangeLog {
     ADD,
-    EDIT
+    EDIT,
+    DELETE
 }

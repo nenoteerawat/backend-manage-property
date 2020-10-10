@@ -1,5 +1,7 @@
 package com.bayneno.backen_manage_property.payload.request.change_log;
 
+import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
+import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
 import lombok.*;
 
 @Setter
@@ -9,8 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 public class SubmitReq {
     private String id;
-    private String type;
-    private String submitType;
+    private ETypeChangeLog type;
+    private ESubmitTypeChangeLog submitType;
     private String comment;
     private Object toValue;
     private String username;

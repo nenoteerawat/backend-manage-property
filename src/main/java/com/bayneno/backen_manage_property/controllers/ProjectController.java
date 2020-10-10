@@ -1,14 +1,18 @@
 package com.bayneno.backen_manage_property.controllers;
 
-import com.bayneno.backen_manage_property.enums.ChangeLogType;
-import com.bayneno.backen_manage_property.enums.ChangeSubmitType;
+import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
+import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
 import com.bayneno.backen_manage_property.enums.ERole;
+import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.Project;
 import com.bayneno.backen_manage_property.models.User;
+import com.bayneno.backen_manage_property.payload.request.OwnerRequest;
 import com.bayneno.backen_manage_property.payload.request.ProjectRequest;
 import com.bayneno.backen_manage_property.payload.request.ProjectSearchRequest;
+import com.bayneno.backen_manage_property.payload.request.RoomRequest;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ProjectResponse;
+import com.bayneno.backen_manage_property.repository.ProjectRepository;
 import com.bayneno.backen_manage_property.repository.UserRepository;
 import com.bayneno.backen_manage_property.services.ChangeServiceImpl;
 import com.bayneno.backen_manage_property.services.ProjectService;
@@ -35,26 +39,30 @@ public class ProjectController {
 
     private final UserRepository userRepository;
 
+    private final ProjectRepository projectRepository;
+
     public ProjectController(ChangeServiceImpl changeService
             , ProjectService projectService
-            , UserRepository userRepository) {
+            , UserRepository userRepository
+            , ProjectRepository projectRepository) {
         this.changeService = changeService;
         this.projectService = projectService;
         this.userRepository = userRepository;
+        this.projectRepository = projectRepository;
     }
 
 
     @PostMapping("/project/create")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> projectCreate(@Valid @RequestBody ProjectRequest projectRequest, HttpServletRequest request, Principal principal) {
+    public ResponseEntity<?> projectCreate(@Valid @RequestBody ProjectRequest projectRequest, HttpServletRequest httpServletRequest, Principal principal) {
         String projectId = null;
         User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
-        if(request.isUserInRole(ERole.ROLE_SALE.name())){
+        if(httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())){
             changeService.submit(SubmitReq.builder()
                     .comment(projectRequest.getComment())
-                    .submitType(ChangeSubmitType.ADD.name())
+                    .submitType(ESubmitTypeChangeLog.ADD)
                     .username(principal.getName())
-                    .type(ChangeLogType.PROJECT.name())
+                    .type(ETypeChangeLog.PROJECT)
                     .toValue(Project.builder()
                             .id(projectRequest.getId())
                             .type(projectRequest.getType())
@@ -85,15 +93,15 @@ public class ProjectController {
 
     @PostMapping("/project/edit")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> projectEdit(@Valid @RequestBody ProjectRequest projectRequest, HttpServletRequest request, Principal principal) {
+    public ResponseEntity<?> projectEdit(@Valid @RequestBody ProjectRequest projectRequest, HttpServletRequest httpServletRequest, Principal principal) {
         String projectId = null;
         User updatedByUser = userRepository.findByUsername(principal.getName()).orElse(null);
-        if(request.isUserInRole(ERole.ROLE_SALE.name())) {
+        if(httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())) {
             changeService.submit(SubmitReq.builder()
                     .id(projectRequest.getId())
                     .comment(projectRequest.getComment())
-                    .submitType(ChangeSubmitType.EDIT.name())
-                    .type(ChangeLogType.PROJECT.name())
+                    .submitType(ESubmitTypeChangeLog.EDIT)
+                    .type(ETypeChangeLog.PROJECT)
                     .username(principal.getName())
                     .toValue(Project.builder()
                             .id(projectRequest.getId())
@@ -121,9 +129,37 @@ public class ProjectController {
 
     @PostMapping("/project/delete")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> projectDelete(@Valid @RequestBody ProjectSearchRequest projectSearchRequest) {
+    public ResponseEntity<?> projectDelete(@Valid @RequestBody ProjectSearchRequest projectSearchRequest, HttpServletRequest httpServletRequest, Principal principal) {
 
-        projectService.deletedProject(projectSearchRequest);
+        projectRepository.findById(projectSearchRequest.getId()).ifPresent(project -> {
+            User updatedByUser = userRepository.findByUsername(principal.getName()).orElse(null);
+            if(httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())){
+                changeService.submit(SubmitReq.builder()
+                        .id(projectSearchRequest.getId())
+                        .comment(projectSearchRequest.getComment())
+                        .submitType(ESubmitTypeChangeLog.DELETE)
+                        .username(principal.getName())
+                        .type(ETypeChangeLog.PROJECT)
+                        .toValue(Project.builder()
+                                .id(projectSearchRequest.getId())
+                                .updatedBy(updatedByUser)
+                                .updatedDateTime(ZonedDateTimeUtil.now())
+                                .address("")
+                                .amphoe("")
+                                .district("")
+                                .transports(new ArrayList<>())
+                                .buildings(new ArrayList<>())
+                                .province("")
+                                .zipcode("")
+                                .name("")
+                                .type("")
+                                .facilities(new ArrayList<>())
+                                .build())
+                        .build());
+            } else {
+                projectService.deletedProject(projectSearchRequest);
+            }
+        });
         return ResponseEntity.ok("delete success");
     }
 
