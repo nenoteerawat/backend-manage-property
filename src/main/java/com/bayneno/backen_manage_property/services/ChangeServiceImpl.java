@@ -1,8 +1,8 @@
 package com.bayneno.backen_manage_property.services;
 
-import com.bayneno.backen_manage_property.enums.ChangeLogState;
-import com.bayneno.backen_manage_property.enums.ChangeLogType;
-import com.bayneno.backen_manage_property.enums.ChangeSubmitType;
+import com.bayneno.backen_manage_property.enums.EStateChangeLog;
+import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
+import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
 import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.repository.ChangeLogRepository;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
@@ -38,21 +38,32 @@ public class ChangeServiceImpl {
 
     public void submit(SubmitReq req){
         Object changeFromValue = null;
-        if(req.getSubmitType().equals(ChangeSubmitType.EDIT.name())) {
-            if (req.getType().equals(ChangeLogType.LISTING.name())) {
+        if(req.getSubmitType() == ESubmitTypeChangeLog.EDIT || req.getSubmitType() == ESubmitTypeChangeLog.DELETE) {
+            if (req.getType() == ETypeChangeLog.LISTING) {
                 if (req.getId() != null) {
                     changeFromValue = listingRepository.findById(req.getId()).orElse(null);
+                    if(changeFromValue != null) {
+                        Listing toValue = (Listing) req.getToValue();
+                        toValue.setCreatedBy(((Listing) changeFromValue).getCreatedBy());
+                        toValue.setCreatedDateTime(((Listing) changeFromValue).getCreatedDateTime());
+                        req.setToValue(toValue);
+                    }
                 }
 
-            } else if (req.getType().equals(ChangeLogType.PROJECT.name())) {
+            } else if (req.getType() == ETypeChangeLog.PROJECT) {
                 if (req.getId() != null) {
                     changeFromValue = projectRepository.findById(req.getId()).orElse(null);
+                    if(changeFromValue != null) {
+                        Project toValue = (Project) req.getToValue();
+                        toValue.setCreatedBy(((Project)changeFromValue).getCreatedBy());
+                        toValue.setCreatedDateTime(((Project)changeFromValue).getCreatedDateTime());
+                    }
                 }
             }
         }
         User submitUser = userRepository.findByUsername(req.getUsername()).orElse(null);
         changeLogRepository.save(ChangeLog.builder()
-                .state(ChangeLogState.WAIT_APPROVE.name())
+                .state(EStateChangeLog.WAIT_APPROVE.name())
                 .submitBy(submitUser)
                 .typeId(req.getId())
                 .type(req.getType())
@@ -70,15 +81,25 @@ public class ChangeServiceImpl {
         User approveUser = userRepository.findByUsername(username).orElse(null);
         assert changeLog != null;
         if(req.getIsApprove()){
-            changeLog.setState(ChangeLogState.APPROVED.name());
+            changeLog.setState(EStateChangeLog.APPROVED.name());
             changeLog.setApproveBy(approveUser);
-            if(changeLog.getType().equals(ChangeLogType.LISTING.name())){
-                listingRepository.save((Listing) changeLog.getToValue());
-            } else if(changeLog.getType().equals(ChangeLogType.PROJECT.name())){
-                projectRepository.save((Project) changeLog.getToValue());
+            if(changeLog.getType() == ETypeChangeLog.LISTING){
+                switch (changeLog.getSubmitType()) {
+                    case DELETE: listingRepository.delete((Listing) changeLog.getFromValue());
+                        break;
+                    default: listingRepository.save((Listing) changeLog.getToValue());
+                        break;
+                }
+            } else if(changeLog.getType() == ETypeChangeLog.PROJECT){
+                switch (changeLog.getSubmitType()){
+                    case DELETE: projectRepository.delete((Project) changeLog.getFromValue());
+                        break;
+                    default: projectRepository.save((Project) changeLog.getToValue());
+                        break;
+                }
             }
         } else {
-            changeLog.setState(ChangeLogState.CANCEL.name());
+            changeLog.setState(EStateChangeLog.CANCEL.name());
         }
         changeLogRepository.save(changeLog);
     }

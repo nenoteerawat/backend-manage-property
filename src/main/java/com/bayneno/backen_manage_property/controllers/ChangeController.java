@@ -1,5 +1,7 @@
 package com.bayneno.backen_manage_property.controllers;
 
+import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
+import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
 import com.bayneno.backen_manage_property.models.FieldObjectMap;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.OwnerRequest;
@@ -10,11 +12,13 @@ import com.bayneno.backen_manage_property.payload.response.change_log.ChangeLogS
 import com.bayneno.backen_manage_property.repository.ChangeLogRepository;
 import com.bayneno.backen_manage_property.repository.FieldObjectMapRepository;
 import com.bayneno.backen_manage_property.services.ChangeServiceImpl;
+import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
 import java.security.Principal;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,13 +62,36 @@ public class ChangeController {
                         User user = (User) logField.get(changeLog);
                         if(user != null)
                             field.set(logShowResponse, user.getFirstName() + " " + user.getLastName());
+                        else
+                            field.set(logShowResponse, "");
+                    } else if(ZonedDateTime.class.isAssignableFrom(logField.getType())){
+                        ZonedDateTime datetime = (ZonedDateTime) logField.get(changeLog);
+                        if(datetime != null)
+                            field.set(logShowResponse
+                                    , ZonedDateTimeUtil.zonedDateTimeToString(datetime
+                                            , ZonedDateTimeUtil.DDMMYYHHMMSS
+                                            , ZonedDateTimeUtil.bangkokAsiaZoneId));
+                        else
+                            field.set(logShowResponse, "");
+                    } else if(ESubmitTypeChangeLog.class.isAssignableFrom(logField.getType())){
+                        ESubmitTypeChangeLog eSubmitTypeChangeLog = (ESubmitTypeChangeLog) logField.get(changeLog);
+                        if(eSubmitTypeChangeLog != null)
+                            field.set(logShowResponse, eSubmitTypeChangeLog.name());
+                        else
+                            field.set(logShowResponse, "");
+                    } else if(ETypeChangeLog.class.isAssignableFrom(logField.getType())){
+                        ETypeChangeLog eTypeChangeLog = (ETypeChangeLog) logField.get(changeLog);
+                        if(eTypeChangeLog != null)
+                            field.set(logShowResponse, eTypeChangeLog.name());
+                        else
+                            field.set(logShowResponse, "");
                     } else {
                         field.set(logShowResponse, logField.get(changeLog));
                     }
                     logField.setAccessible(false);
                     field.setAccessible(false);
-                }catch (NoSuchFieldException | IllegalAccessException ignored){
-
+                }catch (NoSuchFieldException | IllegalAccessException exception){
+                    throw new RuntimeException(exception);
                 }
             }
             return logShowResponse;
@@ -78,7 +105,10 @@ public class ChangeController {
         List<ChangeLogDetailShowResponse> changeLogShowResponses = new ArrayList<>();
         changeLogRepository.findById(id).ifPresent(changeLog -> {
             Object toValue = changeLog.getToValue();
-            Object fromValue = changeLog.getFromValue() == null ? toValue : changeLog.getFromValue();
+            Object fromValue = changeLog.getFromValue();
+            if(changeLog.getSubmitType() == ESubmitTypeChangeLog.ADD){
+                fromValue = changeLog.getToValue();
+            }
 
             final Map<String, String> thFieldObjectMaps = fieldObjectMapRepository.findAllByType(changeLog.getType())
                     .stream().collect(Collectors.toMap(FieldObjectMap::getFieldName, FieldObjectMap::getTh));

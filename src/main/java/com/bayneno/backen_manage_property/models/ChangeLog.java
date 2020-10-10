@@ -1,5 +1,7 @@
 package com.bayneno.backen_manage_property.models;
 
+import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
+import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -16,10 +18,10 @@ import java.time.ZonedDateTime;
 public class ChangeLog {
     @Id
     private String id;
-    private String type;
+    private ETypeChangeLog type;
     private String typeId;
     private String comment;
-    private String submitType;
+    private ESubmitTypeChangeLog submitType;
     @DBRef
     private User submitBy;
     @DBRef

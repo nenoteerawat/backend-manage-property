@@ -41,5 +41,6 @@ public class ProjectSearchRequest {
 	private List<TransportRequest> transports;
 
 	private boolean groupBuilding = true;
+	private String comment;
 	
 }
