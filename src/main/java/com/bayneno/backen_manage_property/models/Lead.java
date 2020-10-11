@@ -38,6 +38,7 @@ public class Lead {
 
   private List<String> painPoints;
   private String grade;
+  private String price;
   private boolean typeBuy;
   private boolean typeRent;
   private String firstName;
@@ -62,6 +63,10 @@ public class Lead {
   private String billingAmount;
   private String preApprove;
   private String status;
+  private int difficulty;
+  private int rapport;
+  private int info;
+
 
   @DBRef
   private User createdBy;

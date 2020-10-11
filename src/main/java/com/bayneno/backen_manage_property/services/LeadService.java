@@ -9,6 +9,8 @@ public interface LeadService {
 
     String createLead(LeadRequest leadRequest, User user);
 
+    String editLead(LeadRequest leadRequest, User user);
+
 //    List<LeadResponse> getLead(LeadSearchRequest listingSearchRequest);
 
 }

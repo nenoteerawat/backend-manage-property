@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -39,12 +40,39 @@ public class LeadController {
         return ResponseEntity.ok(leads);
     }
 
+    @GetMapping("/lead/list")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> leadList() {
+
+        List<Lead> leads = leadRepository.findAll();
+        return ResponseEntity.ok(leads);
+    }
+
+    @GetMapping("/lead/get")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> leadGet(@RequestParam String id) {
+
+        Lead lead = (leadRepository.findById(id).orElse(null));
+
+        return ResponseEntity.ok(lead);
+    }
+
     @PostMapping("/lead/create")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> leadCreate(@Valid @RequestBody LeadRequest leadRequest, HttpServletRequest request, Principal principal) {
         User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
 
         String leadId = leadService.createLead(leadRequest, createdByUser);
+
+        return ResponseEntity.ok(leadId);
+    }
+
+    @PostMapping("/lead/edit")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> leadEdit(@Valid @RequestBody LeadRequest leadRequest, HttpServletRequest request, Principal principal) {
+        User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
+
+        String leadId = leadService.editLead(leadRequest, createdByUser);
 
         return ResponseEntity.ok(leadId);
     }

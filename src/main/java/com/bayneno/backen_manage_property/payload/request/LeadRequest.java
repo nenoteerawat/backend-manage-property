@@ -22,6 +22,7 @@ public class LeadRequest {
     private boolean typeRent;
     private List<String> painPoints;
     private String grade;
+    private String price;
     private String firstName;
     private String lastName;
     private String nickName;
@@ -44,4 +45,6 @@ public class LeadRequest {
     private String billingAmount;
     private String preApprove;
     private String status;
+    private int difficulty;
+    private int rapport;
 }
