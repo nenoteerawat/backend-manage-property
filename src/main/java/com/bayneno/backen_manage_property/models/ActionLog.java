@@ -24,6 +24,8 @@ public class ActionLog {
 
   private String comment;
 
+  private ZonedDateTime actionDateTime;
+
   @DBRef
   private Lead lead;
   @DBRef
