@@ -1,5 +1,8 @@
-package com.bayneno.backen_manage_property.models;
+package com.bayneno.backen_manage_property.payload.response;
 
+import com.bayneno.backen_manage_property.models.Lead;
+import com.bayneno.backen_manage_property.models.Listing;
+import com.bayneno.backen_manage_property.models.User;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -13,28 +16,21 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(collection = "action_log")
-public class ActionLog {
+public class ActionLogResponse {
 
-  @Id
   private String id;
 
-  @NotBlank
   private String status;
   private String done;
 
   private String comment;
 
-  private ZonedDateTime actionDateTime;
+  private String actionDateTime;
 
-  @DBRef
   private Lead lead;
-  @DBRef
   private Listing listing;
-  @DBRef
   private User sale;
-  @DBRef
   private User createdBy;
-  private ZonedDateTime createdDateTime;
+  private String createdDateTime;
 
 }

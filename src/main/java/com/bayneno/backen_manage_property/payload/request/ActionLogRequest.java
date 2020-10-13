@@ -12,6 +12,7 @@ public class ActionLogRequest {
   private String id;
 
   private String status;
+  private String done;
 
   private String comment;
   private String actionDateTime;

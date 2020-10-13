@@ -5,6 +5,7 @@ import com.bayneno.backen_manage_property.models.Lead;
 import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.ActionLogRequest;
+import com.bayneno.backen_manage_property.payload.response.ActionLogResponse;
 import com.bayneno.backen_manage_property.repository.ActionLogRepository;
 import com.bayneno.backen_manage_property.repository.LeadRepository;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
@@ -20,7 +21,9 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -57,10 +60,12 @@ public class ActionLogController {
                 , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ
                 , ZonedDateTimeUtil.bangkokAsiaZoneId);
 
+        String done = actionLogRequest.getDone().equals("1")? "PENDING" : "COMPLETED";
         ActionLog actionLog = actionLogRepository.save(ActionLog.builder()
                 .status(actionLogRequest.getStatus())
                 .comment(actionLogRequest.getComment())
                 .actionDateTime(actionDateTime)
+                .done(done)
                 .lead(lead)
                 .sale(createdByUser)
                 .listing(listing)
@@ -69,15 +74,52 @@ public class ActionLogController {
                 .build()
         );
 
+        ActionLogResponse actionLogResponses =
+                ActionLogResponse.builder()
+                        .id(actionLog.getId())
+                        .status(actionLog.getStatus())
+                        .comment(actionLog.getComment())
+                        .done(actionLog.getDone())
+                        .actionDateTime(ZonedDateTimeUtil.zonedDateTimeToString(
+                                actionLog.getActionDateTime()
+                                , ZonedDateTimeUtil.DDMMYYHHMMSS
+                                , ZonedDateTimeUtil.bangkokAsiaZoneId)
+                        )
+                        .build();
+
+        return ResponseEntity.ok(actionLogResponses);
+    }
+
+    @PostMapping("/actionLog/updateStatus")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> ActionLogUpdateStatus(@Valid @RequestBody ActionLogRequest actionLogRequest, Principal principal) {
+        ActionLog actionLog = actionLogRepository.findById(actionLogRequest.getId()).orElse(null);
+        actionLog.setDone("COMPLETED");
+        actionLogRepository.save(actionLog);
         return ResponseEntity.ok(actionLog);
     }
 
     @GetMapping("/actionLog/list")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> actionLogList() {
+    public ResponseEntity<?> actionLogList(Principal principal) {
+        User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
 
-        List<ActionLog> actionLogList = actionLogRepository.findAll();
+        List<ActionLog> actionLogList = actionLogRepository.findAllBySaleIdOrderByActionDateTimeDesc(createdByUser.getId());
 
-        return ResponseEntity.ok(actionLogList);
+        List<ActionLogResponse> actionLogResponses = actionLogList.stream().map( actionLog ->
+                ActionLogResponse.builder()
+                .id(actionLog.getId())
+                .status(actionLog.getStatus())
+                .comment(actionLog.getComment())
+                .done(actionLog.getDone())
+                .actionDateTime(ZonedDateTimeUtil.zonedDateTimeToString(
+                    actionLog.getActionDateTime()
+                    , ZonedDateTimeUtil.DDMMYYHHMMSS
+                    , ZonedDateTimeUtil.bangkokAsiaZoneId)
+                )
+                .build()).collect(Collectors.toList());
+        return ResponseEntity.ok(actionLogResponses);
     }
+
+
 }

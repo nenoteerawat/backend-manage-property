@@ -9,4 +9,8 @@ import java.util.List;
 public interface ActionLogRepository extends MongoRepository<ActionLog, String> {
 
     List<ActionLog> findByListingId(String listingId);
+
+    List<ActionLog> findAllBySaleIdOrderByActionDateTimeDesc(String username);
+
+
 }
