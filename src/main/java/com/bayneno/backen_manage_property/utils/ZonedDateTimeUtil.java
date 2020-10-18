@@ -9,7 +9,8 @@ public class ZonedDateTimeUtil {
     public static final String YYYYMMDDTHHMMSS = "yyyy-MM-dd'T'HH:mm:ss";
     public static final String DDMMYYHHMMSS = "dd-MM-yyyy HH:mm:ss";
     public static final String YYYYMMDDTHHMMSSSSSZ = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    public static final ZoneId bangkokAsiaZoneId = ZoneId.of("Asia/Bangkok");
+    public static final ZoneId BANGKOK_ASIA_ZONE_ID = ZoneId.of("Asia/Bangkok");
+    public static final ZoneId UTC_ZONE_ID = ZoneId.of("Europe/Berlin");
 
     public static String zonedDateTimeToString(ZonedDateTime dateValue, String formant, ZoneId zoneId) {
         if(dateValue == null) return null;
@@ -29,7 +30,7 @@ public class ZonedDateTimeUtil {
     }
 
     public static ZonedDateTime now(){
-        return now(bangkokAsiaZoneId);
+        return now(BANGKOK_ASIA_ZONE_ID);
     }
 
     public static String nowString(String format, ZoneId zoneId){
@@ -37,7 +38,7 @@ public class ZonedDateTimeUtil {
     }
 
     public static String nowString(String format){
-        return nowString(format, bangkokAsiaZoneId);
+        return nowString(format, BANGKOK_ASIA_ZONE_ID);
     }
 
     public static String nowString(){

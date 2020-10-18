@@ -30,3 +30,16 @@ aws:
   secret-key: sxH7zc+bWvvLFH53GdGFBr993/4CMOL9tUOn79BA
   bucket-name: property-s3
   url: https://${aws.bucket-name}.s3-ap-southeast-1.amazonaws.com/
+
+# Class name show calendar map
+action-log-calendar:
+  type-map-event-color:
+    1: '#F0F8FF'
+    2: '#FAEBD7'
+    3: '#7FFFD4'
+    4: '#FFF0F5'
+    5: '#B8860B'
+    6: '#E9967A'
+    7: '#00BFFF'
+    8: '#5F9EA0'
+    9: '#A9A9A9'

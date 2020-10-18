@@ -1,11 +1,9 @@
 package com.bayneno.backen_manage_property.services;
 
 import com.bayneno.backen_manage_property.enums.EQuery;
-import com.bayneno.backen_manage_property.enums.ERole;
 import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
-import com.bayneno.backen_manage_property.payload.request.RoomRequest;
 import com.bayneno.backen_manage_property.payload.request.RoomSearchRequest;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
 import com.bayneno.backen_manage_property.repository.ActionLogRepository;
@@ -80,12 +78,12 @@ public class ListingServiceImpl implements ListingService {
 								+ " "
 								+ listing.map(Listing::getCreatedBy).map(User::getLastName).orElse(""))
 						.createdDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.map(Listing::getCreatedDateTime).orElse(null)
-								, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.bangkokAsiaZoneId))
+								, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
 						.updatedBy(listing.map(Listing::getUpdatedBy).map(User::getFirstName).orElse("")
 								+ " "
 								+ listing.map(Listing::getUpdatedBy).map(User::getLastName).orElse(""))
 						.updatedDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.map(Listing::getUpdatedDateTime).orElse(null)
-								, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.bangkokAsiaZoneId))
+								, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
 						.projects(projects)
 						.files(listing.map(Listing::getFiles).orElse(new ArrayList<>()))
 						.id(listing.map(Listing::getId).orElse(null))
@@ -125,7 +123,7 @@ public class ListingServiceImpl implements ListingService {
 								.files(listing.getFiles())
 								.createdBy(listing.getCreatedBy().getFirstName() + " " + listing.getCreatedBy().getLastName())
 								.createdDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.getCreatedDateTime()
-										, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.bangkokAsiaZoneId))
+										, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
 								.saleUser(listing.getSaleUser())
 								.status(status)
 								.build();

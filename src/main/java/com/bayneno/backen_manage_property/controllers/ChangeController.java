@@ -70,7 +70,7 @@ public class ChangeController {
                             field.set(logShowResponse
                                     , ZonedDateTimeUtil.zonedDateTimeToString(datetime
                                             , ZonedDateTimeUtil.DDMMYYHHMMSS
-                                            , ZonedDateTimeUtil.bangkokAsiaZoneId));
+                                            , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID));
                         else
                             field.set(logShowResponse, "");
                     } else if(ESubmitTypeChangeLog.class.isAssignableFrom(logField.getType())){
