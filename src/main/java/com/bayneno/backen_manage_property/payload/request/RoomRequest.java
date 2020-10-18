@@ -12,6 +12,7 @@ import java.util.List;
 public class RoomRequest {
 
     private String projectId;
+    private String building;
     private String type;
     private String propertyType;
     private String level;
