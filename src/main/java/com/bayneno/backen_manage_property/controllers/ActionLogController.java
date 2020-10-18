@@ -111,10 +111,16 @@ public class ActionLogController {
 
     @GetMapping("/actionLog/list")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> actionLogList(Principal principal) {
+    public ResponseEntity<?> actionLogList(String leadId, String type, Principal principal) {
         User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
 
-        List<ActionLog> actionLogList = actionLogRepository.findAllBySaleIdOrderByActionDateTimeDesc(createdByUser.getId());
+        List<ActionLog> actionLogList;
+        if("daily".equals(type)) {
+//            actionLogList = actionLogRepository.findAllByActionDateTimeAndCreatedByIdOrderByActionDateTimeDesc(leadId, createdByUser.getId());
+            actionLogList = actionLogRepository.findAll();
+        } else {
+            actionLogList = actionLogRepository.findAllByLeadIdAndCreatedByIdOrderByActionDateTimeDesc(leadId, createdByUser.getId());
+        }
 
         List<ActionLogResponse> actionLogResponses = actionLogList.stream().map( actionLog ->
                 ActionLogResponse.builder()
