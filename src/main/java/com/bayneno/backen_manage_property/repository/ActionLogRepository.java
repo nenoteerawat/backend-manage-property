@@ -13,5 +13,5 @@ public interface ActionLogRepository extends MongoRepository<ActionLog, String> 
 
     List<ActionLog> findAllByActionDateTimeAndCreatedByIdOrderByActionDateTimeDesc(String date, String username);
     List<ActionLog> findAllByLeadIdAndCreatedByIdOrderByActionDateTimeDesc(String leadId, String username);
-
+    List<ActionLog> findAllBySaleIdOrderByActionDateTimeDesc(String username);
 }
