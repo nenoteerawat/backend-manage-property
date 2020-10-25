@@ -17,10 +17,12 @@ public class LeadRequest {
     private LeadListingRequest listingByLead;
     private LeadListingRequest listingByAdmin;
     private LeadListingRequest listingBySale;
+    private LeadListingRequest listingLifeStyleBySale;
 
     private boolean typeBuy;
     private boolean typeRent;
     private List<String> painPoints;
+    private List<String> paintSales;
     private String grade;
     private String price;
     private String firstName;
@@ -47,4 +49,8 @@ public class LeadRequest {
     private String status;
     private int difficulty;
     private int rapport;
+
+    private String condition;
+    private String contract;
+    private String typePay;
 }

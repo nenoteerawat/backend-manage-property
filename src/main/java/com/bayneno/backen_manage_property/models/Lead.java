@@ -31,12 +31,15 @@ public class Lead {
   @DBRef
   private Listing listingByAdmin;
   private String listingByAdminNotes;
-
   @DBRef
   private Listing listingBySale;
   private String listingBySaleNotes;
+  @DBRef
+  private Listing listingLifeStyleBySale;
+  private String listingLifeStyleBySaleNotes;
 
   private List<String> painPoints;
+  private List<String> painSales;
   private String grade;
   private String price;
   private boolean typeBuy;
@@ -67,6 +70,9 @@ public class Lead {
   private int rapport;
   private int info;
 
+  private String condition;
+  private String contract;
+  private String typePay;
 
   @DBRef
   private User createdBy;

@@ -1,10 +1,17 @@
 package com.bayneno.backen_manage_property.controllers;
 
+import com.bayneno.backen_manage_property.enums.ERole;
+import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
+import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
 import com.bayneno.backen_manage_property.models.ActionLog;
 import com.bayneno.backen_manage_property.models.Lead;
 import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.ActionLogRequest;
+import com.bayneno.backen_manage_property.payload.request.ListingRequest;
+import com.bayneno.backen_manage_property.payload.request.OwnerRequest;
+import com.bayneno.backen_manage_property.payload.request.RoomRequest;
+import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ActionLogResponse;
 import com.bayneno.backen_manage_property.payload.response.actionlog.ShowCalendarResponse;
 import com.bayneno.backen_manage_property.properties.ActionLogCalendar;
@@ -18,9 +25,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,6 +97,7 @@ public class ActionLogController {
         ActionLogResponse actionLogResponses =
                 ActionLogResponse.builder()
                         .id(actionLog.getId())
+                        .lead(lead)
                         .status(actionLog.getStatus())
                         .comment(actionLog.getComment())
                         .done(actionLog.getDone())
@@ -115,7 +126,7 @@ public class ActionLogController {
         User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
 
         List<ActionLog> actionLogList;
-        if("daily".equals(type)) {
+        if("DAILY".equals(type)) {
 //            actionLogList = actionLogRepository.findAllByActionDateTimeAndCreatedByIdOrderByActionDateTimeDesc(leadId, createdByUser.getId());
             actionLogList = actionLogRepository.findAll();
         } else {
@@ -126,14 +137,17 @@ public class ActionLogController {
                 ActionLogResponse.builder()
                 .id(actionLog.getId())
                 .status(actionLog.getStatus())
+                .lead(actionLog.getLead())
                 .comment(actionLog.getComment())
                 .done(actionLog.getDone())
                 .actionDateTime(ZonedDateTimeUtil.zonedDateTimeToString(
                     actionLog.getActionDateTime()
-                    , ZonedDateTimeUtil.DDMMYYHHMMSS
+                    , ZonedDateTimeUtil.YYYYMMDDTHHMMSS
                     , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID)
                 )
-                .build()).collect(Collectors.toList());
+                .build())
+                .sorted(Comparator.comparing(ActionLogResponse::getActionDateTime).reversed())
+                .collect(Collectors.toList());
         return ResponseEntity.ok(actionLogResponses);
     }
 
@@ -175,6 +189,13 @@ public class ActionLogController {
                 .build());
     }
 
+    @GetMapping("/actionLog/getLast/{leadId}")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> getActionLogLast(@PathVariable("leadId") String id, Principal principal) {
+        List<ActionLog> actionLog = actionLogRepository.findAllByLeadIdAndDoneOrderByActionDateTimeDesc(id, "COMPLETED");
+        return ResponseEntity.ok(actionLog);
+    }
+
     @PostMapping("/actionLog/edit")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> editActionLog(@Valid @RequestBody ActionLogRequest actionLogRequest, Principal principal) {
@@ -206,6 +227,7 @@ public class ActionLogController {
         ActionLogResponse actionLogResponses =
                 ActionLogResponse.builder()
                         .id(actionLog.getId())
+                        .lead(actionLog.getLead())
                         .status(actionLog.getStatus())
                         .comment(actionLog.getComment())
                         .done(actionLog.getDone())
@@ -217,5 +239,14 @@ public class ActionLogController {
                         .build();
 
         return ResponseEntity.ok(actionLogResponses);
+    }
+
+    @PostMapping("/actionLog/delete")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> actionLogDelete(@RequestBody ActionLogRequest actionLogRequest) {
+        ActionLog actionLog = actionLogRepository.findById(actionLogRequest.getId()).orElse(null);
+        assert actionLog != null;
+        actionLogRepository.delete(actionLog);
+        return ResponseEntity.ok("delete success");
     }
 }
