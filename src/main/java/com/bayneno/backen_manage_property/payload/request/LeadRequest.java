@@ -24,7 +24,8 @@ public class LeadRequest {
     private List<String> painPoints;
     private List<String> paintSales;
     private String grade;
-    private String price;
+    private String priceMin;
+    private String priceMax;
     private String firstName;
     private String lastName;
     private String nickName;
@@ -49,6 +50,8 @@ public class LeadRequest {
     private String status;
     private int difficulty;
     private int rapport;
+
+    private String saleUser;
 
     private String condition;
     private String contract;

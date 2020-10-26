@@ -1,20 +1,11 @@
 package com.bayneno.backen_manage_property.controllers;
 
-import com.bayneno.backen_manage_property.enums.ERole;
-import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
-import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
 import com.bayneno.backen_manage_property.models.Lead;
-import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.LeadRequest;
-import com.bayneno.backen_manage_property.payload.request.ListingRequest;
-import com.bayneno.backen_manage_property.payload.request.OwnerRequest;
-import com.bayneno.backen_manage_property.payload.request.RoomRequest;
-import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.repository.LeadRepository;
 import com.bayneno.backen_manage_property.repository.UserRepository;
 import com.bayneno.backen_manage_property.services.LeadService;
-import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

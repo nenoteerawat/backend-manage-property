@@ -13,9 +13,12 @@ public class LeadListingRequest {
 
     private String value;
     private String text;
+    private String building;
     private String propertyType;
-    private String area;
+    private String area = "0";
     private String floor;
+    private String bed;
+    private String toilet;
     private String direction;
     private String notes;
 }

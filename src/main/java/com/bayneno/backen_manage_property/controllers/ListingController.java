@@ -218,4 +218,12 @@ public class ListingController {
         );
         return ResponseEntity.ok("");
     }
+
+    @PostMapping("/listing/match/{leadId}")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> getListingMatch(@PathVariable("leadId") String id, Principal principal) {
+        Lead lead = (leadRepository.findById(id).orElse(null));
+
+        return ResponseEntity.ok("");
+    }
 }

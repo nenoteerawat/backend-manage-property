@@ -27,21 +27,50 @@ public class Lead {
 
   @DBRef
   private Listing listingByLead;
+  private String buildingListingByLead;
+  private String propertyTypeListingByLead;
+  private String toiletListingByLead;
+  private String bedListingByLead;
+  private Double areaListingByLead;
+  private String floorListingByLead;
+  private String directionListingByLead;
   private String listingByLeadNotes;
   @DBRef
   private Listing listingByAdmin;
+  private String buildingListingByAdmin;
+  private String propertyTypeListingByAdmin;
+  private String toiletListingByAdmin;
+  private String bedListingByAdmin;
+  private Double areaListingByAdmin;
+  private String floorListingByAdmin;
+  private String directionListingByAdmin;
   private String listingByAdminNotes;
   @DBRef
   private Listing listingBySale;
+  private String buildingListingBySale;
+  private String propertyTypeListingBySale;
+  private String toiletListingBySale;
+  private String bedListingBySale;
+  private Double areaListingBySale;
+  private String floorListingBySale;
+  private String directionListingBySale;
   private String listingBySaleNotes;
   @DBRef
   private Listing listingLifeStyleBySale;
+  private String buildingListingLifeStyleBySale;
+  private String propertyTypeListingLifeStyleBySale;
+  private String toiletListingLifeStyleBySale;
+  private String bedListingLifeStyleBySale;
+  private Double areaListingLifeStyleBySale;
+  private String floorListingLifeStyleBySale;
+  private String directionListingLifeStyleBySale;
   private String listingLifeStyleBySaleNotes;
 
   private List<String> painPoints;
   private List<String> painSales;
   private String grade;
-  private String price;
+  private String priceMin;
+  private String priceMax;
   private boolean typeBuy;
   private boolean typeRent;
   private String firstName;
@@ -73,6 +102,9 @@ public class Lead {
   private String condition;
   private String contract;
   private String typePay;
+
+  @DBRef
+  private User saleUser;
 
   @DBRef
   private User createdBy;
