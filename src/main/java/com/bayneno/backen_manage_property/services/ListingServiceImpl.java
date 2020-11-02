@@ -4,6 +4,7 @@ import com.bayneno.backen_manage_property.enums.EQuery;
 import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
+import com.bayneno.backen_manage_property.payload.request.RoomRequest;
 import com.bayneno.backen_manage_property.payload.request.RoomSearchRequest;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
 import com.bayneno.backen_manage_property.repository.ActionLogRepository;
@@ -213,6 +214,21 @@ public class ListingServiceImpl implements ListingService {
 			query.addCriteria(Criteria.where("room.projectId").in(projectIds));
 		}
 
+		return mongoTemplate.find(query, Listing.class);
+	}
+
+	public List<Listing> matchListing(Listing listing){
+		final Query query = new Query();
+		Optional.of(listing).map(Listing::getRoom).ifPresent(room -> {
+			addQueryIsIfNotEmpty(query, "room.building", room.getBuilding(), EQuery.LIKE);
+			addQueryIsIfNotEmpty(query, "room.propertyType", room.getPropertyType(), EQuery.LIKE);
+			addQueryIsIfNotEmpty(query, "room.area", (room.getArea() - 2) + "," + (room.getArea() + 2), EQuery.BETWEEN);
+			addQueryIsIfNotEmpty(query, "room.floor", room.getPropertyType(), EQuery.IS);
+			addQueryIsIfNotEmpty(query, "room.toilet", room.getToilet(), EQuery.IS);
+			addQueryIsIfNotEmpty(query, "room.direction", room.getToilet(), EQuery.IS);
+			if(null != room.getScenery() && room.getScenery().size() > 0)
+				query.addCriteria(Criteria.where("room.scenery").all(room.getScenery()));
+		});
 		return mongoTemplate.find(query, Listing.class);
 	}
 

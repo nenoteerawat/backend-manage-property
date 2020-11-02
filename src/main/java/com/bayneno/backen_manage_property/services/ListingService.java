@@ -1,5 +1,6 @@
 package com.bayneno.backen_manage_property.services;
 
+import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
@@ -14,4 +15,6 @@ public interface ListingService {
     List<ListingResponse> getListing(ListingSearchRequest listingSearchRequest);
 
     String editListing(ListingRequest listingRequest, User user);
+
+    List<Listing> matchListing(Listing listing);
 }
