@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class ListingResponse {
-    @Id
     private String id;
     private OwnerRequest owner;
     private RoomRequest room;
