@@ -1,5 +1,6 @@
 package com.bayneno.backen_manage_property.controllers;
 
+import com.bayneno.backen_manage_property.enums.ERole;
 import com.bayneno.backen_manage_property.models.Lead;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.LeadRequest;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -44,8 +44,12 @@ public class LeadController {
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> leadList(Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).orElse(null);
-
-        List<Lead> leads = leadRepository.findAll();
+        List<Lead> leads;
+        if(user.getRoles().stream().iterator().next().getName().equals(ERole.ROLE_SALE)) {
+            leads = leadRepository.findAllBySaleUserId(user.getId());
+        } else {
+            leads = leadRepository.findAll();
+        }
         return ResponseEntity.ok(leads);
     }
 

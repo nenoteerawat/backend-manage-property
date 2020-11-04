@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -127,8 +128,9 @@ public class ActionLogController {
 
         List<ActionLog> actionLogList;
         if("DAILY".equals(type)) {
-//            actionLogList = actionLogRepository.findAllByActionDateTimeAndCreatedByIdOrderByActionDateTimeDesc(leadId, createdByUser.getId());
-            actionLogList = actionLogRepository.findAll();
+//            String date = ZonedDateTimeUtil.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
+            actionLogList = actionLogRepository.findAllByActionDateTimeAndCreatedByIdOrderByActionDateTime(ZonedDateTimeUtil.now(), createdByUser.getId());
+//            actionLogList = actionLogRepository.findAll();
         } else {
             actionLogList = actionLogRepository.findAllByLeadIdAndCreatedByIdOrderByActionDateTimeDesc(leadId, createdByUser.getId());
         }
