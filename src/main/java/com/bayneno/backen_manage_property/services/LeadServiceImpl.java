@@ -121,8 +121,6 @@ public class LeadServiceImpl implements LeadService {
 				.typePay(leadRequest.getTypePay())
 				.createdBy(user)
 				.createdDateTime(ZonedDateTimeUtil.now())
-				.updatedBy(null)
-				.updatedDateTime(null)
 				.saleUser(sale)
 				.build()
 		);

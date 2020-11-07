@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -20,9 +21,12 @@ import java.util.List;
 public class Listing {
     @Id
     private String id;
-    private OwnerRequest owner;
-    private RoomRequest room;
-    private List<FileResponse> files;
+    @Builder.Default
+    private OwnerRequest owner = OwnerRequest.builder().build();
+    @Builder.Default
+    private RoomRequest room = RoomRequest.builder().build();
+    @Builder.Default
+    private List<FileResponse> files = new ArrayList<>();
     @DBRef
     private User createdBy;
     private ZonedDateTime createdDateTime;

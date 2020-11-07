@@ -4,10 +4,7 @@ import com.bayneno.backen_manage_property.enums.EStateChangeLog;
 import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
 import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
 import com.bayneno.backen_manage_property.models.*;
-import com.bayneno.backen_manage_property.repository.ChangeLogRepository;
-import com.bayneno.backen_manage_property.repository.ListingRepository;
-import com.bayneno.backen_manage_property.repository.ProjectRepository;
-import com.bayneno.backen_manage_property.repository.UserRepository;
+import com.bayneno.backen_manage_property.repository.*;
 import com.bayneno.backen_manage_property.payload.request.change_log.ApproveReq;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
@@ -25,15 +22,17 @@ public class ChangeServiceImpl {
     private final ListingRepository listingRepository;
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
+    private final LeadRepository leadRepository;
 
     public ChangeServiceImpl(ChangeLogRepository changeLogRepository
             , ListingRepository listingRepository
             , ProjectRepository projectRepository
-            , UserRepository userRepository) {
+            , UserRepository userRepository, LeadRepository leadRepository) {
         this.changeLogRepository = changeLogRepository;
         this.listingRepository = listingRepository;
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
+        this.leadRepository = leadRepository;
     }
 
     public void submit(SubmitReq req){
@@ -57,6 +56,17 @@ public class ChangeServiceImpl {
                         Project toValue = (Project) req.getToValue();
                         toValue.setCreatedBy(((Project)changeFromValue).getCreatedBy());
                         toValue.setCreatedDateTime(((Project)changeFromValue).getCreatedDateTime());
+                        req.setToValue(toValue);
+                    }
+                }
+            } else if (req.getType() == ETypeChangeLog.LEAD) {
+                if(req.getId() != null) {
+                    changeFromValue = leadRepository.findById(req.getId()).orElse(null);
+                    if(changeFromValue != null) {
+                        Lead toValue = (Lead) req.getToValue();
+                        toValue.setCreatedBy(((Lead)changeFromValue).getCreatedBy());
+                        toValue.setCreatedDateTime(((Lead)changeFromValue).getCreatedDateTime());
+                        req.setToValue(toValue);
                     }
                 }
             }
