@@ -70,14 +70,6 @@ public class FileController {
                 .build();
     }
 
-    @PostMapping("/file/lead")
-    public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-
-        String test = "";
-
-        return "";
-    }
-
 //    @PostMapping("file/upload")
 //    public FileResponse upload(@RequestParam("files") MultipartFile[] files) throws IOException {
 //

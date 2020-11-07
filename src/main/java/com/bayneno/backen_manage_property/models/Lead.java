@@ -1,6 +1,7 @@
 package com.bayneno.backen_manage_property.models;
 
 import com.bayneno.backen_manage_property.payload.request.LeadListingRequest;
+import com.bayneno.backen_manage_property.payload.response.FileResponse;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -102,6 +103,8 @@ public class Lead {
   private String condition;
   private String contract;
   private String typePay;
+
+  private FileResponse file;
 
   @DBRef
   private User saleUser;

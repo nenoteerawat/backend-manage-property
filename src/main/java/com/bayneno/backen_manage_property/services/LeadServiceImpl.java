@@ -121,7 +121,10 @@ public class LeadServiceImpl implements LeadService {
 				.typePay(leadRequest.getTypePay())
 				.createdBy(user)
 				.createdDateTime(ZonedDateTimeUtil.now())
+				.updatedBy(user)
+				.updatedDateTime(ZonedDateTimeUtil.now())
 				.saleUser(sale)
+				.file(leadRequest.getFile())
 				.build()
 		);
 
@@ -222,6 +225,7 @@ public class LeadServiceImpl implements LeadService {
 			lead.setUpdatedBy(user);
 			lead.setUpdatedDateTime(ZonedDateTimeUtil.now());
 			lead.setSaleUser(sale);
+			lead.setFile(leadRequest.getFile());
 			leadRepository.save(lead);
 		}
 
