@@ -4,6 +4,7 @@ import com.bayneno.backen_manage_property.enums.ERole;
 import com.bayneno.backen_manage_property.models.Lead;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.LeadRequest;
+import com.bayneno.backen_manage_property.payload.response.ActionLogResponse;
 import com.bayneno.backen_manage_property.repository.LeadRepository;
 import com.bayneno.backen_manage_property.repository.UserRepository;
 import com.bayneno.backen_manage_property.services.LeadService;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -50,6 +53,8 @@ public class LeadController {
         } else {
             leads = leadRepository.findAll();
         }
+        leads = leads.stream().sorted(Comparator.comparing(Lead::getUpdatedDateTime).reversed())
+                .collect(Collectors.toList());
         return ResponseEntity.ok(leads);
     }
 

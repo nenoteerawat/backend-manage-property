@@ -1,5 +1,6 @@
 package com.bayneno.backen_manage_property.payload.request;
 
+import com.bayneno.backen_manage_property.payload.response.FileResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,4 +57,6 @@ public class LeadRequest {
     private String condition;
     private String contract;
     private String typePay;
+
+    private FileResponse file;
 }

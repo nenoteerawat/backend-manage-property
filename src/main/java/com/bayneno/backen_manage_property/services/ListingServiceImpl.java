@@ -55,6 +55,8 @@ public class ListingServiceImpl implements ListingService {
 						.files(listingRequest.getFiles())
 						.createdBy(user)
 						.createdDateTime(ZonedDateTimeUtil.now())
+						.updatedBy(user)
+						.updatedDateTime(ZonedDateTimeUtil.now())
 						.saleUser(listingRequest.getSaleUser())
 						.build()
 		);
