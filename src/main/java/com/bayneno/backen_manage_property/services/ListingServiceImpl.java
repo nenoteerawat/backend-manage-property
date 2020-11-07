@@ -223,7 +223,7 @@ public class ListingServiceImpl implements ListingService {
 			addQueryIsIfNotEmpty(query, "room.building", room.getBuilding(), EQuery.LIKE);
 			addQueryIsIfNotEmpty(query, "room.propertyType", room.getPropertyType(), EQuery.LIKE);
 			if(room.getArea() != null)
-				addQueryIsIfNotEmpty(query, "room.area", (room.getArea() - 2) + "," + (room.getArea() + 2), EQuery.BETWEEN);
+				query.addCriteria(Criteria.where("room.area").is(room.getArea()));
 			addQueryIsIfNotEmpty(query, "room.floor", room.getPropertyType(), EQuery.IS);
 			addQueryIsIfNotEmpty(query, "room.toilet", room.getToilet(), EQuery.IS);
 			addQueryIsIfNotEmpty(query, "room.direction", room.getToilet(), EQuery.IS);
