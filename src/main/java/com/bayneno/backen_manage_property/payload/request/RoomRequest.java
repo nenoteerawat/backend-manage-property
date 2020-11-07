@@ -2,6 +2,7 @@ package com.bayneno.backen_manage_property.payload.request;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -26,10 +27,13 @@ public class RoomRequest {
     private String priceRent;
     private String rentDetail;
     private String direction;
-    private List<String> position;
-    private List<String> scenery;
+    @Builder.Default
+    private List<String> position = new ArrayList<>();
+    @Builder.Default
+    private List<String> scenery = new ArrayList<>();
     private String feature;
-    private List<String> tags;
+    @Builder.Default
+    private List<String> tags = new ArrayList<>();
     private String sellDetail;
     private String description;
     private String remark;

@@ -1,29 +1,34 @@
 package com.bayneno.backen_manage_property.payload.request;
 
 import com.bayneno.backen_manage_property.payload.response.FileResponse;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class LeadRequest {
     private String id;
 
-    private LeadListingRequest listingByLead;
-    private LeadListingRequest listingByAdmin;
-    private LeadListingRequest listingBySale;
-    private LeadListingRequest listingLifeStyleBySale;
+    @Builder.Default
+    private LeadListingRequest listingByLead = LeadListingRequest.builder().build();
+    @Builder.Default
+    private LeadListingRequest listingByAdmin = LeadListingRequest.builder().build();
+    @Builder.Default
+    private LeadListingRequest listingBySale = LeadListingRequest.builder().build();
+    @Builder.Default
+    private LeadListingRequest listingLifeStyleBySale = LeadListingRequest.builder().build();
 
     private boolean typeBuy;
     private boolean typeRent;
-    private List<String> painPoints;
-    private List<String> paintSales;
+    @Builder.Default
+    private List<String> painPoints = new ArrayList<>();
+    @Builder.Default
+    private List<String> paintSales = new ArrayList<>();
     private String grade;
     private String priceMin;
     private String priceMax;
@@ -59,4 +64,6 @@ public class LeadRequest {
     private String typePay;
 
     private FileResponse file;
+
+    private String comment;
 }
