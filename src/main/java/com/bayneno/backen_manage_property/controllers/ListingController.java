@@ -4,10 +4,7 @@ import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.payload.request.*;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
-import com.bayneno.backen_manage_property.repository.ActionLogRepository;
-import com.bayneno.backen_manage_property.repository.LeadRepository;
-import com.bayneno.backen_manage_property.repository.ListingRepository;
-import com.bayneno.backen_manage_property.repository.UserRepository;
+import com.bayneno.backen_manage_property.repository.*;
 import com.bayneno.backen_manage_property.services.ChangeServiceImpl;
 import com.bayneno.backen_manage_property.services.ListingService;
 import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
@@ -22,6 +19,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -40,19 +39,22 @@ public class ListingController {
 
     private final LeadRepository leadRepository;
 
+    private final ProjectRepository projectRepository;
+
     public ListingController(ListingService listingService
             , ChangeServiceImpl changeService
             , UserRepository userRepository
             , ListingRepository listingRepository
             , ActionLogRepository actionLogRepository
-            , LeadRepository leadRepository
-    ) {
+            , LeadRepository leadRepository,
+                             ProjectRepository projectRepository) {
         this.listingService = listingService;
         this.changeService = changeService;
         this.userRepository = userRepository;
         this.listingRepository = listingRepository;
         this.actionLogRepository = actionLogRepository;
         this.leadRepository = leadRepository;
+        this.projectRepository = projectRepository;
     }
 
     @PostMapping("create")
@@ -223,6 +225,38 @@ public class ListingController {
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> getListingMatch(@RequestBody Listing listing, HttpServletRequest httpServletRequest, Principal principal) {
         List<Listing> listings = listingService.matchListing(listing);
-        return ResponseEntity.ok(listing);
+        List<ListingResponse> listingResponses = listings.stream().map(l -> {
+            final ListingResponse listingResponse = ListingResponse.builder()
+                    .id(l.getId())
+                    .room(l.getRoom())
+                    .owner(l.getOwner())
+                    .files(l.getFiles())
+                    .saleUser(l.getSaleUser())
+                    .build();
+
+            // Set Create by
+            Optional.of(l).map(Listing::getCreatedBy).ifPresent(createBy
+                    -> listingResponse.setCreatedBy(createBy.getFirstName() + " " + createBy.getLastName()));
+            Optional.of(l).map(Listing::getCreatedDateTime).ifPresent(createDateTime
+                    -> listingResponse.setCreatedDateTime(ZonedDateTimeUtil.zonedDateTimeToString(createDateTime
+                    , ZonedDateTimeUtil.DDMMYYHHMMSS
+                    , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID)));
+
+            // set Update by
+            Optional.of(l).map(Listing::getUpdatedBy).ifPresent(updateBy
+                    -> listingResponse.setUpdatedBy(updateBy.getFirstName() + " " + updateBy.getLastName()));
+            Optional.of(l).map(Listing::getUpdatedDateTime).ifPresent(updateDateTime
+                    -> listingResponse.setUpdatedDateTime(ZonedDateTimeUtil.zonedDateTimeToString(updateDateTime
+                    , ZonedDateTimeUtil.DDMMYYHHMMSS
+                    , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID)));
+
+
+            // Find project by id
+            Optional.of(l).map(Listing::getRoom).map(RoomRequest::getProjectId)
+                    .flatMap(projectRepository::findById).ifPresent(project
+                    -> listingResponse.setProjects(Stream.of(project).collect(Collectors.toList())));
+            return listingResponse;
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(listingResponses);
     }
 }

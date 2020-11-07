@@ -222,12 +222,13 @@ public class ListingServiceImpl implements ListingService {
 		Optional.of(listing).map(Listing::getRoom).ifPresent(room -> {
 			addQueryIsIfNotEmpty(query, "room.building", room.getBuilding(), EQuery.LIKE);
 			addQueryIsIfNotEmpty(query, "room.propertyType", room.getPropertyType(), EQuery.LIKE);
-			addQueryIsIfNotEmpty(query, "room.area", (room.getArea() - 2) + "," + (room.getArea() + 2), EQuery.BETWEEN);
+			if(room.getArea() != null)
+				addQueryIsIfNotEmpty(query, "room.area", (room.getArea() - 2) + "," + (room.getArea() + 2), EQuery.BETWEEN);
 			addQueryIsIfNotEmpty(query, "room.floor", room.getPropertyType(), EQuery.IS);
 			addQueryIsIfNotEmpty(query, "room.toilet", room.getToilet(), EQuery.IS);
 			addQueryIsIfNotEmpty(query, "room.direction", room.getToilet(), EQuery.IS);
 			if(null != room.getScenery() && room.getScenery().size() > 0)
-				query.addCriteria(Criteria.where("room.scenery").all(room.getScenery()));
+				query.addCriteria(Criteria.where("room.scenery").in(room.getScenery()));
 		});
 		return mongoTemplate.find(query, Listing.class);
 	}
