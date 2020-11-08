@@ -178,6 +178,8 @@ public class LeadController {
                             .typePay(leadRequest.getTypePay())
                             .createdBy(createdByUser)
                             .createdDateTime(ZonedDateTimeUtil.now())
+                            .updatedBy(createdByUser)
+                            .updatedDateTime(ZonedDateTimeUtil.now())
                             .saleUser(userRepository.findByUsername(leadRequest.getSaleUser()).orElse(null))
                             .build())
                     .build());
@@ -207,11 +209,13 @@ public class LeadController {
             if(!"0".equals(leadRequest.getListingLifeStyleBySale().getValue()) && !"-1".equals(leadRequest.getListingLifeStyleBySale().getValue()))
                 listingLifeStyleBySale = listingRepository.findById(leadRequest.getListingLifeStyleBySale().getValue()).orElse(null);
             changeService.submit(SubmitReq.builder()
+                    .id(leadRequest.getId())
                     .comment(leadRequest.getComment())
                     .submitType(ESubmitTypeChangeLog.EDIT)
                     .username(principal.getName())
                     .type(ETypeChangeLog.LEAD)
                     .toValue(Lead.builder()
+                            .id(leadRequest.getId())
                             .painPoints(leadRequest.getPainPoints())
                             .painSales(leadRequest.getPaintSales())
                             .grade(leadRequest.getGrade().toUpperCase())
@@ -301,6 +305,7 @@ public class LeadController {
         User updateByUser = userRepository.findByUsername(principal.getName()).orElse(null);
         if (httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())) {
             changeService.submit(SubmitReq.builder()
+                    .id(leadRequest.getId())
                     .comment(leadRequest.getComment())
                     .submitType(ESubmitTypeChangeLog.DELETE)
                     .username(principal.getName())

@@ -107,6 +107,13 @@ public class ChangeServiceImpl {
                     default: projectRepository.save((Project) changeLog.getToValue());
                         break;
                 }
+            } else if(changeLog.getType() == ETypeChangeLog.LEAD) {
+                switch (changeLog.getSubmitType()){
+                    case DELETE: leadRepository.delete((Lead) changeLog.getFromValue());
+                        break;
+                    default: leadRepository.save((Lead) changeLog.getToValue());
+                        break;
+                }
             }
         } else {
             changeLog.setState(EStateChangeLog.CANCEL.name());
