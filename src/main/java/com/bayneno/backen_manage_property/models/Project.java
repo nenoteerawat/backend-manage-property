@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -21,7 +22,8 @@ public class Project {
     private String id;
     private String type;
     private String name;
-    private List<BuildingRequest> buildings;
+    @Builder.Default
+    private List<BuildingRequest> buildings = new ArrayList<>();
     private String address;
     private String district;
     private String amphoe;
@@ -33,6 +35,8 @@ public class Project {
     @DBRef
     private User updatedBy;
     private ZonedDateTime updatedDateTime;
-    private List<String> facilities;
-    private List<TransportRequest> transports;
+    @Builder.Default
+    private List<String> facilities = new ArrayList<>();
+    @Builder.Default
+    private List<TransportRequest> transports = new ArrayList<>();
 }
