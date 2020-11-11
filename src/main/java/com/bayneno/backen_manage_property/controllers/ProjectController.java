@@ -3,6 +3,7 @@ package com.bayneno.backen_manage_property.controllers;
 import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
 import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
 import com.bayneno.backen_manage_property.enums.ERole;
+import com.bayneno.backen_manage_property.models.Lead;
 import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.Project;
 import com.bayneno.backen_manage_property.models.User;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +76,7 @@ public class ProjectController {
                             .zipcode(projectRequest.getZipcode())
                             .facilities(projectRequest.getFacilities())
                             .transports(projectRequest.getTransports())
+                            .zone(projectRequest.getZone())
                             .createdBy(createdByUser)
                             .createdDateTime(ZonedDateTimeUtil.now())
                             .build())
@@ -114,6 +117,7 @@ public class ProjectController {
                             .zipcode(projectRequest.getZipcode())
                             .facilities(projectRequest.getFacilities())
                             .transports(projectRequest.getTransports())
+                            .zone(projectRequest.getZone())
                             .updatedBy(updatedByUser)
                             .updatedDateTime(ZonedDateTimeUtil.now())
                             .build())
@@ -152,6 +156,7 @@ public class ProjectController {
                                 .zipcode("")
                                 .name("")
                                 .type("")
+                                .zone("")
                                 .facilities(new ArrayList<>())
                                 .build())
                         .build());
@@ -186,11 +191,15 @@ public class ProjectController {
                                         p.getAmphoe(),
                                         p.getProvince(),
                                         p.getZipcode(),
+                                        p.getZone(),
                                         p.getFacilities(),
                                         p.getTransports(),
-                                        p.getBuildings()
+                                        p.getBuildings(),
+                                        p.getUpdatedBy(),
+                                        p.getUpdatedDateTime()
                                 )
-                        ).collect(Collectors.toList())
+                        )
+                        .collect(Collectors.toList())
                 );
             }
         } else {
@@ -206,12 +215,20 @@ public class ProjectController {
                             project.getAmphoe(),
                             project.getProvince(),
                             project.getZipcode(),
+                            project.getZone(),
                             project.getFacilities(),
                             project.getTransports(),
-                    project.getBuildings()
+                            project.getBuildings(),
+                            project.getUpdatedBy(),
+                            project.getUpdatedDateTime()
                     )
-            ).collect(Collectors.toList());
+            )
+            .collect(Collectors.toList());
         }
+
+        projectResponses = projectResponses.stream()
+                .sorted(Comparator.comparing(ProjectResponse::getUpdatedDateTime).reversed())
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok(projectResponses);
     }

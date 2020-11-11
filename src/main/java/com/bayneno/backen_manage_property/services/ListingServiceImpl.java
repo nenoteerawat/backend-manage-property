@@ -127,6 +127,9 @@ public class ListingServiceImpl implements ListingService {
 								.createdBy(listing.getCreatedBy().getFirstName() + " " + listing.getCreatedBy().getLastName())
 								.createdDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.getCreatedDateTime()
 										, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
+								.updatedBy(listing.getUpdatedBy().getFirstName() + " " + listing.getCreatedBy().getLastName())
+								.updatedDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.getUpdatedDateTime()
+										, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
 								.saleUser(listing.getSaleUser())
 								.status(status)
 								.build();

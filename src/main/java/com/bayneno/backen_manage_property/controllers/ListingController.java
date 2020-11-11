@@ -4,6 +4,7 @@ import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.payload.request.*;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
+import com.bayneno.backen_manage_property.payload.response.ProjectResponse;
 import com.bayneno.backen_manage_property.repository.*;
 import com.bayneno.backen_manage_property.services.ChangeServiceImpl;
 import com.bayneno.backen_manage_property.services.ListingService;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -93,7 +95,9 @@ public class ListingController {
 
         if(user != null) {
             listingSearchRequest.setUser(user);
-                listing = listingService.getListing(listingSearchRequest);
+                listing = listingService.getListing(listingSearchRequest).stream()
+                        .sorted(Comparator.comparing(ListingResponse::getUpdatedDateTime).reversed())
+                        .collect(Collectors.toList());
         }
 
         return ResponseEntity.ok(listing);

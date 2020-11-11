@@ -1,12 +1,15 @@
 package com.bayneno.backen_manage_property.payload.response;
 
+import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.BuildingRequest;
 import com.bayneno.backen_manage_property.payload.request.TransportRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Setter
@@ -25,8 +28,12 @@ public class ProjectResponse {
 	private String amphoe;
 	private String province;
 	private String zipcode;
+	private String zone;
 	private List<String> facilities;
 	private List<TransportRequest> transports;
 	private List<BuildingRequest> buildings;
+	@DBRef
+	private User updatedBy;
+	private ZonedDateTime updatedDateTime;
 
 }

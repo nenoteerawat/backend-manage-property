@@ -41,8 +41,11 @@ public class ProjectServiceImpl implements ProjectService  {
 						.zipcode(projectRequest.getZipcode())
 						.facilities(projectRequest.getFacilities())
 						.transports(projectRequest.getTransports())
+						.zone(projectRequest.getZone())
 						.createdBy(user)
 						.createdDateTime(ZonedDateTimeUtil.now())
+						.updatedBy(user)
+						.updatedDateTime(ZonedDateTimeUtil.now())
 						.build()
 		);
 		return project.getId();
@@ -90,6 +93,9 @@ public class ProjectServiceImpl implements ProjectService  {
 			project.get().setZipcode(projectRequest.getZipcode());
 			project.get().setFacilities(projectRequest.getFacilities());
 			project.get().setTransports(projectRequest.getTransports());
+			project.get().setZone(projectRequest.getZone());
+			project.get().setUpdatedBy(project.get().getCreatedBy());
+			project.get().setUpdatedDateTime(project.get().getCreatedDateTime());
 			project.get().setUpdatedBy(user);
 			project.get().setUpdatedDateTime(ZonedDateTimeUtil.now());
 			projectRepository.save(project.get());
