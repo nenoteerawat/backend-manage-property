@@ -99,7 +99,9 @@ public class ListingServiceImpl implements ListingService {
 				return new ArrayList<>();
 			}
 		}
-		List<Listing> listingModels = queryListing(listingSearchRequest);
+		List<Listing> listingModels = queryListing(listingSearchRequest).stream()
+				.sorted(Comparator.comparing(Listing::getUpdatedDateTime).reversed())
+				.collect(Collectors.toList());
 		if (listingModels.size() > 0) {
 			List<String> projectIds = listingModels.stream().map(listing -> listing.getRoom().getProjectId()).collect(Collectors.toList());
 			List<Project> projects = projectRepository.findByIdIn(projectIds);

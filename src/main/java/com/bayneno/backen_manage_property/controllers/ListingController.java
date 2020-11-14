@@ -95,11 +95,8 @@ public class ListingController {
 
         if(user != null) {
             listingSearchRequest.setUser(user);
-                listing = listingService.getListing(listingSearchRequest).stream()
-                        .sorted(Comparator.comparing(ListingResponse::getUpdatedDateTime).reversed())
-                        .collect(Collectors.toList());
+            listing = listingService.getListing(listingSearchRequest);
         }
-
         return ResponseEntity.ok(listing);
     }
 

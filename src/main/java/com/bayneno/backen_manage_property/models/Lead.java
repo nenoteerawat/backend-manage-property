@@ -35,6 +35,7 @@ public class Lead {
   private Double areaListingByLead;
   private String floorListingByLead;
   private String directionListingByLead;
+  private String zoneListingByLead;
   private String listingByLeadNotes;
   @DBRef
   private Listing listingByAdmin;
@@ -45,6 +46,7 @@ public class Lead {
   private Double areaListingByAdmin;
   private String floorListingByAdmin;
   private String directionListingByAdmin;
+  private String zoneListingByAdmin;
   private String listingByAdminNotes;
   @DBRef
   private Listing listingBySale;
@@ -55,6 +57,7 @@ public class Lead {
   private Double areaListingBySale;
   private String floorListingBySale;
   private String directionListingBySale;
+  private String zoneListingBySale;
   private String listingBySaleNotes;
   @DBRef
   private Listing listingLifeStyleBySale;
@@ -65,6 +68,7 @@ public class Lead {
   private Double areaListingLifeStyleBySale;
   private String floorListingLifeStyleBySale;
   private String directionListingLifeStyleBySale;
+  private String zoneListingLifeStyleBySale;
   private String listingLifeStyleBySaleNotes;
 
   private List<String> painPoints;
