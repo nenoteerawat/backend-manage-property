@@ -1,19 +1,13 @@
 package com.bayneno.backen_manage_property.models;
 
-import com.bayneno.backen_manage_property.payload.request.LeadListingRequest;
 import com.bayneno.backen_manage_property.payload.response.FileResponse;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Setter
 @Getter

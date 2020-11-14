@@ -279,4 +279,27 @@ public class ListingServiceImpl implements ListingService {
 			}
 		}
 	}
+	@Override
+	public List<ListingResponse> getListingByAppointment(String leadId, User user) {
+		List<ListingResponse> listingResponses = new ArrayList<>();
+		List<ActionLog> actionLogList = actionLogRepository.findByLeadIdAndStatus(leadId, "5");
+		if(actionLogList.size() > 0) {
+			for (ActionLog actionLog: actionLogList) {
+				if(actionLog.getListing() != null) {
+					Project project = projectRepository.findById(actionLog.getListing().getRoom().getProjectId()).orElse(null);
+					List<Project> projectList = new ArrayList<>();
+					projectList.add(project);
+					listingResponses.add(ListingResponse.builder()
+					.id(actionLog.getListing().getId())
+					.owner(actionLog.getListing().getOwner())
+					.projects(projectList)
+					.build()
+					);
+				}
+			}
+//			listingResponses = listingRepository.findAllBySaleUser()
+		}
+
+		return listingResponses;
+	}
 }

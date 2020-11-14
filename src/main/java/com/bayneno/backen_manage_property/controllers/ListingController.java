@@ -100,6 +100,18 @@ public class ListingController {
         return ResponseEntity.ok(listing);
     }
 
+    @GetMapping("listByAppointment")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> listingListByAppointment(@RequestParam String leadId, Principal principal) {
+        List<ListingResponse> listing = new ArrayList<>();
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+        if(user != null) {
+            listing = listingService.getListingByAppointment(leadId, user);
+        }
+        return ResponseEntity.ok(listing);
+    }
+
     @GetMapping("getLastCode")
     public ResponseEntity<?> getListingCode(@RequestParam String saleUser) {
 
