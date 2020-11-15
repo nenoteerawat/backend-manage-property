@@ -2,7 +2,9 @@ package com.bayneno.backen_manage_property.controllers;
 
 import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
 import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
+import com.bayneno.backen_manage_property.models.ChangeLog;
 import com.bayneno.backen_manage_property.models.FieldObjectMap;
+import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.OwnerRequest;
 import com.bayneno.backen_manage_property.payload.request.RoomRequest;
@@ -113,6 +115,29 @@ public class ChangeController {
             final Map<String, String> thFieldObjectMaps = fieldObjectMapRepository.findAllByType(changeLog.getType())
                     .stream().collect(Collectors.toMap(FieldObjectMap::getFieldName, FieldObjectMap::getTh));
 
+            if(changeLog.getType() == ETypeChangeLog.LEAD) {
+
+                excludeField.add("listingByLead");
+                excludeField.add("buildingListingByLead");
+                excludeField.add("propertyTypeListingByLead");
+                excludeField.add("toiletListingByLead");
+                excludeField.add("bedListingByLead");
+                excludeField.add("areaListingByLead");
+                excludeField.add("floorListingByLead");
+                excludeField.add("directionListingByLead");
+                excludeField.add("listingByLeadNotes");
+
+                excludeField.add("listingByAdmin");
+                excludeField.add("buildingListingByAdmin");
+                excludeField.add("propertyTypeListingByAdmin");
+                excludeField.add("toiletListingByAdmin");
+                excludeField.add("bedListingByAdmin");
+                excludeField.add("areaListingByAdmin");
+                excludeField.add("floorListingByAdmin");
+                excludeField.add("directionListingByAdmin");
+                excludeField.add("listingByAdminNotes");
+            }
+
             for (Field oldField : fromValue.getClass().getDeclaredFields()) {
                 if(!excludeField.contains(oldField.getName())) {
                     try {
@@ -126,10 +151,27 @@ public class ChangeController {
                         newField.setAccessible(true);
                         if (OwnerRequest.class.isAssignableFrom(oldField.getType())) {
                             Field[] ownerRequestDeclaredFields = OwnerRequest.class.getDeclaredFields();
-                            addFieldValueToShowResponse(thFieldObjectMaps, changeLogShowResponses, fromValue, toValue, oldField, ownerRequestDeclaredFields);
+                            addFieldValueToShowResponse(thFieldObjectMaps, changeLogShowResponses, fromValue, toValue, oldField, ownerRequestDeclaredFields, changeLog.getType());
                         } else if (RoomRequest.class.isAssignableFrom(oldField.getType())) {
                             Field[] roomDeclaredFields = RoomRequest.class.getDeclaredFields();
-                            addFieldValueToShowResponse(thFieldObjectMaps, changeLogShowResponses, fromValue, toValue, oldField, roomDeclaredFields);
+                            addFieldValueToShowResponse(thFieldObjectMaps, changeLogShowResponses, fromValue, toValue, oldField, roomDeclaredFields, changeLog.getType());
+                        } else if(Listing.class.isAssignableFrom(oldField.getType())){
+                            Field[] listingDeclareFields = changeLog.getType() == ETypeChangeLog.LEAD
+                                    ? new Field[]{}
+                                    : Listing.class.getDeclaredFields();
+                            addFieldValueToShowResponse(thFieldObjectMaps, changeLogShowResponses, fromValue, toValue, oldField, listingDeclareFields, changeLog.getType());
+                        } else if (User.class.isAssignableFrom(oldField.getType())) {
+                            User fromValueUser = (User) oldField.get(fromValue);
+                            User toValueUser = (User) oldField.get(toValue);
+                            final String[] formValueName = {""};
+                            final String[] toValueName = {""};
+                            Optional.ofNullable(fromValueUser).ifPresent(f -> formValueName[0] = f.getFirstName() + " " + f.getLastName());
+                            Optional.ofNullable(toValueUser).ifPresent(t -> toValueName[0] = t.getFirstName() + " " + t.getLastName());
+                            changeLogShowResponses.add(ChangeLogDetailShowResponse.builder()
+                                    .key(thFieldObjectMaps.getOrDefault(oldField.getName(), oldField.getName()))
+                                    .fromValue(toStringEmptyIfNull(formValueName[0]))
+                                    .toValue(toStringEmptyIfNull(toValueName[0]))
+                                    .build());
                         } else {
                             changeLogShowResponses.add(ChangeLogDetailShowResponse.builder()
                                     .key(thFieldObjectMaps.getOrDefault(oldField.getName(), oldField.getName()))
@@ -139,7 +181,7 @@ public class ChangeController {
                         }
                         oldField.setAccessible(false);
                         newField.setAccessible(false);
-                    } catch (IllegalAccessException e) {
+                    } catch (IllegalAccessException | NoSuchFieldException e) {
                         throw new RuntimeException(e);
                     }
                 }
@@ -153,14 +195,50 @@ public class ChangeController {
             , Object fromValue
             , Object toValue
             , Field oldField
-            , Field[] declaredFields) throws IllegalAccessException {
+            , Field[] declaredFields
+            , ETypeChangeLog eTypeChangeLog) throws IllegalAccessException, NoSuchFieldException {
         for(Field field: declaredFields) {
             field.setAccessible(true);
-            changeLogShowResponses.add(ChangeLogDetailShowResponse.builder()
-                    .key(thFieldObjectMaps.getOrDefault(field.getName(), field.getName()))
-                    .fromValue(toStringEmptyIfNull(field.get(oldField.get(fromValue))))
-                    .toValue(toStringEmptyIfNull(field.get(oldField.get(toValue))))
-                    .build());
+            if (OwnerRequest.class.isAssignableFrom(field.getType())) {
+                Field[] ownerRequestDeclaredFields = OwnerRequest.class.getDeclaredFields();
+                Object newFromValue = oldField.get(fromValue);
+                Object newToValue = oldField.get(toValue);
+                addFieldValueToShowResponse(thFieldObjectMaps, changeLogShowResponses, newFromValue, newToValue, field, ownerRequestDeclaredFields, eTypeChangeLog);
+            } else if (RoomRequest.class.isAssignableFrom(field.getType())) {
+                Field[] leadRoomRequestDeclareFields = new Field[]{
+                        RoomRequest.class.getDeclaredField("projectId"),
+                        RoomRequest.class.getDeclaredField("building"),
+                        RoomRequest.class.getDeclaredField("propertyType"),
+                        RoomRequest.class.getDeclaredField("area"),
+                        RoomRequest.class.getDeclaredField("bed"),
+                        RoomRequest.class.getDeclaredField("toilet"),
+                        RoomRequest.class.getDeclaredField("scenery"),
+                };
+                Field[] roomRequestDeclaredFields = eTypeChangeLog == ETypeChangeLog.LEAD
+                        ? leadRoomRequestDeclareFields
+                        : RoomRequest.class.getDeclaredFields();
+                Object newFromValue = oldField.get(fromValue);
+                Object newToValue = oldField.get(toValue);
+                addFieldValueToShowResponse(thFieldObjectMaps, changeLogShowResponses, newFromValue, newToValue, field, roomRequestDeclaredFields, eTypeChangeLog);
+            } else if (User.class.isAssignableFrom(field.getType())) {
+                User fromValueUser = (User) field.get(oldField.get(fromValue));
+                User toValueUser = (User) field.get(oldField.get(toValue));
+                final String[] formValueName = {""};
+                final String[] toValueName = {""};
+                Optional.ofNullable(fromValueUser).ifPresent(f -> formValueName[0] = f.getFirstName() + " " + f.getLastName());
+                Optional.ofNullable(toValueUser).ifPresent(t -> toValueName[0] = t.getFirstName() + " " + t.getLastName());
+                changeLogShowResponses.add(ChangeLogDetailShowResponse.builder()
+                        .key(thFieldObjectMaps.getOrDefault(field.getName(), field.getName()))
+                        .fromValue(toStringEmptyIfNull(formValueName[0]))
+                        .toValue(toStringEmptyIfNull(toValueName[0]))
+                        .build());
+            } else {
+                changeLogShowResponses.add(ChangeLogDetailShowResponse.builder()
+                        .key(thFieldObjectMaps.getOrDefault(field.getName(), field.getName()))
+                        .fromValue(toStringEmptyIfNull(field.get(oldField.get(fromValue))))
+                        .toValue(toStringEmptyIfNull(field.get(oldField.get(toValue))))
+                        .build());
+            }
             field.setAccessible(false);
         }
     }
