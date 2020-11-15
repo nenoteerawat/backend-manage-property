@@ -29,6 +29,7 @@ public class Project {
     private String amphoe;
     private String province;
     private String zipcode;
+    private String zone;
     @DBRef
     private User createdBy;
     private ZonedDateTime createdDateTime;

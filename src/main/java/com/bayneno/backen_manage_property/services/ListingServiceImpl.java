@@ -99,7 +99,9 @@ public class ListingServiceImpl implements ListingService {
 				return new ArrayList<>();
 			}
 		}
-		List<Listing> listingModels = queryListing(listingSearchRequest);
+		List<Listing> listingModels = queryListing(listingSearchRequest).stream()
+				.sorted(Comparator.comparing(Listing::getUpdatedDateTime).reversed())
+				.collect(Collectors.toList());
 		if (listingModels.size() > 0) {
 			List<String> projectIds = listingModels.stream().map(listing -> listing.getRoom().getProjectId()).collect(Collectors.toList());
 			List<Project> projects = projectRepository.findByIdIn(projectIds);
@@ -126,6 +128,9 @@ public class ListingServiceImpl implements ListingService {
 								.files(listing.getFiles())
 								.createdBy(listing.getCreatedBy().getFirstName() + " " + listing.getCreatedBy().getLastName())
 								.createdDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.getCreatedDateTime()
+										, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
+								.updatedBy(listing.getUpdatedBy().getFirstName() + " " + listing.getCreatedBy().getLastName())
+								.updatedDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.getUpdatedDateTime()
 										, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
 								.saleUser(listing.getSaleUser())
 								.status(status)
@@ -273,5 +278,28 @@ public class ListingServiceImpl implements ListingService {
 					break;
 			}
 		}
+	}
+	@Override
+	public List<ListingResponse> getListingByAppointment(String leadId, User user) {
+		List<ListingResponse> listingResponses = new ArrayList<>();
+		List<ActionLog> actionLogList = actionLogRepository.findByLeadIdAndStatus(leadId, "5");
+		if(actionLogList.size() > 0) {
+			for (ActionLog actionLog: actionLogList) {
+				if(actionLog.getListing() != null) {
+					Project project = projectRepository.findById(actionLog.getListing().getRoom().getProjectId()).orElse(null);
+					List<Project> projectList = new ArrayList<>();
+					projectList.add(project);
+					listingResponses.add(ListingResponse.builder()
+					.id(actionLog.getListing().getId())
+					.owner(actionLog.getListing().getOwner())
+					.projects(projectList)
+					.build()
+					);
+				}
+			}
+//			listingResponses = listingRepository.findAllBySaleUser()
+		}
+
+		return listingResponses;
 	}
 }

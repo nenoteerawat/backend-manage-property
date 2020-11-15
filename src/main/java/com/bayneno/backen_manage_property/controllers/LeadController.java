@@ -68,6 +68,7 @@ public class LeadController {
         } else {
             leads = leadRepository.findAll();
         }
+
         leads = leads.stream().sorted(Comparator.comparing(Lead::getUpdatedDateTime).reversed())
                 .collect(Collectors.toList());
         return ResponseEntity.ok(leads);
@@ -145,6 +146,7 @@ public class LeadController {
                             .areaListingByAdmin(Double.parseDouble(leadRequest.getListingByAdmin().getArea()))
                             .floorListingByAdmin(leadRequest.getListingByAdmin().getFloor())
                             .directionListingByAdmin(leadRequest.getListingByAdmin().getDirection())
+                            .zoneListingByAdmin(leadRequest.getListingByAdmin().getZone())
                             .listingByAdminNotes(leadRequest.getListingByAdmin().getNotes())
                             .listingByLead(listingByLead)
                             .buildingListingByLead(leadRequest.getListingByLead().getBuilding())
@@ -154,6 +156,7 @@ public class LeadController {
                             .areaListingByLead(Double.parseDouble(leadRequest.getListingByLead().getArea()))
                             .floorListingByLead(leadRequest.getListingByLead().getFloor())
                             .directionListingByLead(leadRequest.getListingByLead().getDirection())
+                            .zoneListingByLead(leadRequest.getListingByLead().getZone())
                             .listingByLeadNotes(leadRequest.getListingByLead().getNotes())
                             .listingBySale(listingBySale)
                             .buildingListingBySale(leadRequest.getListingBySale().getBuilding())
@@ -163,6 +166,7 @@ public class LeadController {
                             .areaListingBySale(Double.parseDouble(leadRequest.getListingBySale().getArea()))
                             .floorListingBySale(leadRequest.getListingBySale().getFloor())
                             .directionListingBySale(leadRequest.getListingBySale().getDirection())
+                            .zoneListingBySale(leadRequest.getListingBySale().getZone())
                             .listingBySaleNotes(leadRequest.getListingBySale().getNotes())
                             .listingLifeStyleBySale(listingLifeStyleBySale)
                             .buildingListingLifeStyleBySale(leadRequest.getListingLifeStyleBySale().getBuilding())
@@ -172,6 +176,7 @@ public class LeadController {
                             .areaListingLifeStyleBySale(Double.parseDouble(leadRequest.getListingLifeStyleBySale().getArea()))
                             .floorListingLifeStyleBySale(leadRequest.getListingLifeStyleBySale().getFloor())
                             .directionListingLifeStyleBySale(leadRequest.getListingLifeStyleBySale().getDirection())
+                            .zoneListingLifeStyleBySale(leadRequest.getListingLifeStyleBySale().getZone())
                             .listingLifeStyleBySaleNotes(leadRequest.getListingLifeStyleBySale().getNotes())
                             .condition(leadRequest.getCondition())
                             .contract(leadRequest.getContract())

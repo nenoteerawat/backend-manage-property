@@ -1,17 +1,10 @@
 package com.bayneno.backen_manage_property.controllers;
 
-import com.bayneno.backen_manage_property.enums.ERole;
-import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
-import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
 import com.bayneno.backen_manage_property.models.ActionLog;
 import com.bayneno.backen_manage_property.models.Lead;
 import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.ActionLogRequest;
-import com.bayneno.backen_manage_property.payload.request.ListingRequest;
-import com.bayneno.backen_manage_property.payload.request.OwnerRequest;
-import com.bayneno.backen_manage_property.payload.request.RoomRequest;
-import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ActionLogResponse;
 import com.bayneno.backen_manage_property.payload.response.actionlog.ShowCalendarResponse;
 import com.bayneno.backen_manage_property.properties.ActionLogCalendar;
@@ -25,12 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;

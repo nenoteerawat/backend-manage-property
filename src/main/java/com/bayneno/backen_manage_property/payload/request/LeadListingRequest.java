@@ -18,5 +18,6 @@ public class LeadListingRequest {
     private String bed;
     private String toilet;
     private String direction;
+    private String zone;
     private String notes;
 }

@@ -17,4 +17,7 @@ public interface ListingService {
     String editListing(ListingRequest listingRequest, User user);
 
     List<Listing> matchListing(Listing listing);
+
+    List<ListingResponse> getListingByAppointment(String leadId, User user);
+
 }

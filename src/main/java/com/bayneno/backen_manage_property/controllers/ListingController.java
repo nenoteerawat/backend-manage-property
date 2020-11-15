@@ -4,6 +4,7 @@ import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.payload.request.*;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
+import com.bayneno.backen_manage_property.payload.response.ProjectResponse;
 import com.bayneno.backen_manage_property.repository.*;
 import com.bayneno.backen_manage_property.services.ChangeServiceImpl;
 import com.bayneno.backen_manage_property.services.ListingService;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -93,9 +95,20 @@ public class ListingController {
 
         if(user != null) {
             listingSearchRequest.setUser(user);
-                listing = listingService.getListing(listingSearchRequest);
+            listing = listingService.getListing(listingSearchRequest);
         }
+        return ResponseEntity.ok(listing);
+    }
 
+    @GetMapping("listByAppointment")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> listingListByAppointment(@RequestParam String leadId, Principal principal) {
+        List<ListingResponse> listing = new ArrayList<>();
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
+
+        if(user != null) {
+            listing = listingService.getListingByAppointment(leadId, user);
+        }
         return ResponseEntity.ok(listing);
     }
 
