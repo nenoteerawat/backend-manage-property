@@ -2,7 +2,6 @@ package com.bayneno.backen_manage_property.controllers;
 
 import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
 import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
-import com.bayneno.backen_manage_property.models.ChangeLog;
 import com.bayneno.backen_manage_property.models.FieldObjectMap;
 import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.User;
@@ -102,7 +101,7 @@ public class ChangeController {
 
     @GetMapping("/get")
     public List<ChangeLogDetailShowResponse> getChange(@RequestParam String id) {
-        final Set<String> excludeField = Stream.of("id", "createdBy", "createdDateTime","updatedBy","updatedDateTime")
+        final Set<String> excludeField = Stream.of("id", "createdBy", "createdDateTime","updatedBy","updatedDateTime", "files")
                 .collect(Collectors.toSet());
         List<ChangeLogDetailShowResponse> changeLogShowResponses = new ArrayList<>();
         changeLogRepository.findById(id).ifPresent(changeLog -> {
@@ -126,6 +125,7 @@ public class ChangeController {
                 excludeField.add("floorListingByLead");
                 excludeField.add("directionListingByLead");
                 excludeField.add("listingByLeadNotes");
+                excludeField.add("zoneListingByLead");
 
                 excludeField.add("listingByAdmin");
                 excludeField.add("buildingListingByAdmin");
@@ -136,6 +136,7 @@ public class ChangeController {
                 excludeField.add("floorListingByAdmin");
                 excludeField.add("directionListingByAdmin");
                 excludeField.add("listingByAdminNotes");
+                excludeField.add("zoneListingByAdmin");
             }
 
             for (Field oldField : fromValue.getClass().getDeclaredFields()) {

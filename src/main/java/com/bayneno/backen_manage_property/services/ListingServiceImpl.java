@@ -2,10 +2,7 @@ package com.bayneno.backen_manage_property.services;
 
 import com.bayneno.backen_manage_property.enums.EQuery;
 import com.bayneno.backen_manage_property.models.*;
-import com.bayneno.backen_manage_property.payload.request.ListingRequest;
-import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
-import com.bayneno.backen_manage_property.payload.request.RoomRequest;
-import com.bayneno.backen_manage_property.payload.request.RoomSearchRequest;
+import com.bayneno.backen_manage_property.payload.request.*;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
 import com.bayneno.backen_manage_property.repository.ActionLogRepository;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
@@ -17,10 +14,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -224,24 +218,32 @@ public class ListingServiceImpl implements ListingService {
 		return mongoTemplate.find(query, Listing.class);
 	}
 
-	public List<Listing> matchListing(Listing listing){
-		final Query query = new Query();
-		Optional.of(listing).map(Listing::getRoom).ifPresent(room -> {
-			addQueryIsIfNotEmpty(query, "room.building", room.getBuilding(), EQuery.LIKE);
-			addQueryIsIfNotEmpty(query, "room.propertyType", room.getPropertyType(), EQuery.LIKE);
-			if(room.getArea() != null)
-				query.addCriteria(Criteria.where("room.area").is(room.getArea()));
-			addQueryIsIfNotEmpty(query, "room.floor", room.getPropertyType(), EQuery.IS);
-			addQueryIsIfNotEmpty(query, "room.toilet", room.getToilet(), EQuery.IS);
-			addQueryIsIfNotEmpty(query, "room.direction", room.getToilet(), EQuery.IS);
-			if(null != room.getScenery() && room.getScenery().size() > 0)
-				query.addCriteria(Criteria.where("room.scenery").in(room.getScenery()));
-		});
-		return mongoTemplate.find(query, Listing.class);
+	public List<Listing> matchListing(MatchListingRequest matchListingRequest){
+		final Query listingQuery = new Query();
+		addQueryIsIfNotEmpty(listingQuery, "room.building", matchListingRequest.getBuilding(), EQuery.LIKE);
+		addQueryIsIfNotEmpty(listingQuery, "room.propertyType", matchListingRequest.getPropertyType(), EQuery.LIKE);
+		if(matchListingRequest.getArea() != null)
+			listingQuery.addCriteria(Criteria.where("room.area").is(matchListingRequest.getArea()));
+		addQueryIsIfNotEmpty(listingQuery, "room.floor", matchListingRequest.getPropertyType(), EQuery.IS);
+		addQueryIsIfNotEmpty(listingQuery, "room.toilet", matchListingRequest.getToilet(), EQuery.IS);
+		addQueryIsIfNotEmpty(listingQuery, "room.direction", matchListingRequest.getToilet(), EQuery.IS);
+		if(null != matchListingRequest.getScenery() && matchListingRequest.getScenery().size() > 0)
+			listingQuery.addCriteria(Criteria.where("room.scenery").in(matchListingRequest.getScenery()));
+		if(null != matchListingRequest.getPriceMin() && null != matchListingRequest.getPriceMax())
+			addQueryIsIfNotEmpty(listingQuery, "room.price", matchListingRequest.getPriceMin() + "," + matchListingRequest.getPriceMax(), EQuery.BETWEEN);
+		List<Listing> listings = mongoTemplate.find(listingQuery, Listing.class);
+
+		final Query projectQuery = new Query();
+		addQueryIsIfNotEmpty(projectQuery, "zone", matchListingRequest.getZone(), EQuery.IS);
+		List<Project> projects = mongoTemplate.find(projectQuery, Project.class);
+		final Set<String> projectId = projects.stream().map(Project::getId).collect(Collectors.toSet());
+		return listings.stream().filter(listing -> projectId.contains(Optional.ofNullable(listing.getRoom())
+				.map(RoomRequest::getProjectId)
+				.orElse(""))).collect(Collectors.toList());
 	}
 
 	public void addQueryIsIfNotEmpty(Query query, String searchKey, String searchValue, EQuery eQuery){
-		this.addQueryIsIfNotEmpty(query, new String[]{searchKey}, new String[]{searchValue}, eQuery, 0);
+		this.addQueryIsIfNotEmpty(query, new String[]{searchKey}, new String[]{searchValue}, eQuery, 1);
 	}
 	public void addQueryIsIfNotEmpty(Query query, String searchKey, String searchValue, EQuery eQuery, double multipleValue){
 		this.addQueryIsIfNotEmpty(query, new String[]{searchKey}, new String[]{searchValue}, eQuery, multipleValue);
