@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+	<fontFamily name="THSarabunPSK">
+		<normal><![CDATA[fonts/THSarabunPSK/THSarabun.ttf]]></normal>
+		<bold><![CDATA[fonts/THSarabunPSK/THSarabun Bold.ttf]]></bold>
+		<italic><![CDATA[fonts/THSarabunPSK/THSarabun Italic.ttf]]></italic>
+		<boldItalic><![CDATA[fonts/THSarabunPSK/THSarabun Bold Italic.ttf]]></boldItalic>
+		<exportFonts/>
+	</fontFamily>
+</fontFamilies>

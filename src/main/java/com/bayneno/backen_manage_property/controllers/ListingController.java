@@ -228,8 +228,8 @@ public class ListingController {
 
     @PostMapping("/match")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> getListingMatch(@RequestBody Listing listing, HttpServletRequest httpServletRequest, Principal principal) {
-        List<Listing> listings = listingService.matchListing(listing);
+    public ResponseEntity<?> getListingMatch(@RequestBody MatchListingRequest matchListingRequest, HttpServletRequest httpServletRequest, Principal principal) {
+        List<Listing> listings = listingService.matchListing(matchListingRequest);
         List<ListingResponse> listingResponses = listings.stream().map(l -> {
             final ListingResponse listingResponse = ListingResponse.builder()
                     .id(l.getId())

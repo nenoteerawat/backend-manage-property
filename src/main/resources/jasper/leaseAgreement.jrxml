@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contractRent" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="197fcde2-6b9d-424d-b9b9-6466e0bf8611">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="242" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="121" uuid="a2666950-4c4d-4d9e-bf0c-918ffdb56d02">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				</reportElement>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="0" width="555" height="61" uuid="7c35429a-55d0-4e7c-b46f-e1345132d14b"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="THSarabunPSK" size="16"/>
+					</textElement>
+					<text><![CDATA[LEASE AGREEMENT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="61" width="555" height="60" uuid="5b7b6d68-42e2-4048-b20e-ed557c8ad513"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="THSarabunPSK" size="16" isBold="false"/>
+					</textElement>
+					<text><![CDATA[หนังสือสัญญาเช่าห้องชุด]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement x="0" y="121" width="555" height="121" uuid="2bc0066a-7013-4f3d-b3fe-7970bded10d4">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<line>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="1" uuid="9d985de1-6b20-4811-b265-e1481eefdde0">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+				</line>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="242" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
