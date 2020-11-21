@@ -82,6 +82,10 @@ public class ActionLogController {
                 .listing(listing)
                 .createdBy(createdByUser)
                 .createdDateTime(ZonedDateTimeUtil.now())
+                .reason(actionLogRequest.getReason())
+                .who(actionLogRequest.getWho())
+                .why(actionLogRequest.getWhy())
+                .improve(actionLogRequest.getImprove())
                 .build()
         );
 
