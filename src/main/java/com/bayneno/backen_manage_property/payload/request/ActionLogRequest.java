@@ -20,4 +20,10 @@ public class ActionLogRequest {
   private String leadId;
   private String listingId;
 
+  private String reason;
+  private String who;
+  private String why;
+  private String improve;
+
+
 }
