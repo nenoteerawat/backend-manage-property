@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="2396"/>
+	<parameter name="REPORT_PATH" class="java.lang.String">
+		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="WITNESS1" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="WITNESS2" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SELLER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="AGENT" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<variable name="PAGE_AMOUT" class="java.lang.Integer">
+		<variableExpression><![CDATA[4]]></variableExpression>
+		<initialValueExpression><![CDATA[4]]></initialValueExpression>
+	</variable>
+	<pageHeader>
+		<band height="100">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="33" uuid="24939ac8-166e-4bbc-8dfd-e86b0f747795"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[หนังสือสัญญาแต่งตั้งนายหน้า]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="32" width="555" height="34" uuid="4a46d169-8df6-4820-9bff-9ea29f330713"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REAL ESTATE AGENT AGREEMENT]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="99" width="555" height="1" uuid="5ee01a56-e3a7-4ed7-ad9d-644db4956224"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20"/>
+	</columnHeader>
+	<detail>
+		<band height="400" splitType="Prevent">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="29" uuid="40f689e1-06e2-41b1-b9d5-b699fa41fd42"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["สัญญาฉบับนี้เขียนขึ้นที่ ............................................................ "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="29" width="555" height="29" uuid="df885ca6-deb3-4c96-8c19-5e41764fe9ce"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["เมื่อวันที่ ..................................................."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="58" width="555" height="20" uuid="15ef3b5f-1d7f-4241-88eb-1ba79f498270"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[สัญญาฉบับนี้ทำขึ้นระหว่าง]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="78" width="555" height="57" uuid="df1059a2-85d4-4e90-8ae1-3751fa96d378"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["นาย / นางสาว / นาง ............................... หมายเลขบัตรประจำตัวประชาชน ................................ ที่อยู่....................................................................................................................."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="135" width="555" height="20" uuid="821e9f94-dd59-4ebd-bfc3-cbaf28de0302"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ซึ่งต่อไปนี้จะเรียกว่า <b>“ผู้จะขาย”</b> ฝ่ายหนึ่ง]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="155" width="555" height="57" uuid="fe662c6f-bbcc-453d-bb14-2545e8c6c040"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>นาย / นางสาว / นาง</b> ................................ หมายเลขบัตรประจำตัวประชาชน .......................................... ที่อยู่............................................................................................................................."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="212" width="555" height="20" uuid="f11ad666-e1e7-4699-8b41-19606de640f4"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ซึ่งต่อไปนี้จะเรียกว่า <b>“นายหน้า”</b> ฝ่ายหนึ่ง]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="232" width="555" height="20" uuid="25b17a7d-91f9-4f71-a24e-a6ed9d6f8f0c"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<text><![CDATA[คู่สัญญาทั้งสองฝ่ายตกลงกันทำสัญญา มีข้อความดังจะกล่าวต่อไปนี้]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="252" width="555" height="83" uuid="d007f97b-3e00-4a4b-97d4-dc3cae386b8a"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. นายหน้า ตกลงจะทำหน้าที่เป็นนายหน้าให้กับผู้ให้สัญญาซึ่งเป็นเจ้าของ .......................................... ห้องชุดเลขที่ .......................... ชั้น ............ ตึก .............. ตั้งอยู่ที่ ......................................................................... ขนาด ......................... รวมถึงเฟอร์นิเจอร์ทั้งหมด ซึ่งต่อไปนี้จะเรียกว่า “ทรัพย์สิน” โดยผู้จะขายมีความประสงค์จะขาย ทรัพย์สินดังกล่าว"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="335" width="555" height="64" uuid="350e8798-9c74-40c1-849b-47e0a87ce23e"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<text><![CDATA[2. นายหน้า ตกลงจะเป็นผู้ติดต่อหาผู้ซื้อทรัพย์สินดังกล่าว ทั้งนี้เพื่อให้ผู้จะขายได้เข้าทำสัญญาจะซื้อจะขาย กับ ผู้ซื้อจนเสร็จสิ้น ]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="399" width="555" height="1" uuid="0d44b787-d439-4819-8873-bd0682f48ff5"/>
+			</break>
+		</band>
+		<band height="400">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="98" uuid="84131e71-5174-4db3-bc94-d7ad01d893fd"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3. หากผู้จะขายสามารถขายทรัพย์สินดังกล่าวข้างต้นได้ จากการที่นายหน้าได้ทำการชี้ช่องหรือจัดการเสาะหาผู้ ซื้อได้ ผู้จะขายตกลงที่จะชำระค่าบำเหน็จให้แก่นายหน้าเป็นจำนวนร้อยละ 3 จากราคาที่ตกลงซื้อขาย หรือเท่ากับจำนวน ............................................ ( ....................................... บาทถ้วน)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="98" width="555" height="185" uuid="09e3983c-5317-4ff8-8830-6a19d595ff4b"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[3.1 ในวันที่ผู้จะซื้อและผู้จะขายได้ทำการเซ็นสัญญาจะซื้อจะขาย และผู้จะขายได้รับเงินมัดจำครบเต็มจำนวนจากผู้จะซื้อแล้ว ผู้จะขายจะชำระค่าบำเหน็จให้แก่นายหน้างวดแรกเป็นจำนวน ครึ่งหนึ่งของเงินมัดจำที่ผู้จะซื้อได้ชำระมาแล้ว
+<br>3.2 ในวันที่ผู้จะขายได้รับเงินชำระราคาซื้อขายครบถ้วนจากผู้ซื้อแล้ว ผู้จะขายจะชำระค่าบำเหน็จงวดที่สองให้แก่นายหน้าเป็น จำนวนที่เหลือจนครบร้อยละ 3 ของราคาซื้อขายที่ตกลง
+<br>3.3 ในกรณีที่เสร็จสิ้นกระบวนการโอนกรรมสิทธิ์ ผู้จะขายจะชำระค่าบำเหน็จให้แก่นายหน้าทันที (หรืออย่างล่าช้าที่สุดภายใน ไม่เกิน 2 วัน ในกรณีที่ผู้ซื้อชำระเป็นแคชเชียร์เช็คหรือเป็นดราฟ)
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="283" width="555" height="116" uuid="cabf9cd9-1b20-4c3c-adfd-dfe6d9cd31b7"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<text><![CDATA[4. ในกรณีที่นายหน้า ได้ค่าบำเหน็จจากผู้จะซื้อ ผู้จะขายไม่จำเป็นต้องชำระค่าบำเหน็จให้แก่นายหน้าแต่อย่างใด
+<br>5. นายหน้าตกลงที่จะเป็นผู้รับผิดชอบค่าใช้จ่ายในการทำการตลาดหาผู้จะซื้อทุกช่องทางทั้งหมดแต่เพียงผู้เดียว โดยผู้จะขายจะยินยอมให้นายหน้าทำการประกาศผ่านสื่อออนไลน์ หรือติดป้ายประกาศ และจะไม่ทำการตลาดแข่งหรือทับกับ นายหน้าแต่อย่างใด โดยหากพบว่าผู้จะขายทำการตลาดเองในขณะที่สัญญาฉบับนี้ยังมีผลอยู่ นายหน้ามีสิทธิ์เรียกค่าปรับ จากผู้จะขายเป็นจำนวน 10,000 บาท (หนึ่งหมื่นบาทถ้วน) โดยนายหน้าจำเป็นต้องมีหลักฐานในการผิดสัญญาของผู้จะขายเป็นที่ยืนยันเสียก่อน
+]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="399" width="555" height="1" uuid="7a27f3bc-87ed-41e0-a01c-bc2ab8b1150f"/>
+			</break>
+		</band>
+		<band height="350">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="74" uuid="23d3a2fe-f30f-4a0d-8105-c2415e0ff881"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["7. สัญญาฉบับนี้ให้มีผลบังคับใช้ตั้งแต่วันที่ .................................................. จนถึงวันที่ ................................................................................... โดยหากนายหน้าไม่สามารถหาผู้ซื้อมาทำสัญญาจะซื้อจะขายได้สำเร็จภายในเวลาดังกล่าว ให้ ถือว่าสัญญาฉบับนี้เป็นอันยกเลิกทันที"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="74" width="555" height="116" uuid="d447eba7-14c3-4b87-bc85-682106c7d501"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<text><![CDATA[8. ในกรณีที่นายหน้าได้สร้างความเสียหายแก่ทรัพย์สิน ผู้จะขายสามารถเรียกค่าเสียหายจากนายหน้าได้จากความ เสียหายที่เกิดขึ้นตามสภาพ
+<br>9. ในกรณีที่ผู้จะขายผิดสัญญาไม่ยอมมาทำการจดทะเบียนโอนกรรมสิทธิ์ ณ กรมที่ดิน หากมีผู้จะซื้อเซ็นสัญญา จะซื้อจะขายเป็นที่เรียบร้อยและพร้อมซื้อ โดยที่ผู้จะซื้อได้มาจากการชี้ช่องจากนายหน้า หรือช่องทางการตลาดต่างๆจากนาย หน้าที่นายหน้าได้ทำการประกาศไว้ ให้ถือว่านายหน้าได้ทำหน้าที่เสร็จสิ้นแล้ว และผู้จะขายตกลงจะชำระค่าบำเหน็จให้แก่นาย หน้าเต็มจำนวนทันทีที่ถึงวันที่นัดจดทะเบียนโอนกรรมสิทธิ์ (เว้นแต่ในกรณีที่ทรัพย์สินดังกล่าวถูกราชการเวณคืน หรือมีคำ สั่งศาลห้ามจำหน่าย อันมิใช่เป็นความผิดของผู้จะขาย)]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="349" width="555" height="1" uuid="66443eb3-5ba3-434d-9e6f-85e8ac6f5627"/>
+			</break>
+		</band>
+		<band height="300">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="57" uuid="168ee3e3-34e2-47ad-99f8-d15713eb8b8c"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<text><![CDATA[สัญญาฉบับนี้ทำขึ้นเป็น 2 ฉบับ มีข้อความถูกต้องตรงกันทุกประการ ทุกฝ่ายได้อ่านข้อความในสัญญาแล้ว เห็น ว่าถูกต้องตามความประสงค์ จึงได้ลงลายมือไว้เป็นสำคัญต่อหน้าพยานตามวันเดือนปี และ สถานที่ดังระบุข้างต้น]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="42">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} != $V{PAGE_AMOUT}]]></printWhenExpression>
+			<image>
+				<reportElement x="241" y="0" width="83" height="42" uuid="33a7e922-a5d6-41f1-914c-7d58dfddb37e"/>
+				<imageExpression><![CDATA[$P{REPORT_PATH}+"/HOME-WHITE-LOGO.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="241" height="42" uuid="38baa958-813f-436c-bd6f-59150c456742"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" rightIndent="40"/>
+				</textElement>
+				<text><![CDATA[Seller / ผู้จะขาย ...................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="0" width="231" height="42" uuid="c36c31ad-a850-4c8d-b5c2-75e913fa1c3d"/>
+				<textElement verticalAlignment="Bottom" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" leftIndent="40"/>
+				</textElement>
+				<text><![CDATA[Agent / นายหน้า ...................................]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="300">
+			<staticText>
+				<reportElement x="144" y="0" width="276" height="24" uuid="e2cd5539-31d8-4502-95c5-7cf8cf6cf103"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ ................................... ผู้จะขาย]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="24" width="276" height="24" uuid="23f474b6-1188-4cbc-a190-fc384812bd36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(.........."+$P{SELLER}+"............)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="144" y="48" width="276" height="24" uuid="3e071b93-ba15-4f16-93dc-d0431df31894"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ ................................... นายหน้า ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="72" width="276" height="24" uuid="318895cf-8653-4934-b508-a20e0c0c4d59"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(........."+$P{AGENT}+"...........)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="144" y="96" width="276" height="24" uuid="82064bc5-9ea3-426a-abd9-43009ca8fa04"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ................................... พยาน]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="120" width="276" height="24" uuid="c8f47cae-5d8b-4797-b677-569176d84008"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{WITNESS1} + ".......)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="144" y="144" width="276" height="24" uuid="fcc214b4-138a-4742-8685-92592ab242df"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ................................... พยาน]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="168" width="276" height="24" uuid="e770d491-d11d-4211-8da2-6ac99ae04dfd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{WITNESS2} + ".......)"]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Bottom">
+				<reportElement positionType="FixRelativeToBottom" x="241" y="258" width="83" height="42" uuid="3465aa84-2865-4ce0-b657-8d3e593513c0"/>
+				<imageExpression><![CDATA[$P{REPORT_PATH}+"/HOME-WHITE-LOGO.png"]]></imageExpression>
+			</image>
+		</band>
+	</summary>
+</jasperReport>
