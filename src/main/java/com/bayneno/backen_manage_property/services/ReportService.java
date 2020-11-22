@@ -6,5 +6,5 @@ import java.io.IOException;
 import java.util.Map;
 
 public interface ReportService {
-    byte[] generateReport(String filePath, Map<String, Object> parameters) throws IOException, JRException;
+    byte[] generateReport(String filePath, Map<String, Object> parametersFromController) throws IOException, JRException;
 }

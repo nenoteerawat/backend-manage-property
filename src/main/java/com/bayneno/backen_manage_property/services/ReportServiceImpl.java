@@ -1,5 +1,6 @@
 package com.bayneno.backen_manage_property.services;
 
+import com.bayneno.backen_manage_property.utils.StringUtils;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -24,10 +26,15 @@ public class ReportServiceImpl implements ReportService{
     }
 
     @Override
-    public byte[] generateReport(String filePath, Map<String, Object> parameters) throws IOException, JRException {
-//        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(resourceLoader.getResource(filePath).getFile().getPath());
-        JasperReport jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource(filePath).getInputStream());
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+    public byte[] generateReport(String filePath, Map<String, Object> parametersFromController) throws IOException, JRException {
+        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(resourceLoader.getResource(filePath).getFile().getPath());
+//        JasperReport jasperReport = JasperCompileManager.compileReport(resourceLoader.getResource(filePath).getInputStream());
+        final Map<String, Object> reportParameters = new HashMap<>();
+        parametersFromController.forEach((k,v) -> {
+            reportParameters.put(StringUtils.camelToSnake(k).toUpperCase(), v);
+        });
+        reportParameters.put("REPORT_PATH",resourceLoader.getResource("classpath:jasper/").getFile().getPath());
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, reportParameters, new JREmptyDataSource());
         JRPdfExporter exporter = new JRPdfExporter();
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -44,7 +51,7 @@ public class ReportServiceImpl implements ReportService{
         SimplePdfExporterConfiguration exportConfig
                 = new SimplePdfExporterConfiguration();
         exportConfig.setMetadataAuthor("LEASE AGREEMENT");
-        exportConfig.setEncrypted(true);
+        exportConfig.setEncrypted(false);
         exportConfig.setAllowedPermissionsHint("PRINTING");
 
         exporter.setConfiguration(reportConfig);
