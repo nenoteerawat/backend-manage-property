@@ -1,64 +1,373 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contractRent" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="197fcde2-6b9d-424d-b9b9-6466e0bf8611">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<queryString>
-		<![CDATA[]]>
-	</queryString>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="3833"/>
+	<parameter name="LESSOR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LESSEE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_PATH" class="java.lang.String">
+		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PLACE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="WITNESS1" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="WITNESS2" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<variable name="PAGE_AMOUT" class="java.lang.Integer">
+		<variableExpression><![CDATA[7]]></variableExpression>
+		<initialValueExpression><![CDATA[7]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band height="79" splitType="Stretch"/>
-	</title>
 	<pageHeader>
-		<band height="242" splitType="Stretch">
-			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-			<frame>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="121" uuid="a2666950-4c4d-4d9e-bf0c-918ffdb56d02">
-					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-				</reportElement>
-				<staticText>
-					<reportElement mode="Transparent" x="0" y="0" width="555" height="61" uuid="7c35429a-55d0-4e7c-b46f-e1345132d14b"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="THSarabunPSK" size="16"/>
-					</textElement>
-					<text><![CDATA[LEASE AGREEMENT]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="0" y="61" width="555" height="60" uuid="5b7b6d68-42e2-4048-b20e-ed557c8ad513"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="THSarabunPSK" size="16" isBold="false"/>
-					</textElement>
-					<text><![CDATA[หนังสือสัญญาเช่าห้องชุด]]></text>
-				</staticText>
-			</frame>
-			<frame>
-				<reportElement x="0" y="121" width="555" height="121" uuid="2bc0066a-7013-4f3d-b3fe-7970bded10d4">
-					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<line>
-					<reportElement mode="Opaque" x="0" y="0" width="555" height="1" uuid="9d985de1-6b20-4811-b265-e1481eefdde0">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-				</line>
-			</frame>
+		<band height="100">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="33" uuid="24939ac8-166e-4bbc-8dfd-e86b0f747795"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LEASE AGREEMENT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="32" width="555" height="34" uuid="4a46d169-8df6-4820-9bff-9ea29f330713"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[หนังสือสัญญาเช่าห้องชุด]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="99" width="555" height="1" uuid="5ee01a56-e3a7-4ed7-ad9d-644db4956224"/>
+			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="242" splitType="Stretch"/>
+		<band height="20"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="350" splitType="Prevent">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="41" uuid="40f689e1-06e2-41b1-b9d5-b699fa41fd42"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" spacingBefore="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["....."+$P{DATE} + "..... / เขียนที่ ....." + $P{PLACE} + "....."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="60" width="555" height="112" uuid="2930ced8-cbb9-48a7-856b-9bbd9209e10c"/>
+				<textElement markup="none">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="20" spacingBefore="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["สัญญาฉบับนี้ทำขึ้นระหว่าง......................................เลขบัตรประจำตัวประชาชน.................................,อายุ...ปี...ที่อยู่เลขที่...หมู่บ้าน........ถนน.......ตำบล/แขวง...........อำเภอ/เขต................จังหวัด..............ซึ่งต่อไปในสัญญาฉบับนี้จะเรียกว่า “ผู้ให้เช่า”"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="172" width="555" height="73" uuid="fea750d2-8669-4f5c-afa0-f804f585a473"/>
+				<textElement markup="none">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["และ...................เลขบัตรประจำตัวประชาชน.................อายุ...ปี...ที่อยู่เลขที่........................ซึ่งต่อไปในสัญญาฉบับนี้จะเรียกว่า “ผู้เช่า” "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="245" width="555" height="68" uuid="dbe6638b-9a82-4617-b575-d566f13c7c40"/>
+				<textElement markup="none">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["โดยผู้ให้เช่าเป็นเจ้าของคอนโดมิเนียม“...............”,หมายเลขห้อง............ตึก.....ชั้น....ขนาด....ตารางเมตรที่อยู่.......................รวมถึงอุปกรณ์ตกแต่งและเฟอร์นิเจอร์ที่อยู่ในสำเนารายการแนบท้ายมาพร้อมกับสัญญาฉบับนี้ต่อไปนี้เรียกว่า “ทรัพย์สิน” โดยที่ผู้ให้เช่ามีประสงค์ที่จะให้ผู้เช่าที่มีประสงค์จะเช่าทรัพย์สิน ภายใต้ วาระและเงื่อนไขในสัญญาดังต่อไปนี้"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="349" width="555" height="1" uuid="0d44b787-d439-4819-8873-bd0682f48ff5"/>
+			</break>
+		</band>
+		<band height="350">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="a905dc45-95b9-4dc8-8322-95cca8bf5900"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" isUnderline="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ข้อตกลงและเงื่อนไขทั่วไป / ระยะเวลาของสัญญาและค่าเช่า]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="20" width="555" height="59" uuid="0db5d2bc-a85e-464e-8e04-347b9e158f1f"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. ระยะเวลาเช่ากำหนดไว้เป็นเวลา .... เดือน โดยเริ่มสัญญาวันที่ .................... และสิ้นสุดวันที่ .......................... \n2. ผู้เช่าตกลงจะชำระค่าเช่าให้แก่ผู้ให้เช่าล่วงหน้าเป็นรายเดือนก่อนวันที่....แต่ไม่ล่าช้าเกินวันที่….ของแต่ละเดือนในอัตรา ค่าเช่าเดือนละ..............บาท (...................)โดยชำระผ่านธนาคารดังรายละเอียดต่อไปนี้"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="79" width="555" height="67" uuid="f79ee7af-0110-4213-9d13-14a5126d4ff3"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["บัญชีธนาคาร : ................. \nชื่อบัญชี : ...................... \nเลขที่บัญชี : ....................."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="146" width="555" height="42" uuid="2a171d71-a03b-4972-9075-1cbf6d908767"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ผู้เช่าจะต้องชำระค่าเช่าล่วงหน้าเป็นจำนวน ................. บาท ณ วันที่เริ่มสัญญาฉบับนี้ (วันที่ ......................... ) ซึ่งผู้เช่าตกลงที่จ่ายเงินตามจำนวนนี้เป็น ................... (เงินสด / โอนออนไลน์)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="188" width="555" height="20" uuid="3ed9f714-baaa-4a9b-9f75-78ce14eec5ad"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[เงินประกันค่าเช่า]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="208" width="555" height="141" uuid="78a965b4-3cdb-40a5-ba29-84b7360012b5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. ในวันที่เริ่มสัญญาฉบับนี้ ผู้เช่าตกลงจะชำระเงินทั้งสิ้น .................. บาท (.................) ซึ่งต่อไปในสัญญาฉบับนี้ จำนวนเงินดังกล่าวจะ เรียกว่า “เงินประกันการเช่า” ให้แก่ผู้ให้เช่ายึดถือไว้ตลอดระยะเวลาของสัญญานี้โดยไม่มีดอกเบี้ย เพื่อเป็นการประกันความ เสียหายหรือสูญหายใดๆที่อาจเกิดแก่ผู้ให้เช่าจากการฝ่าฝืนหรือการไม่กระทำหรือการไม่ปฏิบัติตามข้อตกลงในส่วนของผู้เช่าที่มีอยู่ในสัญญาฉบับนี้ โดยผู้เช่าจะได้รับเงินประกันการเช่าคืนหลังจากสิ้นสุดสัญญาฉบับนี้ หากไม่มีการค้างค่าเช่าหรือ การค้างชำระค่าใช้จ่ายใดๆ หรือความเสียหายที่เกิดแก่ผู้ให้เช่าโดยเป็นสิทธิของผู้ให้เช่าแต่เพียงผู้เดียว เงินประกันการเช่ามิให้ถือว่าเป็นการชำระค่าเช่าล่วงหน้าแต่ประการใดหรือผู้เช่าจะนำมาเป็นข้ออ้างหรือข้อแก้ตัว ในการผิดนัดชำระค่าเช่าตามกำหนดในสัญญานี้มิได้"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="349" width="555" height="1" uuid="7a27f3bc-87ed-41e0-a01c-bc2ab8b1150f"/>
+			</break>
+		</band>
+		<band height="350">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="51" uuid="8bf124fa-22e7-470c-923e-a8c6eb098a7f"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[2. กรณีที่ผู้เช่าบอกเลิกสัญญาเช่าก่อนครบกำหนดสัญญา ผู้เช่าจะไม่ได้รับเงินประกันการเช่านี้คืนไม่ว่ากรณีใดๆ
+3. ผู้ให้เช่าจะชำระคืนเงินประกันสัญญาให้แก่ผู้เช่าภายใน 14 วันหลังจากได้หักหนี้ค้างชำระใดๆที่เป็นความรับผิดชอบของผู้เช่า]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="51" width="555" height="20" uuid="047bdaa0-37d5-49f6-b292-8db1f97d26df"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" isUnderline="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[พันธสัญญาของผู้เช่า]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="71" width="555" height="244" uuid="4898079b-6d86-4b52-aae2-db44c1a5655b"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[1. ผู้เช่าจะใช้สถานที่เพื่อวัตถุประสงค์ในการพักอาศัยเท่านั้น
+2. ผู้เช่าจะชำระค่าเช่าและค่าใช้จ่ายอื่นๆตรงตามเวลาและตามลักษณะที่กำหนดไว้ในสัญญาฉบับนี้ในช่วงระยะเวลาการเช่า  หากผู้เช่าชำระค่าเช่าล่าช้ากว่าที่กำหนดข้างต้น ผู้เช่าตกลงที่จะชำระค่าปรับในความล่าช้าให้แก่ ผู้ให้เช่าในอัตรา 500 บาท ต่อวัน
+3. ผู้เช่าจะดูแลรักษาสถานที่ให้อยู่ในสภาพดีโดยรักษาลักษณะการตกแต่งภายในให้ดูสะอาดน่าอยู่ และทำการดูแลพื้นที่ ต่างๆ ให้เรียบร้อยน่ามองอย่างเหมาะสม
+4. ผู้เช่าจะรับผิดชอบค่าใช้จ่ายที่เกิดจากความเสียหายต่อสถานที่โดยมีสาเหตุมาจากผู้เช่า ครอบครัวของผู้เช่า หรือพนักงานของผู้เช่า หรือ บุคคลที่อาศัยอยู่กับผู้เช่า โดยประมาทหรือเจตนา อันรวมถึงกลิ่นใดๆก็ตามที่จำเป็นต้องขจัดกลิ่นโดยผู้ทำความสะอาดมืออาชีพ
+5. ผู้เช่าจะชำระเอกสารใบแจ้งหนี้ทั้งหลายที่เกี่ยวข้องกับการเช่าสถานที่อันรวมถึง ค่าไฟฟ้า ค่านํ้าประปา ค่าโทรศัพท์ และค่าใช้จ่ายอื่นๆ
+6. ผู้เช่าจะอนุญาตให้ผู้ให้เช่าหรือตัวแทนของผู้ให้เช่าเข้าสถานที่เพื่อตรวจตราได้ปีละหนึ่งหรือสองครั้งและผู้เช่าจะยินยอมให้ผู้ที่สนใจจะซื้อเข้าชมสถานที่ได้ในช่วงเวลาที่เหมาะสมระหว่างวันเวลา (8.00 น. ถึง 18.00 น.) โดยผู้ให้เช่าจะทำการบอกกล่าวภายใน 72 ชั่วโมง (เจ็ดสิบสองชั่วโมง) ล่วงหน้า]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="349" width="555" height="1" uuid="66443eb3-5ba3-434d-9e6f-85e8ac6f5627"/>
+			</break>
+		</band>
+		<band height="350">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="292" uuid="72f25d66-c8b4-4f65-9e6a-2c3962de45cf"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[7. ผู้เช่าจะไม่ทำรอยขีดข่วน ระบายสีหรือเจาะทะลุหรือกระทำการใดๆ ที่ทำให้ส่วนใดๆก็ตามของสถานที่ ให้เกิดความเสียหายโดยไม่ได้รับอนุญาตให้กรีด เปลี่ยนแปลงหรือปูพื้นใหม่ เว้นเสียแต่จะได้รับความยินยอมเป็นลายลักษณ์อักษรจากผู้ให้เช่า
+8. ผู้เช่าจะไม่กระทำการใดๆ ที่ผิดต่อกฎหมายหรือเก็บรักษาวัตถุใดๆที่มีลักษณะเป็นอันตราย สามารถจุดติดไฟได้หรือสามารถระเบิดได้ หรือสารใดๆ ที่ผิดต่อกฎหมายหรือยาเสพติดไว้ในสถานที่
+9. ผู้เช่าจะไม่กระทำการใดๆ ในสถานที่ซึ่งรบกวนหรือก่อความไม่สงบสุขต่อเพื่อนบ้านหรือสถานที่ของเพื่อนบ้าน
+10. ผู้เช่าจะไม่สูบบุหรี่ในสถานที่และจะต้องรับผิดชอบกลิ่นใดๆก็ตามในสถานที่อันเกิดจากการสูบบุหรี่ หลังจากที่ผู้เช่าย้ายออกจากสถานที่แล้ว โดยผู้ให้เช่ามีสิทธิที่จะหักค่าเสียหายดังกล่าวออกจากเงินประกันค่าเช่า เพื่อชดเชยค่าใช้จ่ายในการทำความสะอาดโดยมืออาชีพหากจำเป็นต้องมีการขจัดกลิ่นควันบุหรี่
+11. ผู้เช่าจะแจ้งผู้ให้เช่าหรือตัวแทนของผู้ให้เช่าทราบถึงความเสียหายหรือความชำรุดใดๆ ที่เกิดขึ้นในสถานที่ให้เร็วที่สุดเท่าที่จะเป็นไปได้อย่างล่าช้าไม่เกิน 7 วัน (เจ็ดวัน) นับจากวันที่เกิดความเสียหายหรือความชำรุดดังกล่าว หากความเสียหายหรือความชำรุดดังกล่าว เกิดจากความประมาทหรือการกระทำผิดของผู้เช่า ครอบครัวหรือบริวารผู้เช่าจะต้องซ่อมแซมความเสียหายในสถานที่ให้กลับคืนสู่สภาพดีภายใน 30 วัน
+12. ผู้เช่าจะไม่เลี้ยงสัตว์ใดๆ \n13. ผู้เช่าจะรับผิดชอบในการดูแลรักษาสถานที่ให้อยู่ในสภาพที่ดี และสามารถใช้งานได้รวมถึงรับผิดชอบการซ่อมแซมใดๆ ที่มีขนาดเล็ก อาทิเช่น ท่อระบายนํ้าอุดตัน เปลี่ยนหลอดไฟ เป็นต้น โดยแจ้งไปยังแผนกบำรุงรักษาของคอนโดมิเนียมหรือสำนักงานนิติบุคคลให้ทำการซ่อมแซมให้]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="349" width="555" height="1" uuid="3ba68b60-cd93-4cde-ba6c-2df31c3a3a7a"/>
+			</break>
+		</band>
+		<band height="350">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="101" uuid="d09820ec-3e53-45d4-9719-c9f619904222"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.5"/>
+				</textElement>
+				<text><![CDATA[14. ผู้เช่าจะโอนสิทธิใดๆภายใต้ข้อตกลงหรือให้เช่าช่วงสถานที่ทั้งหมดหรือบางส่วนแก่ผู้อื่นโดยไม่ได้รับความยินยอมเป็นลายลักษณ์
+อักษรจากผู้ให้เช่าล่วงหน้าไม่ได้
+15. ผู้เช่าจะส่งคืนกุญแจของสถานที่ทั้งหมดให้แก่ผู้ให้เช่าในวันที่ครบกำหนดของสัญญาฉบับนี้
+16. ผู้เช่าตกลงที่จะเป็นผู้พักอาศัยเพียงผู้เดียวตามที่ทั้งสองฝ่ายได้ตกลงกันไว้ในวันที่เริ่มสัญญาฉบับนี้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="101" width="555" height="20" uuid="72e08526-962a-439a-b723-dd7eb17be532"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" isUnderline="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ข้อตกลงและข้อปฏิบัติของผู้ให้เช่า]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="121" width="555" height="208" uuid="7d35bd40-19fa-4f97-8d4e-4ab12b368679"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[1. ผู้ให้เช่าขอรับรองและรับประกันว่าผู้ให้เช่ามีสิทธิที่จะให้เช่าสถานที่อย่างถูกต้อง
+2. ผู้ให้เช่าตกลงว่าผู้เช่าที่ชำระค่าเช่าตรงเวลาโดยรักษาวินัยและปฏิบัติตามข้อตกลงต่างๆที่มีอยู่ในสัญญาฉบับนี้ จะมีสิทธิพักอาศัยในสถานที่นี้ในช่วงระยะเวลาที่ถือครองสัญญาฉบับนี้รวมถึงการต่ออายุสัญญาใดๆ โดยปราศจากการขัดขวางหรือก่อให้เกิดความเสียหายใดๆ จากทางผู้ให้เช่าหรือตัวแทนของผู้เช่า
+3. ค่าใช้จ่ายส่วนกลางสำหรับการบำรุงรักษาสาธารณูปโภคและบริการส่วนกลางของคอนโดมิเนียม อาทิเช่น สระว่ายนํ้า การเก็บขยะ เป็นต้น เป็นภาระของผู้ให้เช่า
+4. ผู้ให้เช่าจะรับผิดชอบในการบำรุงสถานที่ให้อยู่ในสภาพดีและสามารถใช้งานได้ และจะรับผิดชอบการซ่อมแซมใดๆ ที่มีขนาดใหญ่ เช่นเครื่องซักผ้าหรือตู้เย็น เป็นต้น รวมถึงการบำรุงรักษาที่จะเป็นอันเนื่องมาจากข้อบกพร่อง หรือความชำรุดเชิงโครงสร้างเช่นพื้นหรือเพดานห้อง ซึ่งอาจเกิดขึ้นในสถานที่ โดยผู้ให้เช่าจะรับผิดชอบค่าใช้จ่ายสำหรับการซ่อมแซมเหล่านี้ซึ่งรวมถึง ค่าใช้จ่ายเกี่ยวกับระบบไฟฟ้าและระบบท่อ ซึ่งมิได้มีสาเหตุมาจากผู้เช่า เว้นเสียแต่ในบริเวณที่ผู้เช่านั้นก่อให้เกิดความเสียหาย]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="349" width="555" height="1" uuid="fb990c74-5b9f-42af-b8e8-89f50430b6c7"/>
+			</break>
+		</band>
+		<band height="350">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="aa937f0a-01e8-4601-ae5d-752995660a65"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="true" isUnderline="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[การสิ้นสุดสัญญา]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="555" height="224" uuid="10b4c278-9dad-45e9-bc20-4247e96f0eb0"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[1. หากผู้เช่าผิดนัดการชำระค่าเช่าภายในกำหนดเวลาการชำระเงินวันที่ 30 ของเดือน สัญญาฉบับนี้จะสิ้นสุดลงโดยอัติโนมัติและผู้ให้เช่าจะยึดสถานที่คืนทันทีรวมถึงมีสิทธิตามข้อ 2.
+2. ผู้ให้เช่าหรือตัวแทนของผู้ให้เช่ามีสิทธิยึดสถานที่ที่ให้เช่าโดยทันทีด้วยการพังประตู กุญแจ หรือสิ่งกีดขวางใดๆ ทำการปิดล็อคประตูหรือห้ามผู้เช่าเข้าในสถานที่ที่ให้เช่า ทำการตัดกระแสไฟฟ้า ระบบนํ้าประปาและ/หรือตัดการเชื่อมระบบโทรศัพท์ของสถานที่ที่ให้เช่ารวมถึงเรียกร้องค่าเสียหายสำหรับค่าใช้จ่ายจากการชำรุดและค่าเสียหายทั้งหมด ซึ่งเกิดจากการที่ผู้เช่า ไม่ยอมย้ายออกจากสถานที่จนกระทั่งผู้เช่าได้ย้ายออกจากสถานที่
+3. ในกรณีที่ผู้เช่าละเมิดเงื่อนไขในสัญญาฉบับนี้ ผู้ให้เช่าสามารถยกเลิกสัญญา และริบเงินประกันการเช่า
+4. ในกรณีที่สถานที่ที่ส่งมอบให้มีสภาพที่ไม่สามารถพักอาศัยได้อันเนื่องมาจากไฟไหม้ นํ้าท่วม หรือความเสียหายเชิงโครงสร้าง ผู้เช่ามีสิทธิยกเลิกสัญญาฉบับนี้และผู้ให้เช่าจะคืนเงินประกันการเช่าโดยที่ความเสียหายดังกล่าวมิได้เกิดจากผู้เช่า
+5. ผู้เช่าจะแจ้งผู้ให้เช่าทราบว่าเป็นลายลักษณ์อักษรไม่น้อยกว่า 30 วัน (สามสิบวัน) ก่อนวันครบกำหนดสัญญา หากต้องการต่อสัญญา อย่างไรก็ตาม จะมีการเปลี่ยนแปลงข้อตกลงและเงื่อนไขที่มีในสัญญาเช่าฉบับนี้สำหรับการต่ออายุสัญญาใหม่ และหากไม่มีการแจ้งล่วงหน้าภายใน 30 วัน สัญญาจะถือว่าเป็นอันยุติโดยอัติโนมัติ ]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="349" width="555" height="1" uuid="87f7103b-25e9-4928-9614-ecf52614a2bf"/>
+			</break>
+		</band>
+		<band height="350">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="205" uuid="671739f9-0850-4d65-9442-81900e27ebdb"/>
+				<textElement>
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[6. เมื่อครบกำหนดระยะเวลาการเช่าโดยไม่มีการต่ออายุสัญญาเช่าหรือสัญญามีการยกเลิกไปไม่ว่าเหตุใดๆก็ตาม ผู้เช่าจะต้องขนย้ายข้าวของสัมภาระส่วนตัวออกจากสถานที่ โดยจะต้องส่งมอบสถานที่คืนให้ผู้ให้เช่า ในสภาพที่เรียบร้อยเหมาะสม หากไม่สามารถดำเนินการได้ ผู้เช่าตกลงที่จะชำระค่าปรับจำนวน 1000 บาท (หนึ่งพันบาท) ต่อวันจนกระทั่งสามารถส่งมอบสถานที่คืนได้โดยสมบูรณ์ ผู้เช่าตกลงให้ผู้ให้เช่ามิสิทธิติดตาม และมีสิทธิเข้าครอบครอง ยึดหน่วง หรือขนย้ายทรัพย์สินทั้งปวงที่อยู่ในห้องเช่าออกไปจากห้องเช่า และดำเนินการกับห้องเช่าตามแต่จะเห็นสมควร โดยผู้เช่าจะไม่ยกขึ้นเป็นข้ออ้างหรือฟ้องร้องผู้ให้เช่าว่ากระทำการละเมิดใดๆ ไม่ว่าในทางแพ่งหรือทางอาญาเป็นอันขาด ทั้งนี้ ไม่ตัดสิทธิผู้ให้เช่า ที่จะเรียกค่าเสียหายจากผู้เช่า ในจำนวนที่สูงกว่านี้หากปรากฎว่าห้องเช่า หรือทรัพย์สินที่เช่า เกิดชำรุดเสียหาย บุบสลาย หรือสูญเสียไปด้วยประการใดๆก็ดี ผู้เช่า ต้องรับผิดชอบชดใช้ค่าเสียหายอื่นๆ อันอาจจะพึงมีอีกส่วนหนึ่งด้วย
+7. สัญญานี้จัดทำขึ้นเป็นสองฉบับ มีข้อความถูกต้องตรงกันทุกประการ คู่สัญญาทั้งสองฝ่ายได้อ่านและเข้าใจข้อตกลงและเงื่อนไขของสัญญาโดยตลอด เพื่อเป็นพยานหลักฐาน จึงได้ลงลายมือชื่อเป็นสำคัญ และต่างฝ่ายต่างถือไว้ฝ่ายละฉบับ]]></text>
+			</staticText>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="50">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} != $V{PAGE_AMOUT}]]></printWhenExpression>
+			<image>
+				<reportElement x="234" y="0" width="83" height="42" uuid="33a7e922-a5d6-41f1-914c-7d58dfddb37e"/>
+				<imageExpression><![CDATA[$P{REPORT_PATH}+"/HOM-logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="234" height="42" uuid="38baa958-813f-436c-bd6f-59150c456742"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom" markup="none">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" rightIndent="40"/>
+				</textElement>
+				<text><![CDATA[Lessor / ผู้ให้เช่า ...................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="0" width="238" height="42" uuid="c36c31ad-a850-4c8d-b5c2-75e913fa1c3d"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" leftIndent="40"/>
+				</textElement>
+				<text><![CDATA[Lessee / ผู้เช่า ...................................]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="250">
+			<image>
+				<reportElement x="234" y="188" width="83" height="42" uuid="3465aa84-2865-4ce0-b657-8d3e593513c0"/>
+				<imageExpression><![CDATA[$P{REPORT_PATH}+"/HOM-logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="24" width="276" height="34" uuid="e2cd5539-31d8-4502-95c5-7cf8cf6cf103"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Lessor / ผู้ให้เช่า ...................................]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="58" width="276" height="34" uuid="23f474b6-1188-4cbc-a190-fc384812bd36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{LESSOR} + ".......)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="24" width="279" height="34" uuid="3e071b93-ba15-4f16-93dc-d0431df31894"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Lessee / ผู้เช่า ...................................]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="276" y="58" width="279" height="34" uuid="318895cf-8653-4934-b508-a20e0c0c4d59"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{LESSEE} + ".......)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="92" width="276" height="34" uuid="82064bc5-9ea3-426a-abd9-43009ca8fa04"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Witness / พยาน  ...................................]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="126" width="276" height="34" uuid="c8f47cae-5d8b-4797-b677-569176d84008"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{WITNESS1} + ".......)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="92" width="279" height="34" uuid="fcc214b4-138a-4742-8685-92592ab242df"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Witness / พยาน  ...................................]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="276" y="126" width="279" height="34" uuid="e770d491-d11d-4211-8da2-6ac99ae04dfd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{WITNESS2} + ".......)"]]></textFieldExpression>
+			</textField>
+		</band>
 	</summary>
 </jasperReport>

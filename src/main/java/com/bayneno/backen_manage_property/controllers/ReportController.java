@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -19,9 +19,9 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @GetMapping(value = "/leaseAgreement", produces = MediaType.APPLICATION_PDF_VALUE)
-    public @ResponseBody byte[] leaseAgreement() throws IOException, JRException {
-        return reportService.generateReport("classpath:jasper/leaseAgreement.jrxml", new HashMap<>());
+    @PostMapping(value = "/leaseAgreement", produces = MediaType.APPLICATION_PDF_VALUE)
+    public @ResponseBody byte[] leaseAgreement(@RequestBody Map<String, Object> parametersFromController) throws IOException, JRException {
+        return reportService.generateReport("classpath:jasper/leaseAgreement.jasper", parametersFromController);
     }
 
 }
