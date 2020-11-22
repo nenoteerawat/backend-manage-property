@@ -24,4 +24,9 @@ public class ReportController {
         return reportService.generateReport("classpath:jasper/leaseAgreement.jasper", parametersFromController);
     }
 
+    @PostMapping(value = "/realEstateAgentAgreement", produces = MediaType.APPLICATION_PDF_VALUE)
+    public @ResponseBody byte[] realEstateAgentAgreement(@RequestBody Map<String, Object> parametersFromController) throws IOException, JRException {
+        return reportService.generateReport("classpath:jasper/realEstateAgentAgreement.jasper", parametersFromController);
+    }
+
 }
