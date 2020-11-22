@@ -33,4 +33,8 @@ public class ActionLogResponse {
   private User createdBy;
   private String createdDateTime;
 
+  private String reason;
+  private String who;
+  private String why;
+  private String improve;
 }

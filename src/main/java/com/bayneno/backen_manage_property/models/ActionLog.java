@@ -37,4 +37,8 @@ public class ActionLog {
   private User createdBy;
   private ZonedDateTime createdDateTime;
 
+  private String reason;
+  private String who;
+  private String why;
+  private String improve;
 }

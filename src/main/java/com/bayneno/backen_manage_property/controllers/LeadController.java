@@ -80,6 +80,11 @@ public class LeadController {
 
         Lead lead = (leadRepository.findById(id).orElse(null));
 
+        if(lead != null) {
+            int test = lead.hashCode();
+            test = test;
+        }
+
         return ResponseEntity.ok(lead);
     }
 
