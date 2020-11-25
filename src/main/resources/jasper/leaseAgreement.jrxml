@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="2272"/>
+	<property name="ireport.y" value="736"/>
 	<parameter name="LESSOR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -12,10 +12,10 @@
 	<parameter name="REPORT_PATH" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="DATE" class="java.lang.String">
+	<parameter name="TITLE1" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="PLACE" class="java.lang.String">
+	<parameter name="TITLE2" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<parameter name="WITNESS1" class="java.lang.String">
@@ -26,6 +26,39 @@
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="CONTRACT" class="java.lang.String"/>
+	<parameter name="ID_CARD_NUMBER" class="java.lang.String"/>
+	<parameter name="AGE" class="java.lang.String"/>
+	<parameter name="ADDRESS" class="java.lang.String"/>
+	<parameter name="VILLAGE" class="java.lang.String"/>
+	<parameter name="ROAD" class="java.lang.String"/>
+	<parameter name="AMPHOE" class="java.lang.String"/>
+	<parameter name="DISTRICT" class="java.lang.String"/>
+	<parameter name="PROVINCE" class="java.lang.String"/>
+	<parameter name="AND" class="java.lang.String"/>
+	<parameter name="ID_CARD_NUMBER2" class="java.lang.String"/>
+	<parameter name="AGE2" class="java.lang.String"/>
+	<parameter name="ADDRESS2" class="java.lang.String"/>
+	<parameter name="VILLAGE2" class="java.lang.String"/>
+	<parameter name="ROAD2" class="java.lang.String"/>
+	<parameter name="AMPHOE2" class="java.lang.String"/>
+	<parameter name="DISTRICT2" class="java.lang.String"/>
+	<parameter name="PROVINCE2" class="java.lang.String"/>
+	<parameter name="OWNER" class="java.lang.String"/>
+	<parameter name="ROOM" class="java.lang.String"/>
+	<parameter name="BUILDING" class="java.lang.String"/>
+	<parameter name="FLOOR" class="java.lang.String"/>
+	<parameter name="AREA" class="java.lang.String"/>
+	<parameter name="ADDRESS_FULL" class="java.lang.String"/>
+	<parameter name="RANGEMONTH" class="java.lang.String"/>
+	<parameter name="RANGE_DATE_START" class="java.lang.String"/>
+	<parameter name="RANGE_DATE_END" class="java.lang.String"/>
+	<parameter name="MONTHLY_RENT" class="java.lang.String"/>
+	<parameter name="ACCOUNT_BANK" class="java.lang.String"/>
+	<parameter name="ACCOUNT_NAME" class="java.lang.String"/>
+	<parameter name="ACCOUNT_NUMBER" class="java.lang.String"/>
+	<parameter name="MONTHLY_RENT_PAY_ADVANCE" class="java.lang.String"/>
+	<parameter name="MOUNTHLY_RENT_PAY_ALL" class="java.lang.String"/>
 	<variable name="PAGE_AMOUT" class="java.lang.Integer">
 		<variableExpression><![CDATA[7]]></variableExpression>
 		<initialValueExpression><![CDATA[7]]></initialValueExpression>
@@ -65,7 +98,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" spacingBefore="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["....."+$P{DATE} + "..... / เขียนที่ ....." + $P{PLACE} + "....."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["....."+$P{TITLE1} + "..... / เขียนที่ ....." + $P{TITLE2} + "....."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="60" width="555" height="112" uuid="2930ced8-cbb9-48a7-856b-9bbd9209e10c"/>
@@ -73,7 +106,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="20" spacingBefore="20"/>
 				</textElement>
-				<textFieldExpression><![CDATA["สัญญาฉบับนี้ทำขึ้นระหว่าง......................................เลขบัตรประจำตัวประชาชน.................................,อายุ...ปี...ที่อยู่เลขที่...หมู่บ้าน........ถนน.......ตำบล/แขวง...........อำเภอ/เขต................จังหวัด..............ซึ่งต่อไปในสัญญาฉบับนี้จะเรียกว่า “ผู้ให้เช่า”"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["สัญญาฉบับนี้ทำขึ้นระหว่าง............"+$P{CONTRACT}+"............เลขบัตรประจำตัวประชาชน............."+$P{ID_CARD_NUMBER}+".........,อายุ."+$P{AGE}+".ปี....ที่อยู่เลขที่.."+$P{ADDRESS}+".หมู่บ้าน...."+$P{VILLAGE}+"...ถนน..."+$P{ROAD}+"....ตำบล/แขวง....."+$P{AMPHOE}+"......อำเภอ/เขต......."+$P{DISTRICT}+".......จังหวัด....."+$P{PROVINCE}+".......ซึ่งต่อไปในสัญญาฉบับนี้จะเรียกว่า “ผู้ให้เช่า”"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="172" width="555" height="73" uuid="fea750d2-8669-4f5c-afa0-f804f585a473"/>
@@ -81,7 +114,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="20"/>
 				</textElement>
-				<textFieldExpression><![CDATA["และ...................เลขบัตรประจำตัวประชาชน.................อายุ...ปี...ที่อยู่เลขที่........................ซึ่งต่อไปในสัญญาฉบับนี้จะเรียกว่า “ผู้เช่า” "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["และ......"+$P{AND}+".........เลขบัตรประจำตัวประชาชน......."+$P{ID_CARD_NUMBER2}+"......อายุ."+$P{AGE2}+".ปี...ที่อยู่เลขที่........"+$P{ADDRESS2}+"...ถนน..."+$P{ROAD2}+"....ตำบล/แขวง....."+$P{AMPHOE2}+"......อำเภอ/เขต......."+$P{DISTRICT2}+".......จังหวัด....."+$P{PROVINCE2}+".......ซึ่งต่อไปในสัญญาฉบับนี้จะเรียกว่า “ผู้เช่า” "]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="245" width="555" height="68" uuid="dbe6638b-9a82-4617-b575-d566f13c7c40"/>
@@ -89,7 +122,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="20"/>
 				</textElement>
-				<textFieldExpression><![CDATA["โดยผู้ให้เช่าเป็นเจ้าของคอนโดมิเนียม“...............”,หมายเลขห้อง............ตึก.....ชั้น....ขนาด....ตารางเมตรที่อยู่.......................รวมถึงอุปกรณ์ตกแต่งและเฟอร์นิเจอร์ที่อยู่ในสำเนารายการแนบท้ายมาพร้อมกับสัญญาฉบับนี้ต่อไปนี้เรียกว่า “ทรัพย์สิน” โดยที่ผู้ให้เช่ามีประสงค์ที่จะให้ผู้เช่าที่มีประสงค์จะเช่าทรัพย์สิน ภายใต้ วาระและเงื่อนไขในสัญญาดังต่อไปนี้"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["โดยผู้ให้เช่าเป็นเจ้าของคอนโดมิเนียม“......."+$P{OWNER}+".......”,หมายเลขห้อง....."+$P{ROOM}+".....ตึก.."+$P{BUILDING}+"...ชั้น.."+$P{FLOOR}+"..ขนาด.."+$P{AREA}+"..ตารางเมตรที่อยู่........."+$P{ADDRESS_FULL}+"..........รวมถึงอุปกรณ์ตกแต่งและเฟอร์นิเจอร์ที่อยู่ในสำเนารายการแนบท้ายมาพร้อมกับสัญญาฉบับนี้ต่อไปนี้เรียกว่า “ทรัพย์สิน” โดยที่ผู้ให้เช่ามีประสงค์ที่จะให้ผู้เช่าที่มีประสงค์จะเช่าทรัพย์สิน ภายใต้ วาระและเงื่อนไขในสัญญาดังต่อไปนี้"]]></textFieldExpression>
 			</textField>
 			<break>
 				<reportElement x="0" y="349" width="555" height="1" uuid="0d44b787-d439-4819-8873-bd0682f48ff5"/>
@@ -110,7 +143,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["1. ระยะเวลาเช่ากำหนดไว้เป็นเวลา .... เดือน โดยเริ่มสัญญาวันที่ .................... และสิ้นสุดวันที่ .......................... <br>2. ผู้เช่าตกลงจะชำระค่าเช่าให้แก่ผู้ให้เช่าล่วงหน้าเป็นรายเดือนก่อนวันที่....แต่ไม่ล่าช้าเกินวันที่….ของแต่ละเดือนในอัตรา ค่าเช่าเดือนละ..............บาท (...................)โดยชำระผ่านธนาคารดังรายละเอียดต่อไปนี้"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["1. ระยะเวลาเช่ากำหนดไว้เป็นเวลา .."+$P{RANGEMONTH}+".. เดือน โดยเริ่มสัญญาวันที่ ........"+$P{RANGE_DATE_START}+"....... และสิ้นสุดวันที่ ..........."+$P{RANGE_DATE_END}+".......... <br>2. ผู้เช่าตกลงจะชำระค่าเช่าให้แก่ผู้ให้เช่าล่วงหน้าเป็นรายเดือนก่อนวันที่....แต่ไม่ล่าช้าเกินวันที่….ของแต่ละเดือนในอัตรา ค่าเช่าเดือนละ......."+$P{MONTHLY_RENT}+".......บาท (...................)โดยชำระผ่านธนาคารดังรายละเอียดต่อไปนี้"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="79" width="555" height="80" uuid="f79ee7af-0110-4213-9d13-14a5126d4ff3"/>
@@ -118,7 +151,7 @@
 					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["บัญชีธนาคาร : ................. <br>ชื่อบัญชี : ...................... <br>เลขที่บัญชี : ....................."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["บัญชีธนาคาร : ........"+$P{ACCOUNT_BANK}+"......... <br>ชื่อบัญชี : ..........."+$P{ACCOUNT_NAME}+"........... <br>เลขที่บัญชี : .........."+$P{ACCOUNT_NUMBER}+"..........."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="159" width="555" height="55" uuid="2a171d71-a03b-4972-9075-1cbf6d908767"/>
@@ -126,7 +159,7 @@
 					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="20"/>
 				</textElement>
-				<textFieldExpression><![CDATA["ผู้เช่าจะต้องชำระค่าเช่าล่วงหน้าเป็นจำนวน ................. บาท ณ วันที่เริ่มสัญญาฉบับนี้ (วันที่ ......................... ) ซึ่งผู้เช่าตกลงที่จ่ายเงินตามจำนวนนี้เป็น ................... (เงินสด / โอนออนไลน์)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["ผู้เช่าจะต้องชำระค่าเช่าล่วงหน้าเป็นจำนวน ........"+$P{MONTHLY_RENT_PAY_ADVANCE}+"......... บาท ณ วันที่เริ่มสัญญาฉบับนี้ (วันที่ ......................... ) ซึ่งผู้เช่าตกลงที่จ่ายเงินตามจำนวนนี้เป็น ........."+$P{MOUNTHLY_RENT_PAY_ALL}+".......... (เงินสด / โอนออนไลน์)"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="214" width="555" height="20" uuid="3ed9f714-baaa-4a9b-9f75-78ce14eec5ad"/>
