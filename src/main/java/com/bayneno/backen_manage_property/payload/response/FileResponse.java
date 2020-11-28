@@ -10,9 +10,7 @@ import lombok.*;
 public class FileResponse {
 
     private String id;
-
     private String name;
-
     private String path;
     private String highlight;
     private String fileDefault;

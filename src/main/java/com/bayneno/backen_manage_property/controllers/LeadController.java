@@ -9,6 +9,7 @@ import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.LeadRequest;
 import com.bayneno.backen_manage_property.payload.response.ActionLogResponse;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
+import com.bayneno.backen_manage_property.payload.response.FileResponse;
 import com.bayneno.backen_manage_property.repository.LeadRepository;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.UserRepository;
@@ -22,8 +23,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -310,7 +313,7 @@ public class LeadController {
 
     @PostMapping("/lead/delete")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> listingDelete(@RequestBody LeadRequest leadRequest, HttpServletRequest httpServletRequest, Principal principal) {
+    public ResponseEntity<?> leadDelete(@RequestBody LeadRequest leadRequest, HttpServletRequest httpServletRequest, Principal principal) {
         Lead lead = leadRepository.findById(leadRequest.getId()).orElse(null);
         User updateByUser = userRepository.findByUsername(principal.getName()).orElse(null);
         if (httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())) {
@@ -329,5 +332,65 @@ public class LeadController {
             leadRepository.delete(lead);
         }
         return ResponseEntity.ok("delete success");
+    }
+
+    @PostMapping("/lead/saveBook")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> leadSaveBook(@RequestBody LeadRequest leadRequest, Principal principal) {
+        Lead lead = leadRepository.findById(leadRequest.getId()).orElse(null);
+//        if (httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())) {
+//            changeService.submit(SubmitReq.builder()
+//                    .id(leadRequest.getId())
+//                    .comment(leadRequest.getComment())
+//                    .submitType(ESubmitTypeChangeLog.DELETE)
+//                    .username(principal.getName())
+//                    .type(ETypeChangeLog.LEAD)
+//                    .toValue(Lead.builder()
+//                            .updatedBy(updateByUser)
+//                            .updatedDateTime(ZonedDateTimeUtil.now())
+//                            .build())
+//                    .build());
+//        } else {
+//        }
+        if(lead != null) {
+            if(lead.getBooks() == null) {
+                List<FileResponse> fileResponses = new ArrayList<>();
+                fileResponses.add(leadRequest.getBook());
+                lead.setBooks(fileResponses);
+            } else {
+                lead.getBooks().add(leadRequest.getBook());
+            }
+        }
+        leadRepository.save(lead);
+        return ResponseEntity.ok("upload book success");
+    }
+
+    @PostMapping("/lead/deleteBook")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> leadDeleteBook(@RequestBody LeadRequest leadRequest, Principal principal) {
+        Lead lead = leadRepository.findById(leadRequest.getId()).orElse(null);
+        User updateByUser = userRepository.findByUsername(principal.getName()).orElse(null);
+//        if (httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())) {
+//            changeService.submit(SubmitReq.builder()
+//                    .id(leadRequest.getId())
+//                    .comment(leadRequest.getComment())
+//                    .submitType(ESubmitTypeChangeLog.DELETE)
+//                    .username(principal.getName())
+//                    .type(ETypeChangeLog.LEAD)
+//                    .toValue(Lead.builder()
+//                            .updatedBy(updateByUser)
+//                            .updatedDateTime(ZonedDateTimeUtil.now())
+//                            .build())
+//                    .build());
+//        } else {
+//        }
+        if(lead != null) {
+            List<FileResponse> fileResponses = lead.getBooks().stream()
+                    .filter(book -> !book.getId().equals(leadRequest.getBook().getId()))
+                    .collect(Collectors.toList());
+            lead.setBooks(fileResponses);
+            leadRepository.save(lead);
+        }
+        return ResponseEntity.ok("deleted book success");
     }
 }
