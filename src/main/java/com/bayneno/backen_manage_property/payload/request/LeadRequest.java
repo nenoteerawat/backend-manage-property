@@ -64,6 +64,7 @@ public class LeadRequest {
     private String typePay;
 
     private FileResponse file;
+    private FileResponse book;
 
     private String comment;
 }

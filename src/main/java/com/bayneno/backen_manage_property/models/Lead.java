@@ -103,6 +103,7 @@ public class Lead {
   private String typePay;
 
   private FileResponse file;
+  private List<FileResponse> books;
 
   @DBRef
   private User saleUser;
