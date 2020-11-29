@@ -99,7 +99,7 @@ public class ActionLogController {
                         .done(actionLog.getDone())
                         .actionDateTime(ZonedDateTimeUtil.zonedDateTimeToString(
                                 actionLog.getActionDateTime()
-                                , ZonedDateTimeUtil.DDMMYYHHMMSS
+                                , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ
                                 , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID)
                         )
                         .build();
@@ -142,7 +142,7 @@ public class ActionLogController {
                 .done(actionLog.getDone())
                 .actionDateTime(ZonedDateTimeUtil.zonedDateTimeToString(
                     actionLog.getActionDateTime()
-                    , ZonedDateTimeUtil.YYYYMMDDTHHMMSS
+                    , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ
                     , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID)
                 )
                 .build())
@@ -233,7 +233,7 @@ public class ActionLogController {
                         .done(actionLog.getDone())
                         .actionDateTime(ZonedDateTimeUtil.zonedDateTimeToString(
                                 actionLog.getActionDateTime()
-                                , ZonedDateTimeUtil.DDMMYYHHMMSS
+                                , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ
                                 , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID)
                         )
                         .build();
