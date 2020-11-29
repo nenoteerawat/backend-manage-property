@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -123,7 +124,10 @@ public class ActionLogController {
         List<ActionLog> actionLogList;
         if("DAILY".equals(type)) {
 //            String date = ZonedDateTimeUtil.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
-            actionLogList = actionLogRepository.findAllByActionDateTimeAndCreatedByIdOrderByActionDateTime(ZonedDateTimeUtil.now(), createdByUser.getId());
+            actionLogList = actionLogRepository.findAllByActionDateTimeBetweenAndCreatedByIdOrderByActionDateTime(
+                    ZonedDateTimeUtil.now().with(LocalTime.of (0, 0)),
+                    ZonedDateTimeUtil.now().with(LocalTime.of ( 23 , 59 ))
+                    , createdByUser.getId());
 //            actionLogList = actionLogRepository.findAll();
         } else {
             actionLogList = actionLogRepository.findAllByLeadIdAndCreatedByIdOrderByActionDateTimeDesc(leadId, createdByUser.getId());
