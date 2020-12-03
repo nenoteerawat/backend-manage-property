@@ -6,6 +6,7 @@ import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
 import com.bayneno.backen_manage_property.models.Lead;
 import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.User;
+import com.bayneno.backen_manage_property.payload.request.LeadDocumentRequest;
 import com.bayneno.backen_manage_property.payload.request.LeadRequest;
 import com.bayneno.backen_manage_property.payload.response.ActionLogResponse;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
@@ -334,24 +335,38 @@ public class LeadController {
         return ResponseEntity.ok("delete success");
     }
 
+    @PostMapping("/lead/saveDocument")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> leadSaveDocument(@RequestBody LeadDocumentRequest leadDocumentRequest, Principal principal) {
+        Lead lead = leadRepository.findById(leadDocumentRequest.getLeadId()).orElse(null);
+        if(lead != null) {
+            switch (leadDocumentRequest.getType()) {
+                case "LEASE":
+                    lead.setLeasePDF(leadDocumentRequest.getData());
+                    break;
+                case "SELL":
+                    lead.setSellPDF(leadDocumentRequest.getData());
+                    break;
+                case "AGENT_AGREEMENT":
+                    lead.setAgentAgreementPDF(leadDocumentRequest.getData());
+                    break;
+                case "EXCLUSIVE":
+                    lead.setExclusivePDF(leadDocumentRequest.getData());
+                    break;
+                case "CO_BROKE":
+                    lead.setCoBrokePDF(leadDocumentRequest.getData());
+                    break;
+            }
+        }
+        assert lead != null;
+        leadRepository.save(lead);
+        return ResponseEntity.ok("upload book success");
+    }
+
     @PostMapping("/lead/saveBook")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> leadSaveBook(@RequestBody LeadRequest leadRequest, Principal principal) {
         Lead lead = leadRepository.findById(leadRequest.getId()).orElse(null);
-//        if (httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())) {
-//            changeService.submit(SubmitReq.builder()
-//                    .id(leadRequest.getId())
-//                    .comment(leadRequest.getComment())
-//                    .submitType(ESubmitTypeChangeLog.DELETE)
-//                    .username(principal.getName())
-//                    .type(ETypeChangeLog.LEAD)
-//                    .toValue(Lead.builder()
-//                            .updatedBy(updateByUser)
-//                            .updatedDateTime(ZonedDateTimeUtil.now())
-//                            .build())
-//                    .build());
-//        } else {
-//        }
         if(lead != null) {
             if(lead.getBooks() == null) {
                 List<FileResponse> fileResponses = new ArrayList<>();
@@ -369,21 +384,6 @@ public class LeadController {
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> leadDeleteBook(@RequestBody LeadRequest leadRequest, Principal principal) {
         Lead lead = leadRepository.findById(leadRequest.getId()).orElse(null);
-        User updateByUser = userRepository.findByUsername(principal.getName()).orElse(null);
-//        if (httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())) {
-//            changeService.submit(SubmitReq.builder()
-//                    .id(leadRequest.getId())
-//                    .comment(leadRequest.getComment())
-//                    .submitType(ESubmitTypeChangeLog.DELETE)
-//                    .username(principal.getName())
-//                    .type(ETypeChangeLog.LEAD)
-//                    .toValue(Lead.builder()
-//                            .updatedBy(updateByUser)
-//                            .updatedDateTime(ZonedDateTimeUtil.now())
-//                            .build())
-//                    .build());
-//        } else {
-//        }
         if(lead != null) {
             List<FileResponse> fileResponses = lead.getBooks().stream()
                     .filter(book -> !book.getId().equals(leadRequest.getBook().getId()))
