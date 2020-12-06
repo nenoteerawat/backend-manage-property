@@ -64,7 +64,7 @@ pdf-default-parameters:
     district: ${pdf-default-parameters.default-value}
     province: ${pdf-default-parameters.default-value}
     and: ${pdf-default-parameters.default-value}
-    idCardNuber2: ${pdf-default-parameters.default-value}
+    idCardNumber2: ${pdf-default-parameters.default-value}
     age2: ${pdf-default-parameters.default-value}
     address2: ${pdf-default-parameters.default-value}
     village2: ${pdf-default-parameters.default-value}
@@ -72,7 +72,7 @@ pdf-default-parameters:
     amphoe2: ${pdf-default-parameters.default-value}
     district2: ${pdf-default-parameters.default-value}
     province2: ${pdf-default-parameters.default-value}
-    onwer: ${pdf-default-parameters.default-value}
+    owner: ${pdf-default-parameters.default-value}
     room: ${pdf-default-parameters.default-value}
     building: ${pdf-default-parameters.default-value}
     floor: ${pdf-default-parameters.default-value}
@@ -106,3 +106,31 @@ pdf-default-parameters:
     saleName: ${pdf-default-parameters.default-value}
     rangeDateStart: ${pdf-default-parameters.default-value}
     rangeDateEnd: ${pdf-default-parameters.default-value}
+  sellAndPurchaseAgreement:
+    title1: ${pdf-default-parameters.default-value}
+    title2: ${pdf-default-parameters.default-value}
+    contract: ${pdf-default-parameters.default-value}
+    address1: ${pdf-default-parameters.default-value}
+    idCardNumber1: ${pdf-default-parameters.default-value}
+    address2: ${pdf-default-parameters.default-value}
+    idCardNumber2: ${pdf-default-parameters.default-value}
+    roomName: ${pdf-default-parameters.default-value}
+    roomNumber: ${pdf-default-parameters.default-value}
+    floor: ${pdf-default-parameters.default-value}
+    area: ${pdf-default-parameters.default-value}
+    width: ${pdf-default-parameters.default-value}
+    long: ${pdf-default-parameters.default-value}
+    height: ${pdf-default-parameters.default-value}
+    address3: ${pdf-default-parameters.default-value}
+    address4: ${pdf-default-parameters.default-value}
+    road: ${pdf-default-parameters.default-value}
+    amphoe: ${pdf-default-parameters.default-value}
+    district: ${pdf-default-parameters.default-value}
+    province: ${pdf-default-parameters.default-value}
+    zipcode: ${pdf-default-parameters.default-value}
+    price: ${pdf-default-parameters.default-value}
+    contract2: ${pdf-default-parameters.default-value}
+    price2: ${pdf-default-parameters.default-value}
+    registry: ${pdf-default-parameters.default-value}
+    dateRegistry: ${pdf-default-parameters.default-value}
+    addNewRule: ${pdf-default-parameters.default-value}

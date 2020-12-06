@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1605"/>
+	<property name="ireport.y" value="1576"/>
 	<parameter name="REPORT_PATH" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
 	</parameter>
@@ -14,6 +14,33 @@
 	</parameter>
 	<parameter name="WITNESS" class="java.lang.String"/>
 	<parameter name="AGENT" class="java.lang.String"/>
+	<parameter name="TITLE1" class="java.lang.String"/>
+	<parameter name="TITLE2" class="java.lang.String"/>
+	<parameter name="CONTRACT" class="java.lang.String"/>
+	<parameter name="ADDRESS1" class="java.lang.String"/>
+	<parameter name="ID_CARD_NUMBER1" class="java.lang.String"/>
+	<parameter name="ADDRESS2" class="java.lang.String"/>
+	<parameter name="ID_CARD_NUMBER2" class="java.lang.String"/>
+	<parameter name="ROOM_NAME" class="java.lang.String"/>
+	<parameter name="ROOM_NUMBER" class="java.lang.String"/>
+	<parameter name="FLOOR" class="java.lang.String"/>
+	<parameter name="AREA" class="java.lang.String"/>
+	<parameter name="WIDTH" class="java.lang.String"/>
+	<parameter name="LONG" class="java.lang.String"/>
+	<parameter name="HEIGHT" class="java.lang.String"/>
+	<parameter name="ADDRESS3" class="java.lang.String"/>
+	<parameter name="ADDRESS4" class="java.lang.String"/>
+	<parameter name="ROAD" class="java.lang.String"/>
+	<parameter name="AMPHOE" class="java.lang.String"/>
+	<parameter name="DISTRICT" class="java.lang.String"/>
+	<parameter name="PROVINCE" class="java.lang.String"/>
+	<parameter name="ZIPCODE" class="java.lang.String"/>
+	<parameter name="PRICE" class="java.lang.String"/>
+	<parameter name="CONTRACT2" class="java.lang.String"/>
+	<parameter name="PRICE2" class="java.lang.String"/>
+	<parameter name="REGISTRY" class="java.lang.String"/>
+	<parameter name="DATE_REGISTRY" class="java.lang.String"/>
+	<parameter name="ADD_NEW_RULE" class="java.lang.String"/>
 	<variable name="PAGE_AMOUT" class="java.lang.Integer">
 		<variableExpression><![CDATA[3]]></variableExpression>
 		<initialValueExpression><![CDATA[3]]></initialValueExpression>
@@ -134,12 +161,20 @@
 		</band>
 		<band height="200">
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="77" uuid="d65319a8-2ad5-41de-92e9-adbbff4df3ab"/>
+				<reportElement x="0" y="99" width="555" height="77" uuid="d65319a8-2ad5-41de-92e9-adbbff4df3ab"/>
 				<textElement markup="html">
 					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
 				</textElement>
 				<text><![CDATA[สัญญาฉบับนี้ทำขึ้นเป็นสามฉบับ ซึ่งมีข้อความถูกต้องตรงกันทุกประการ คู่สัญญาทั้งสองฝ่ายต่างได้อ่าน และ ทำความเข้าใจในความทั้งหมดแล้ว และตกลงที่จะปฏิบัติตามข้อสัญญาทุกประการ ดังนั้นคู่สัญญาทั้งสองฝ่ายจึงได้ลงลายมือ ชื่อไว้เป็นหลักฐานต่อหน้าสักขีพยาน ตามวันที่ ที่ระบุไว้ข้างต้นของสัญญาฉบับนี้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="99" uuid="eac419f4-f879-430e-b5b3-40e2834d4554"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<text><![CDATA[In witness whereof, this agreement is executed in 3 identical counterparts, the parties have read and understood and willing to comply all terms and conditions of this agreement and have hereto appended their respective signatures and affixed their official seals (if any) on the date that had been mentioned on this agreement. ]]></text>
 			</staticText>
 		</band>
 	</detail>

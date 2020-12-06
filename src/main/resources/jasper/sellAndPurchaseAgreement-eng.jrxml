@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="3507"/>
+	<parameter name="REPORT_PATH" class="java.lang.String">
+		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SELLER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="BUYER" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="WITNESS" class="java.lang.String"/>
+	<parameter name="AGENT" class="java.lang.String"/>
+	<parameter name="TITLE1" class="java.lang.String"/>
+	<parameter name="TITLE2" class="java.lang.String"/>
+	<parameter name="CONTRACT" class="java.lang.String"/>
+	<parameter name="ADDRESS1" class="java.lang.String"/>
+	<parameter name="ID_CARD_NUMBER1" class="java.lang.String"/>
+	<parameter name="ADDRESS2" class="java.lang.String"/>
+	<parameter name="ID_CARD_NUMBER2" class="java.lang.String"/>
+	<parameter name="ROOM_NAME" class="java.lang.String"/>
+	<parameter name="ROOM_NUMBER" class="java.lang.String"/>
+	<parameter name="FLOOR" class="java.lang.String"/>
+	<parameter name="AREA" class="java.lang.String"/>
+	<parameter name="WIDTH" class="java.lang.String"/>
+	<parameter name="LONG" class="java.lang.String"/>
+	<parameter name="HEIGHT" class="java.lang.String"/>
+	<parameter name="ADDRESS3" class="java.lang.String"/>
+	<parameter name="ADDRESS4" class="java.lang.String"/>
+	<parameter name="ROAD" class="java.lang.String"/>
+	<parameter name="AMPHOE" class="java.lang.String"/>
+	<parameter name="DISTRICT" class="java.lang.String"/>
+	<parameter name="PROVINCE" class="java.lang.String"/>
+	<parameter name="ZIPCODE" class="java.lang.String"/>
+	<parameter name="PRICE" class="java.lang.String"/>
+	<parameter name="CONTRACT2" class="java.lang.String"/>
+	<parameter name="PRICE2" class="java.lang.String"/>
+	<parameter name="REGISTRY" class="java.lang.String"/>
+	<parameter name="DATE_REGISTRY" class="java.lang.String"/>
+	<parameter name="ADD_NEW_RULE" class="java.lang.String"/>
+	<variable name="PAGE_AMOUT" class="java.lang.Integer">
+		<variableExpression><![CDATA[6]]></variableExpression>
+		<initialValueExpression><![CDATA[6]]></initialValueExpression>
+	</variable>
+	<pageHeader>
+		<band height="100">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="33" uuid="24939ac8-166e-4bbc-8dfd-e86b0f747795"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[หนังสือสัญญาจะซื้อจะขาย]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="32" width="555" height="34" uuid="4a46d169-8df6-4820-9bff-9ea29f330713"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALL AND PURCHASE AGREEMENT]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="99" width="555" height="1" uuid="5ee01a56-e3a7-4ed7-ad9d-644db4956224"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="550" splitType="Prevent">
+			<textField>
+				<reportElement x="0" y="50" width="555" height="29" uuid="40f689e1-06e2-41b1-b9d5-b699fa41fd42"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["เขียนที่ ...................... / Written at ....................."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="79" width="555" height="20" uuid="15ef3b5f-1d7f-4241-88eb-1ba79f498270"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[<b>This agreement is made between,</b>]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="99" width="555" height="101" uuid="df1059a2-85d4-4e90-8ae1-3751fa96d378"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Mr. .........................., Address is  ............................................................................................................................... ID card number is ............................ and Ms. ...................................,Address is .............................................................. ID card number is .................................. Referred as the Seller and Ms. ................................., Passport number is ........................... referred as Buyer. Both parties agreed to make a contract with the following content."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="200" width="555" height="80" uuid="e787dbae-f6b6-4c5b-8f29-02e007d211eb"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["No. 1. The seller is the owner of the condominium &quot;.................., unit no. .......... ...... Floor area ............ Sqm., ............................ with all Interior Design and Furniture&quot; Referred as “Premises” which is on the deed number........................................"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="280" width="555" height="76" uuid="5b5437a5-747e-43fd-8567-366537db6207"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["No. 2. The seller agrees to sell and the buyer agrees to buy the &quot;Premises&quot; abovementioned in No. 1. By free of any obligation or any responsibility in the total price of ...................... THB (..................... Thai baht)"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="356" width="555" height="193" uuid="a39110c8-2a4f-4297-be20-da0777eba2bf"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["No. 3. On the beginning of this contract, The Buyer agrees to pay the deposit to The Seller in the amount of ..................... THB (................... Thai baht) Which The Buyer had already paid ................. THB (...................... Thai baht) as part of the total amount on ......................... And The Buyer had accepted the abovementioned deposit amount by wire transfer with the receipt, whereas the total deposit amount shall be held as part of the selling price from The Seller. (In case the buyer pay the deposit amount in cheque, this agreement will be complete after only the cheque has been approve and the payment is complete by the bank)"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="549" width="555" height="1" uuid="0d44b787-d439-4819-8873-bd0682f48ff5"/>
+			</break>
+			<textField>
+				<reportElement x="0" y="21" width="555" height="29" uuid="e7e965fc-5894-4866-b1ff-4c058b418630"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[".................... 2563 / ................. 2020"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="500">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="76" uuid="05ea7626-bccb-464d-aa81-3464fe7c2e59"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["No. 4 The rest of the amount in total of .......................THB (...........................Thai baht) The Buyer agrees to pay the abovementioned about to The Seller at the Land Office Department, .......................branches within ........................ 2019. "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="77" width="555" height="422" uuid="2c174dcf-539c-4748-b43b-cbd87f7ed07c"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<text><![CDATA[No. 5. The seller and The buyer agrees to pay half each of the Transfer Fee at the Land Office Department and the rest of the fees including income tax and revenue stamp will be pay by The Seller.
+<br>No. 6. The seller agrees to pay all the bills and fees including water bill, electricity bill, maintenance fees and all the fees to be in arrears before the transfer of the ownership is complete.
+<br>No. 7. The seller agrees to transfer the ownership of the water and electricity meter to the buyer. And will not reclaim any of the maintenance or insurance fees from the condo, by considered it a part of the “Premises” both parties had agreed to buy and sell in this agreement.
+<br>No. 8. The seller agrees to willingly let the buyer transfer the ownership of the “Premises” to whomever the buyer please to decide.
+<br>No. 9. The Buyer will have to prepare all the payment and document as mentioned in the clause No.4 to be ready for the Transfer date.
+<br>No. 10. The Seller will have to proceed with the mortgage redeem and the debt-free certificate and the foreigner quota check or any necessary document of process to be ready for the transfer day as mentioned in the clause No.4
+]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="499" width="555" height="1" uuid="7a27f3bc-87ed-41e0-a01c-bc2ab8b1150f"/>
+			</break>
+		</band>
+		<band height="200">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="199" uuid="d65319a8-2ad5-41de-92e9-adbbff4df3ab"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<text><![CDATA[No. 11. In case of any act from the buyer that violates the terms and conditions of this agreement, the seller can immediately terminate this agreement without any warning or informing to the buyer in advance, and the buyer will allow the seller to forfeit any amount of the fees the buyer had paid.
+<br>No. 12. In case of any act from the seller that violates the terms and conditions of this agreement, the buyer can immediately terminate this agreement whereas the seller must pay the buyer double the amount the buyer had already paid.
+]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="199" width="555" height="1" uuid="60f0c8cf-16be-44b2-96f4-cd7980cd54f6"/>
+			</break>
+		</band>
+		<band height="500">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="24" uuid="101346bf-2c23-4296-a6c1-91508406ca8b"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[<b>สัญญาฉบับนี้ทำขึ้นระหว่าง</b>]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="24" width="555" height="82" uuid="5ccabaf1-9b5b-4c2b-914d-8ab9dd404c47"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["นาย......................ที่อยู่......................................,หมายเลขบัตรประจำตัวประชาชน ......................... และ นางสาว.......................... ที่อยู่ ............................. หมายเลขบัตรประจำตัวประชาชน ............................. ซึ่งต่อไปในสัญญาฉบับนี้จะเรียกว่า &quot;ผู้จะขาย&quot; และคุณ .............................. หมายเลขพาสปอร์ต ............................. ซึ่งต่อไปในสัญญาฉบับนี้จะเรียกว่า &quot;ผู้จะซื้อ&quot; "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="106" width="555" height="24" uuid="602f9e57-45a9-4754-bc19-7afa7bedff29"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ทั้งสองฝ่ายต่างตกลงทำสัญญาฉบับนี้ขึ้นด้วยความสมัครใจดังต่อไปนี้]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="130" width="555" height="78" uuid="7cf5eacd-3de6-4666-89f6-d4a2e17d0fef"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ข้อ 1. ผู้จะขายเป็นเจ้าของห้องชุด........................หมายเลขห้องชุด ..................... ชั้น.........เนื้อที่ ....................... ตารางเมตร และ ของตกแต่งภายในและเฟอร์นิเจอร์ทั้งหมด, ........................... ซึ่งต่อไปในสัญญาฉบับนี้ จะเรียกว่า &quot;ทรัพย์สิน&quot; ตั้งอยู่บนโฉนดเลขที่..............................."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="208" width="555" height="55" uuid="2848f2b0-3ace-4332-98be-9f3241b7a3f4"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ข้อ 2. ผู้จะขายตกลงจะขาย และผู้จะซื้อตกลงจะซื้อ &quot;ทรัพย์สิน&quot; ดังกล่าวในข้อ 1. โดยปลอดภาระผูกพันและภาระ ติดพันใดๆ ในราคารวมทั้งสิ้น ......................... บาท (..................ถ้วน) "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="263" width="555" height="137" uuid="f851b0b1-d1ac-4fe3-a4c5-f35e44769a22"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ข้อ 3. ในวันที่ทำสัญญาฉบับนี้ ผู้จะซื้อตกลงวางเงินมัดจำให้แก่ผู้จะขาย เป็นจำนวนเงิน .................... บาท (...................บาทถ้วน) โดยผู้จะซื้อได้ชำระเงินมัดจำมาแล้ว ส่วนหนึ่งในจำนวน ................ บาท (.....................บาทถ้วน) ในวันที่ ................... โดยชำระผ่านการโอนจากธนาคาร ซึ่งผู้จะขาย ได้รับไว้เรียบร้อยถูกต้องครบถ้วนแล้ว โดยที่คู่สัญญา จะถือว่าเงิน มัดจำดังกล่าวนี้ เป็นเงินชำระราคาส่วนหนึ่ง (ในกรณีที่ชำระเป็นเช็คสัญญาฉบับนี้จะสมบูรณ์ก็ต่อเมื่อเช็คได้ ผ่านการชำระเงิน ตามระเบียบของธนาคารเรียบร้อยแล้ว)"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="400" width="555" height="65" uuid="f722f76b-12bf-4068-8ea9-3aa9a93c32ed"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<textFieldExpression><![CDATA['ข้อ 4. ส่วนที่เหลือจำนวน ......................... บาท (....................บาทถ้วน) ผู้จะซื้อตกลงชำระให้แก่ผู้จะขาย ในวันจดทะเบียนโอนกรรมสิทธิ์ ณ สำนักงานทะเบียนที่ดินจังหวัดกรุงเทพมหานคร สาขา................... ภายในวันที่ ....................2563']]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="465" width="555" height="1" uuid="bd61a6b7-7d63-4859-b624-76f9d212d2b2"/>
+			</break>
+		</band>
+		<band height="500">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="500" uuid="026e89e7-c553-4f8c-af11-671251ae440d"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<text><![CDATA[ข้อ 5. ค่าอากรสแตมป์ และค่าภาษีเงินได้บุคคลธรรมดา ผู้จะขายตกลงยอมรับที่จะเป็นผู้รับผิดชอบค่าใช้จ่ายนี้ และ ค่าธรรมเนียมการโอนกรรมสิทธิ์ผู้จะขายและผู้จะซื้อตกลงที่จะเป็นผู้รับผิดชอบค่าใช้จ่ายนี้คนละครึ่ง
+<br>ข้อ 6. ผู้จะขายตกลงรับผิดชอบภาระหนี้สินต่างๆ เช่นค่านํ้า ค่าไฟ และค่าใช้จ่ายอื่นๆ รวมค่าใช้จ่ายส่วนกลาง ทั้งหมดที่ยังคงค้างชำระในช่วงเวลาก่อนจดทะเบียนกรรมสิทธิ์ให้เรียบร้อย
+<br>ข้อ 7. ผู้จะขายยินยอมที่จะโอนกรรมสิทธิ์มิเตอร์นํ้าและมิเตอร์ไฟฟ้าให้แก่ผู้ซื้อ ส่วนเงินค่าส่วนกลาง ค่าประกันต่างๆ ของคอนโด              ผู้จะขายจะไม่เรียกเก็บเงินคืน โดยถือว่าเป็นส่วนหนึ่งของทรัพย์สินที่จะซื้อจะขายตามสัญญานี้
+<br>ข้อ 8. ผู้จะขายยินยอมที่จะให้ผู้จะซื้อโอนกรรมสิทธิ์ใส่ชื่อของบุคคลภายนอกหรือญาติของผู้จะซื้อก็ได้
+<br>ข้อ 9. ภาระหน้าที่ของผู้จะซื้อจะต้องจัดเตรียมการชำระเงินและเอกสารต่างๆให้พร้อม ณ วันโอนกรรมสิทธิ์ทรัพย์สิน ตามข้อ 4. ให้เรียบร้อย
+<br>ข้อ 10. ภาระหน้าที่ของผู้จะขายจะต้องดำเนินการไถ่ถอนจำนอง หนังสือปลดภาระหนี้ส่วนกลาง หนังสือสัดส่วน พื้นที่ของทรัพย์ในการถือครองกรรมสิทธิ์ของชาวต่างชาติหรือเอกสารใดที่จำเป็นใดๆ เพื่อดำเนินการโอนกรรมสิทธิ์ตามข้อ 4. ให้เรียบร้อย
+<br>ข้อ 11. ในกรณีที่ผู้จะซื้อกระทำการใดๆ ซึ่งผิดข้อตกลงตามสัญญาฉบับนี้ ผู้จะขายสามารถยกเลิกสัญญาได้ทันที โดยไม่ต้องบอกกล่าวเตือนให้ผู้จะซื้อทราบล่วงหน้า และผู้จะซื้อยินยอมให้ผู้จะขายริบเงินจำนวนที่ผู้จะซื้อได้ชำระไปแล้ว
+<br>ข้อ 12. ในกรณีที่ผู้จะขายกระทำการใดๆ ซึ่งผิดข้อตกลงตามสัญญาฉบับนี้ ผู้จะซื้อสามารถยกเลิกสัญญาได้ทันที โดยผู้จะขายจะยอมจ่ายค่าปรับแก่ผู้จะซื้อเป็นจำนวน 1 เท่า ของจำนวนที่ผู้จะซื้อได้ชำระไปแล้ว]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="499" width="555" height="1" uuid="4bc1b1cd-d854-40e3-8f0d-348751d7f20c"/>
+			</break>
+		</band>
+		<band height="200">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="200" uuid="f0440e33-aa4c-4dca-935c-ea19de16c318"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
+				</textElement>
+				<text><![CDATA[In witness whereof, this agreement is executed in 3 identical counterparts, the parties have read and understood and willing to comply all terms and conditions of this agreement and have hereto appended their respective signatures and affixed their official seals (if any) on the date that had been mentioned on this agreement.
+<br>สัญญาฉบับนี้ทำขึ้นเป็นสามฉบับ ซึ่งมีข้อความถูกต้องตรงกันทุกประการ คู่สัญญาทั้งสองฝ่ายต่างได้อ่าน และ ทำความเข้าใจในความทั้งหมดแล้ว และตกลงที่จะปฏิบัติตามข้อสัญญาทุกประการ ดังนั้น คู่สัญญาทั้งสองฝ่ายจึงได้ลงลายมือ ชื่อไว้เป็นหลักฐานต่อหน้าสักขีพยานตามวันที่ที่ระบุไว้ข้างต้นของสัญญาฉบับนี้
+]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="42">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} != $V{PAGE_AMOUT}]]></printWhenExpression>
+			<image>
+				<reportElement x="241" y="0" width="83" height="42" uuid="33a7e922-a5d6-41f1-914c-7d58dfddb37e"/>
+				<imageExpression><![CDATA[$P{REPORT_PATH}+"/HOME-WHITE-LOGO.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="241" height="42" uuid="38baa958-813f-436c-bd6f-59150c456742"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" rightIndent="40"/>
+				</textElement>
+				<text><![CDATA[Seller / ผู้จะขาย ...................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="0" width="231" height="42" uuid="c36c31ad-a850-4c8d-b5c2-75e913fa1c3d"/>
+				<textElement verticalAlignment="Bottom" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" leftIndent="40"/>
+				</textElement>
+				<text><![CDATA[Buyer / ผู้จะซื้อ  ...................................]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="240">
+			<staticText>
+				<reportElement x="144" y="0" width="276" height="24" uuid="e2cd5539-31d8-4502-95c5-7cf8cf6cf103"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ ................................... ผู้จะขาย / Seller]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="24" width="276" height="24" uuid="23f474b6-1188-4cbc-a190-fc384812bd36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(.........."+$P{SELLER}+"............)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="144" y="48" width="276" height="24" uuid="3e071b93-ba15-4f16-93dc-d0431df31894"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ ................................... ผู้จะซื้อ / Buyer]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="72" width="276" height="24" uuid="318895cf-8653-4934-b508-a20e0c0c4d59"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(........."+$P{BUYER}+"...........)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="144" y="96" width="276" height="24" uuid="82064bc5-9ea3-426a-abd9-43009ca8fa04"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ................................... ตัวแทน / Agent]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="120" width="276" height="24" uuid="c8f47cae-5d8b-4797-b677-569176d84008"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{AGENT} + ".......)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="144" y="144" width="276" height="24" uuid="fcc214b4-138a-4742-8685-92592ab242df"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ................................... พยาน / Witness]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="144" y="168" width="276" height="24" uuid="e770d491-d11d-4211-8da2-6ac99ae04dfd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{WITNESS} + ".......)"]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Bottom">
+				<reportElement positionType="FixRelativeToBottom" x="241" y="198" width="83" height="42" uuid="3465aa84-2865-4ce0-b657-8d3e593513c0"/>
+				<imageExpression><![CDATA[$P{REPORT_PATH}+"/HOME-WHITE-LOGO.png"]]></imageExpression>
+			</image>
+		</band>
+	</summary>
+</jasperReport>

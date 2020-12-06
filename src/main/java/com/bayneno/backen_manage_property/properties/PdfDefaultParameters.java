@@ -13,4 +13,6 @@ import java.util.Map;
 public class PdfDefaultParameters {
     private Map<String, String> leaseAgreement = new HashMap<>();
     private Map<String, String> realEstateAgentAgreement = new HashMap<>();
+    private Map<String, String> sellAndPurchaseAgreement = new HashMap<>();
+    private Map<String, String> exclusiveAgreement = new HashMap<>();
 }
