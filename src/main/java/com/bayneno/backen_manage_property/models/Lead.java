@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -104,6 +105,11 @@ public class Lead {
 
   private FileResponse file;
   private List<FileResponse> books;
+  private Map<String , String> leasePDF;
+  private Map<String , String> sellPDF;
+  private Map<String , String> agentAgreementPDF;
+  private Map<String , String> exclusivePDF;
+  private Map<String , String> coBrokePDF;
 
   @DBRef
   private User saleUser;
