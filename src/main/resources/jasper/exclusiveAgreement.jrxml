@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="2320"/>
+	<property name="ireport.y" value="704"/>
 	<parameter name="REPORT_PATH" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
 	</parameter>
@@ -25,8 +25,7 @@
 	<parameter name="BUILDING" class="java.lang.String"/>
 	<parameter name="AREA" class="java.lang.String"/>
 	<parameter name="ADDRESS2" class="java.lang.String"/>
-	<parameter name="REWARD1" class="java.lang.String"/>
-	<parameter name="REWARD2" class="java.lang.String"/>
+	<parameter name="REWARD" class="java.lang.String"/>
 	<parameter name="DATE_START" class="java.lang.String"/>
 	<parameter name="DATE_END" class="java.lang.String"/>
 	<parameter name="CONTRACT" class="java.lang.String"/>
@@ -130,7 +129,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
 				</textElement>
-				<textFieldExpression><![CDATA["3. หากผู้จะขายสามารถขายทรัพย์สินดังกล่าวข้างต้นได้ จากการที่นายหน้าได้ทาการช้ีช่องหรือจัดการเสาะหาผู้ซ้ือได้ ผู้จะขายตกลงท่ีจะชำระค่าบำเหน็จให้แก่นายหน้าเป็นจำนวนร้อยละ ......"+$P{REWARD1}+"..... จากราคาที่ตกลงซ้ือขาย"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["3. หากผู้จะขายสามารถขายทรัพย์สินดังกล่าวข้างต้นได้ จากการที่นายหน้าได้ทาการช้ีช่องหรือจัดการเสาะหาผู้ซ้ือได้ ผู้จะขายตกลงท่ีจะชำระค่าบำเหน็จให้แก่นายหน้าเป็นจำนวนร้อยละ ......"+$P{REWARD}+"..... จากราคาที่ตกลงซ้ือขาย"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="443" width="555" height="46" uuid="17bef888-f97a-4869-aa6f-187e5d3338fc"/>
@@ -146,7 +145,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["3.2 ในวันท่ีผู้จะขายได้รับเงินชาระราคาซ้ือขายครบถ้วนจากผู้ซื้อแล้ว ผู้จะขายจะชาระค่าบาเหน็จงวดที่สองให้แก่นายหน้าเป็นจานวนที่เหลือ จนครบร้อยละ ..."+$P{REWARD2}+".... ของราคาซื้อขายท่ีตกลง"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["3.2 ในวันท่ีผู้จะขายได้รับเงินชาระราคาซ้ือขายครบถ้วนจากผู้ซื้อแล้ว ผู้จะขายจะชาระค่าบาเหน็จงวดที่สองให้แก่นายหน้าเป็นจานวนที่เหลือ จนครบร้อยละ ..."+$P{REWARD}+".... ของราคาซื้อขายท่ีตกลง"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="540" width="555" height="46" uuid="7e0cb75d-7d40-481c-b551-365f8faf5e5f"/>
