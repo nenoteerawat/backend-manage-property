@@ -134,3 +134,38 @@ pdf-default-parameters:
     registry: ${pdf-default-parameters.default-value}
     dateRegistry: ${pdf-default-parameters.default-value}
     addNewRule: ${pdf-default-parameters.default-value}
+  exclusiveAgreement:
+    title1: ${pdf-default-parameters.default-value}
+    title2: ${pdf-default-parameters.default-value}
+    name: ${pdf-default-parameters.default-value}
+    idCardNumber: ${pdf-default-parameters.default-value}
+    address: ${pdf-default-parameters.default-value}
+    ownerName: ${pdf-default-parameters.default-value}
+    roomNumber: ${pdf-default-parameters.default-value}
+    floor: ${pdf-default-parameters.default-value}
+    building: ${pdf-default-parameters.default-value}
+    area: ${pdf-default-parameters.default-value}
+    address2: ${pdf-default-parameters.default-value}
+    reward: ${pdf-default-parameters.default-value}
+    dateStart: ${pdf-default-parameters.default-value}
+    dateEnd: ${pdf-default-parameters.default-value}
+    contract: ${pdf-default-parameters.default-value}
+  coBrokerFrom:
+    coBrokeRef: ${pdf-default-parameters.default-value}
+    enqRef: ${pdf-default-parameters.default-value}
+    dateRegistration: ${pdf-default-parameters.default-value}
+    companyName: ${pdf-default-parameters.default-value}
+    representativeName: ${pdf-default-parameters.default-value}
+    companyAddress: ${pdf-default-parameters.default-value}
+    contact: ${pdf-default-parameters.default-value}
+    title: ${pdf-default-parameters.default-value}
+    name: ${pdf-default-parameters.default-value}
+    surname: ${pdf-default-parameters.default-value}
+    nationality: ${pdf-default-parameters.default-value}
+    tel: ${pdf-default-parameters.default-value}
+    email: ${pdf-default-parameters.default-value}
+    checkboxTypeBuyClient: ${pdf-default-parameters.default-value}
+    checkboxTypeRentClient: ${pdf-default-parameters.default-value}
+    budget: ${pdf-default-parameters.default-value}
+    bedroom: ${pdf-default-parameters.default-value}
+    projectName: ${pdf-default-parameters.default-value}

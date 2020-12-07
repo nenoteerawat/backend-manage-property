@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="3507"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="REPORT_PATH" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
 	</parameter>
@@ -74,7 +74,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["เขียนที่ ...................... / Written at ....................."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["เขียนที่ ......."+$P{TITLE1}+"......... / Written at ......."+$P{TITLE2}+"........."]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="79" width="555" height="20" uuid="15ef3b5f-1d7f-4241-88eb-1ba79f498270"/>
@@ -90,7 +90,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Mr. .........................., Address is  ............................................................................................................................... ID card number is ............................ and Ms. ...................................,Address is .............................................................. ID card number is .................................. Referred as the Seller and Ms. ................................., Passport number is ........................... referred as Buyer. Both parties agreed to make a contract with the following content."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Mr. ......."+$P{CONTRACT}+"........, Address is  ........................."+$P{ADDRESS1}+"............................ ID card number is ..........."+$P{ID_CARD_NUMBER1}+".......... and Ms. ................."+$P{CONTRACT2}+"...........,Address is ......................."+$P{ADDRESS2}+"...................... ID card number is ............."+$P{ID_CARD_NUMBER2}+"......... Referred as the Seller and Ms. ................................., Passport number is ........................... referred as Buyer. Both parties agreed to make a contract with the following content."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="200" width="555" height="80" uuid="e787dbae-f6b6-4c5b-8f29-02e007d211eb"/>
@@ -98,7 +98,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
 				</textElement>
-				<textFieldExpression><![CDATA["No. 1. The seller is the owner of the condominium &quot;.................., unit no. .......... ...... Floor area ............ Sqm., ............................ with all Interior Design and Furniture&quot; Referred as “Premises” which is on the deed number........................................"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["No. 1. The seller is the owner of the condominium &quot;......"+$P{ROOM_NAME}+"......., unit no. ......"+$P{ROOM_NUMBER}+"..... Floor area ....."+$P{FLOOR}+".... Sqm., ........."+$P{AREA}+".......... with all Interior Design and Furniture&quot; Referred as “Premises” which is on the deed number........................................"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="280" width="555" height="76" uuid="5b5437a5-747e-43fd-8567-366537db6207"/>
@@ -106,7 +106,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
 				</textElement>
-				<textFieldExpression><![CDATA["No. 2. The seller agrees to sell and the buyer agrees to buy the &quot;Premises&quot; abovementioned in No. 1. By free of any obligation or any responsibility in the total price of ...................... THB (..................... Thai baht)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["No. 2. The seller agrees to sell and the buyer agrees to buy the &quot;Premises&quot; abovementioned in No. 1. By free of any obligation or any responsibility in the total price of ........"+$P{PRICE}+"........ THB (..................... Thai baht)"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="356" width="555" height="193" uuid="a39110c8-2a4f-4297-be20-da0777eba2bf"/>
@@ -135,7 +135,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
 				</textElement>
-				<textFieldExpression><![CDATA["No. 4 The rest of the amount in total of .......................THB (...........................Thai baht) The Buyer agrees to pay the abovementioned about to The Seller at the Land Office Department, .......................branches within ........................ 2019. "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["No. 4 The rest of the amount in total of .......................THB (...........................Thai baht) The Buyer agrees to pay the abovementioned about to The Seller at the Land Office Department, ........."+$P{REGISTRY}+".....branches within ..........."+$P{DATE_REGISTRY}+"....... "]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="77" width="555" height="422" uuid="2c174dcf-539c-4748-b43b-cbd87f7ed07c"/>
@@ -305,7 +305,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["(.........."+$P{SELLER}+"............)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["(..............."+$P{SELLER}+"...............)"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="144" y="48" width="276" height="24" uuid="3e071b93-ba15-4f16-93dc-d0431df31894"/>
@@ -321,7 +321,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["(........."+$P{BUYER}+"...........)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["(..............."+$P{BUYER}+"...............)"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="144" y="96" width="276" height="24" uuid="82064bc5-9ea3-426a-abd9-43009ca8fa04"/>
@@ -337,7 +337,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["(......." + $P{AGENT} + ".......)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["(..............." + $P{AGENT} + "...............)"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="144" y="144" width="276" height="24" uuid="fcc214b4-138a-4742-8685-92592ab242df"/>
@@ -353,7 +353,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["(......." + $P{WITNESS} + ".......)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["(..............." + $P{WITNESS} + "...............)"]]></textFieldExpression>
 			</textField>
 			<image hAlign="Center" vAlign="Bottom">
 				<reportElement positionType="FixRelativeToBottom" x="241" y="198" width="83" height="42" uuid="3465aa84-2865-4ce0-b657-8d3e593513c0"/>

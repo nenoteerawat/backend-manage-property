@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="304"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="REPORT_PATH" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
 	</parameter>
@@ -390,6 +390,14 @@
 				</textElement>
 				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="115" y="268" width="17" height="17" uuid="e94c8f75-e775-4844-ad1f-1e95a3418d84"/>
+				<imageExpression><![CDATA[$P{REPORT_PATH}+"/CHECKED.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="224" y="268" width="17" height="17" uuid="c392c353-56e4-47c8-a133-e4f123d42286"/>
+				<imageExpression><![CDATA[$P{REPORT_PATH}+"/CHECKED.png"]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 	<pageFooter>
