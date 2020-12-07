@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="2396"/>
+	<property name="ireport.y" value="1088"/>
 	<parameter name="REPORT_PATH" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
 	</parameter>
@@ -20,6 +20,23 @@
 	<parameter name="AGENT" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="CONTRACT" class="java.lang.String"/>
+	<parameter name="DATE_TIME" class="java.lang.String"/>
+	<parameter name="NAME" class="java.lang.String"/>
+	<parameter name="ID_CARD_NUMBER" class="java.lang.String"/>
+	<parameter name="ADDRESS" class="java.lang.String"/>
+	<parameter name="NAME_SALE" class="java.lang.String"/>
+	<parameter name="ID_CARD_NUMBER_SALE" class="java.lang.String"/>
+	<parameter name="ADDRESS_SALE" class="java.lang.String"/>
+	<parameter name="BROKER" class="java.lang.String"/>
+	<parameter name="ADDRESS2" class="java.lang.String"/>
+	<parameter name="BUILDING" class="java.lang.String"/>
+	<parameter name="FLOOR" class="java.lang.String"/>
+	<parameter name="AREA" class="java.lang.String"/>
+	<parameter name="ADDRESS_FULL" class="java.lang.String"/>
+	<parameter name="SALE_NAME" class="java.lang.String"/>
+	<parameter name="RANGE_DATE_START" class="java.lang.String"/>
+	<parameter name="RANGE_DATE_END" class="java.lang.String"/>
 	<variable name="PAGE_AMOUT" class="java.lang.Integer">
 		<variableExpression><![CDATA[4]]></variableExpression>
 		<initialValueExpression><![CDATA[4]]></initialValueExpression>
@@ -56,7 +73,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["สัญญาฉบับนี้เขียนขึ้นที่ ............................................................ "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["สัญญาฉบับนี้เขียนขึ้นที่ .................."+$P{CONTRACT}+"................. "]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="29" width="555" height="29" uuid="df885ca6-deb3-4c96-8c19-5e41764fe9ce"/>
@@ -64,7 +81,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["เมื่อวันที่ ..................................................."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["เมื่อวันที่ ............"+$P{DATE_TIME}+"................"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="58" width="555" height="20" uuid="15ef3b5f-1d7f-4241-88eb-1ba79f498270"/>
@@ -80,7 +97,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
 				</textElement>
-				<textFieldExpression><![CDATA["นาย / นางสาว / นาง ............................... หมายเลขบัตรประจำตัวประชาชน ................................ ที่อยู่....................................................................................................................."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["นาย / นางสาว / นาง .........."+$P{NAME}+"............ หมายเลขบัตรประจำตัวประชาชน .............."+$P{ID_CARD_NUMBER}+"............ ที่อยู่........................"+$P{ADDRESS}+"..............................."]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="135" width="555" height="20" uuid="821e9f94-dd59-4ebd-bfc3-cbaf28de0302"/>
@@ -96,7 +113,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>นาย / นางสาว / นาง</b> ................................ หมายเลขบัตรประจำตัวประชาชน .......................................... ที่อยู่............................................................................................................................."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>นาย / นางสาว / นาง</b> .........."+$P{NAME_SALE}+"........... หมายเลขบัตรประจำตัวประชาชน ..............."+$P{ID_CARD_NUMBER_SALE}+"............. ที่อยู่.........................."+$P{ADDRESS_SALE}+"...................................."]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="212" width="555" height="20" uuid="f11ad666-e1e7-4699-8b41-19606de640f4"/>
@@ -120,7 +137,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
 				</textElement>
-				<textFieldExpression><![CDATA["1. นายหน้า ตกลงจะทำหน้าที่เป็นนายหน้าให้กับผู้ให้สัญญาซึ่งเป็นเจ้าของ .......................................... ห้องชุดเลขที่ .......................... ชั้น ............ ตึก .............. ตั้งอยู่ที่ ......................................................................... ขนาด ......................... รวมถึงเฟอร์นิเจอร์ทั้งหมด ซึ่งต่อไปนี้จะเรียกว่า “ทรัพย์สิน” โดยผู้จะขายมีความประสงค์จะขาย ทรัพย์สินดังกล่าว"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["1. นายหน้า ตกลงจะทำหน้าที่เป็นนายหน้าให้กับผู้ให้สัญญาซึ่งเป็นเจ้าของ .............."+$P{BROKER}+"............. ห้องชุดเลขที่ ........."+$P{ADDRESS2}+".......... ชั้น ....."+$P{FLOOR}+"..... ตึก ....."+$P{BUILDING}+"..... ตั้งอยู่ที่ ................."+$P{ADDRESS_FULL}+"................................ ขนาด ........."+$P{AREA}+".......... รวมถึงเฟอร์นิเจอร์ทั้งหมด ซึ่งต่อไปนี้จะเรียกว่า “ทรัพย์สิน” โดยผู้จะขายมีความประสงค์จะขาย ทรัพย์สินดังกล่าว"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="335" width="555" height="64" uuid="350e8798-9c74-40c1-849b-47e0a87ce23e"/>
@@ -141,7 +158,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
 				</textElement>
-				<textFieldExpression><![CDATA["3. หากผู้จะขายสามารถขายทรัพย์สินดังกล่าวข้างต้นได้ จากการที่นายหน้าได้ทำการชี้ช่องหรือจัดการเสาะหาผู้ ซื้อได้ ผู้จะขายตกลงที่จะชำระค่าบำเหน็จให้แก่นายหน้าเป็นจำนวนร้อยละ 3 จากราคาที่ตกลงซื้อขาย หรือเท่ากับจำนวน ............................................ ( ....................................... บาทถ้วน)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["3. หากผู้จะขายสามารถขายทรัพย์สินดังกล่าวข้างต้นได้ จากการที่นายหน้าได้ทำการชี้ช่องหรือจัดการเสาะหาผู้ ซื้อได้ ผู้จะขายตกลงที่จะชำระค่าบำเหน็จให้แก่นายหน้าเป็นจำนวนร้อยละ 3 จากราคาที่ตกลงซื้อขาย หรือเท่ากับจำนวน ................."+$P{SALE_NAME}+"............... ( ....................................... บาทถ้วน)"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="98" width="555" height="185" uuid="09e3983c-5317-4ff8-8830-6a19d595ff4b"/>
@@ -175,7 +192,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2" firstLineIndent="50"/>
 				</textElement>
-				<textFieldExpression><![CDATA["7. สัญญาฉบับนี้ให้มีผลบังคับใช้ตั้งแต่วันที่ .................................................. จนถึงวันที่ ................................................................................... โดยหากนายหน้าไม่สามารถหาผู้ซื้อมาทำสัญญาจะซื้อจะขายได้สำเร็จภายในเวลาดังกล่าว ให้ ถือว่าสัญญาฉบับนี้เป็นอันยกเลิกทันที"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["7. สัญญาฉบับนี้ให้มีผลบังคับใช้ตั้งแต่วันที่ ....................."+$P{RANGE_DATE_START}+"................. จนถึงวันที่ ............................"+$P{RANGE_DATE_END}+".................................... โดยหากนายหน้าไม่สามารถหาผู้ซื้อมาทำสัญญาจะซื้อจะขายได้สำเร็จภายในเวลาดังกล่าว ให้ ถือว่าสัญญาฉบับนี้เป็นอันยกเลิกทันที"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="74" width="555" height="116" uuid="d447eba7-14c3-4b87-bc85-682106c7d501"/>

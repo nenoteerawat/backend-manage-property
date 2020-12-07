@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="98"/>
+	<parameter name="LESSOR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LESSEE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_PATH" class="java.lang.String">
+		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TITLE1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TITLE2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="WITNESS1" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="WITNESS2" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CONTRACT" class="java.lang.String"/>
+	<parameter name="ID_CARD_NUMBER" class="java.lang.String"/>
+	<parameter name="AGE" class="java.lang.String"/>
+	<parameter name="ADDRESS" class="java.lang.String"/>
+	<parameter name="VILLAGE" class="java.lang.String"/>
+	<parameter name="ROAD" class="java.lang.String"/>
+	<parameter name="AMPHOE" class="java.lang.String"/>
+	<parameter name="DISTRICT" class="java.lang.String"/>
+	<parameter name="PROVINCE" class="java.lang.String"/>
+	<parameter name="AND" class="java.lang.String"/>
+	<parameter name="ID_CARD_NUMBER2" class="java.lang.String"/>
+	<parameter name="AGE2" class="java.lang.String"/>
+	<parameter name="ADDRESS2" class="java.lang.String"/>
+	<parameter name="VILLAGE2" class="java.lang.String"/>
+	<parameter name="ROAD2" class="java.lang.String"/>
+	<parameter name="AMPHOE2" class="java.lang.String"/>
+	<parameter name="DISTRICT2" class="java.lang.String"/>
+	<parameter name="PROVINCE2" class="java.lang.String"/>
+	<parameter name="OWNER" class="java.lang.String"/>
+	<parameter name="ROOM" class="java.lang.String"/>
+	<parameter name="BUILDING" class="java.lang.String"/>
+	<parameter name="FLOOR" class="java.lang.String"/>
+	<parameter name="AREA" class="java.lang.String"/>
+	<parameter name="ADDRESS_FULL" class="java.lang.String"/>
+	<parameter name="RANGEMONTH" class="java.lang.String"/>
+	<parameter name="RANGE_DATE_START" class="java.lang.String"/>
+	<parameter name="RANGE_DATE_END" class="java.lang.String"/>
+	<parameter name="MONTHLY_RENT" class="java.lang.String"/>
+	<parameter name="ACCOUNT_BANK" class="java.lang.String"/>
+	<parameter name="ACCOUNT_NAME" class="java.lang.String"/>
+	<parameter name="ACCOUNT_NUMBER" class="java.lang.String"/>
+	<parameter name="MONTHLY_RENT_PAY_ADVANCE" class="java.lang.String"/>
+	<parameter name="MOUNTHLY_RENT_PAY_ALL" class="java.lang.String"/>
+	<variable name="PAGE_AMOUT" class="java.lang.Integer">
+		<variableExpression><![CDATA[9]]></variableExpression>
+		<initialValueExpression><![CDATA[9]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="100">
+			<staticText>
+				<reportElement x="0" y="29" width="555" height="33" uuid="24939ac8-166e-4bbc-8dfd-e86b0f747795"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="TH SarabunPSK" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LEASE AGREEMENT]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="99" width="555" height="1" uuid="5ee01a56-e3a7-4ed7-ad9d-644db4956224"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="300" splitType="Prevent">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="77" uuid="40f689e1-06e2-41b1-b9d5-b699fa41fd42"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" spacingBefore="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["....."+$P{TITLE1} + "..... <br> Written at ....." + $P{TITLE2} + "....."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="77" width="555" height="100" uuid="2930ced8-cbb9-48a7-856b-9bbd9209e10c"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="20" spacingBefore="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["This agreement is made between ............"+$P{CONTRACT}+"............ID number is............."+$P{ID_CARD_NUMBER}+"......... , Referred as the Lessor of &quot; .......,....Floor,  Unit no............ Address "+$P{ADDRESS}+".......and ....."+$P{AND}+"....ID number is........"+$P{ID_CARD_NUMBER2}+"........referred as Lessee"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="177" width="555" height="74" uuid="fea750d2-8669-4f5c-afa0-f804f585a473"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Whereas the Lessor is the legal owner of &amp; ......."+$P{BUILDING}+"....... , .."+$P{FLOOR}+"... Floor, Unit no............., Address .........."+$P{ADDRESS_FULL}+"........... &amp;and all premises including all fixtures and fittings, (list attached) hereinafter called &amp;Premises&amp; Whereas the Lessor desires to let and the Lessee desires to rent the Premises under the terms and  conditions set forth in this agreement as follows"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="299" width="555" height="1" uuid="0d44b787-d439-4819-8873-bd0682f48ff5"/>
+			</break>
+		</band>
+		<band height="300">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="a905dc45-95b9-4dc8-8322-95cca8bf5900"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="true" isUnderline="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[<b><u>GENERAL AGREEMENTS & CONDITIONS</u></b>]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="44" width="555" height="47" uuid="0db5d2bc-a85e-464e-8e04-347b9e158f1f"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. The term of this agreement shall be for a period of .."+$P{RANGEMONTH}+"... months commencing from ............."+$P{RANGE_DATE_START}+".......... to ..............."+$P{RANGE_DATE_END}+"........."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="91" width="555" height="68" uuid="f79ee7af-0110-4213-9d13-14a5126d4ff3"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.  The Lessee agrees to pay the Lessor a monthly rent of ................ THB in advance per month before the ..... but no later than the .... of each month. To this bank account details"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="159" width="555" height="55" uuid="2a171d71-a03b-4972-9075-1cbf6d908767"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Bank Account :</b> ..............."+$P{ACCOUNT_BANK}+"................... <br> <b>Account Name :</b> .............."+$P{ACCOUNT_NAME}+".........<br> <b>Account number :</b> ............."+$P{ACCOUNT_NUMBER}+"..........."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="555" height="20" uuid="cfa0d94a-b9d1-48e1-be30-1cb5ef448456"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="true" isUnderline="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[<b><u>A. LEASE TERM & RENTAL FEE </u></b>]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="214" width="555" height="59" uuid="56a81624-6f93-4f5f-bc70-bdc546884dae"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["The first month rent of ......."+$P{MONTHLY_RENT_PAY_ADVANCE}+"......... THB shall also be paid upon the beginning of this agreement (..............2020) and the Lessee had agreed to pay the following amount in Mobile Banking."]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="299" width="555" height="1" uuid="7a27f3bc-87ed-41e0-a01c-bc2ab8b1150f"/>
+			</break>
+		</band>
+		<band height="600">
+			<staticText>
+				<reportElement x="0" y="166" width="555" height="107" uuid="8bf124fa-22e7-470c-923e-a8c6eb098a7f"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[2.   In the event that the Lessee terminate this agreement before the expiry date in any reason, the tenant agrees that the Lessor shall be entitled to keep the security deposit which in total amount of ..................... THB as a penalty. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="273" width="555" height="20" uuid="047bdaa0-37d5-49f6-b292-8db1f97d26df"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="true" isUnderline="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[<b><u>C. LESSEE’S COVENANT</u></b>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="293" width="555" height="306" uuid="4898079b-6d86-4b52-aae2-db44c1a5655b"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[1. To use the premises for dwelling purposes only.
+<br>2. To punctually pay the rent and other sums at the time and in the manner stipulated i this agreement during the lease term. If the Lessee fails to pay the rent within the date of the payment stated above, the Lessee will agrees to pay a late fine of 500 THB (Five hundred baht) per day to the Lessor.
+<br>3. To maintain the Premises in a good state, keep the interior in a clean and habitable and exercise reasonable care in keeping the grounds tidy and in good conditions
+<br>4. To assume liability for costs incurred for damage, including any smell that needs the attention of professional cleaners to the Premises negligently or intentionally caused by the Lessee, his family employees, or persons staying with the Lessee.
+<br>5. To pay all bills relating to the rent of the Premises, including electricity, water supply, telephone and others.
+<br>6. To permit the lessor or his/her representative(s) to enter the Premises once or twice a year for a purpose of inspection and to show the Premises to prospective tenants or  purchasers at all reasonable times during daylight hours (8.00AM to 6.00PM) with prior notice within 72 hours (Seventy-two hours) from the Lessor.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="20" width="555" height="95" uuid="78a965b4-3cdb-40a5-ba29-84b7360012b5"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. Upon beginning of this agreement, Lessee shall pay the deposit fee to the Lessor a total of ................. THB, hereinafter referred to as “Security Deposit” which shall be held by the Lessor throughout the term of this agreement, without bearing any interest, as a security for any damage or loss the Lessor might suffer by the breach or non-performance or non-observance of any covenants on the part of the Lessee herein contained. The security deposit shall be return to the Lessee upon termination of this agreement, if not applied towards payment of a rental fee or other indebtedness in arrears or towards damage suffered to the Lessor, as the right of the Lessor. "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="3ed9f714-baaa-4a9b-9f75-78ce14eec5ad"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[<b><u>B. SECURITY DEPOSIT</u></b>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="115" width="555" height="51" uuid="4e1e3e81-d2f3-4ea3-8020-9b6f6e7d9358"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2" firstLineIndent="20"/>
+				</textElement>
+				<text><![CDATA[The Security Deposit shall not be a prepayment of any rental nor shall it be bring- -ing up By the Lessee as a reason or excuse not to pay the rent as stipulate in this agreement. ]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="599" width="555" height="1" uuid="76ecdaf4-cea4-41c8-b526-401817d20767"/>
+			</break>
+		</band>
+		<band height="350">
+			<staticText>
+				<reportElement x="0" y="1" width="555" height="348" uuid="72f25d66-c8b4-4f65-9e6a-2c3962de45cf"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[7. The Lessee shall not mark, paint or drill into or anyway deface any part of the Premises. no cutting, re-wiring, relaying or other floor covering shall be permitted except with the prior written consent of the Lessor.
+<br>8. To not carry out any illegal activities or keep any materials of a dangerous, combustible or explosive nature, or any illegal substances or narcotics in the Premises.
+<br>9. To not do anything on the Premises that might be a nuisance or interference with the enjoyment of the neighbors or the neighbor’s Premises.
+<br>10. To not smoke in the Premises and to be responsible for any cigarette smells in the Premises after the Lessee vacates the Premises. The Lessor also has the right to deduct a part of the security deposit to cover the costs of professional cleaning if it’s required to clear any smoking smells.
+<br>11. To notify the Lessor or his/her representative(s) of any damage of defect at the Premises as soon as possible but no later than 7 days (Seven days) of the occurrence of such damage or defect. If it’s caused by the negligence or misconduct or the Lessee, the family or servants, the Lessee shall make good on any damage to the Premises within 30 days (Thirty days) from the date that the Lessee caused such damage or defect.
+<br>12. To keep no pet.
+]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="349" width="555" height="1" uuid="3ba68b60-cd93-4cde-ba6c-2df31c3a3a7a"/>
+			</break>
+		</band>
+		<band height="350">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="349" uuid="d09820ec-3e53-45d4-9719-c9f619904222"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.5"/>
+				</textElement>
+				<text><![CDATA[13. To be responsible for maintaining the Premises in good and usable condition and to be responsible for any minor repairs such as blockage of the drain, changing of lamps,etc. by performing the maintenance section of the condominium or Jurisic Office to do the works.
+<br>14. To not assign any right hereunder not sublet the Premises or any part thereof without prior written consent from the Lessor.
+<br>15. To return all the keys of the Premises to the Lessor at the expiry date or termination date of this agreement.
+<br>16. The Lessee will agrees to the term that not above than two person can live and stay in the Premises as both The Lessor and The Lessee had agreed when this agreement has been made.
+]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="349" width="555" height="1" uuid="fb990c74-5b9f-42af-b8e8-89f50430b6c7"/>
+			</break>
+		</band>
+		<band height="350">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="aa937f0a-01e8-4601-ae5d-752995660a65"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="true" isUnderline="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[<b><u>D. LESSOR’S COVENANT</u></b>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="555" height="329" uuid="10b4c278-9dad-45e9-bc20-4247e96f0eb0"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[1. The Lessor warrants and guarantees that the Lessor has the absolute right to lease the Premises.
+<br>2. That the Lessee, duly paying the rent, observing and performing several covenants herein contained, shall peacefully hold and enjoy the Premises during the tenure of this agreement and any extension thereof, without any interruption of impairment whatsoever by the Lessor or his agent.
+<br>3. To pay the condominium maintenance fees for the condominium common facilities and services, e.g. swimming pool, garbage collection, etc.
+<br>4. To be responsible for maintaining the Premises in good and usable condition and shall be responsible for any major repairs for example of the washing machine or the refrigerator and maintenance necessitated by structural weakness or defect that may appear in the Premises such as the floor or the ceiling and the Lessor will bear the cost of these repairs, including any structural electric or plumbing costs not caused by the Lessee, except in the case where the Lessee causes the damage.
+]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="349" width="555" height="1" uuid="87f7103b-25e9-4928-9614-ecf52614a2bf"/>
+			</break>
+		</band>
+		<band height="350">
+			<staticText>
+				<reportElement x="0" y="20" width="555" height="301" uuid="671739f9-0850-4d65-9442-81900e27ebdb"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[1. If the Lessee fails to pay the rental fee within the period of payment for 15 days (Fifteen days), this agreement will be terminated automatically and the Lessor may then immediately repossess the Premises and hereby has the right to accomplish clause (E.2)
+<br>2. The Lessor or his/her representative(s) is entitled to promptly repossess the Leased Premises, to break the doors, keys or any obstruction, to lock the doors or prohibit the Lessee from any access to the Leased Premises, to cut off the electrical power, water system and/or disconnect the telephone system of the Leased Premises, and to claim for all costs, losses and damages it may suffer due to the failure of the Lessee to vacate from the Premises until the Lessee has vacated from the Premises.
+<br>3. In the event that the Lessee breaches a term of his agreement, the Lessor can terminate the agreement and retain the security deposit
+<br>4. In the event that the Premises are rendered uninhabitable due to fire, flood or structural damage, the Lessee shall have the right to terminate the agreement and the Lessor shall return the security deposit provided that this damage has not been caused by the Lessee
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="1c183021-f597-46db-b41f-de3a01381dbd"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="true" isUnderline="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[<b><u>E. TERMINATION OF THIS AGREEMENT </u></b>]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="349" width="555" height="1" uuid="70d38d1d-152f-4512-89ba-5c638605e44f"/>
+			</break>
+		</band>
+		<band height="400">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="324" uuid="488de98d-0de6-4352-a5dc-48bb283d31e3"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[5. The Lessee shall gives written notice to the Lessor not less than 30 days (Thirty days) before the expiry of the agreement to renew a contract. However, the terms and conditions provided in this Lease Agreement are subject to be change upon renewal. Failing to give 30 days notice, the lease is terminate automatically.
+<br>6. Upon the expiration of this lease term with no further agreement or if the contract is terminated for any reason, the Lessee’s personal belongings must be removed from the Premises and the Premises shall be delivered to the Lessor in a neat and appropriate manner, Failing to do so, the Lessee agrees to pay a fine of 1,000 THB (One Thousand baht) per day until the Premises deliver is completed. The Lessee agrees that the Lessor shall have the following rights to take possess, take hold or remove all the properties from the Premises and will able to proceed further actions that the Lessor intend and that the Lessee shall, in no event, protest, obstruct, claim any damage whatsoever or take legal action against the Lessor. And the Lessor will have the full rights to claim any damage fees in a higher rate than the actual price of the goods in the Premises in case of a broken, defect or lost by any cause from the Lessee. Which the Lessee shall willing to take full responsibility to any further loss the Lessor have suffer.]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="399" width="555" height="1" uuid="fd38f471-7eb8-4b75-97fb-d2a3326f4114"/>
+			</break>
+		</band>
+		<band height="100">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="84" uuid="533d8062-263c-472d-81d6-c4eb86d286aa"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="16" isBold="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[7. IN WITNESS WHEREOF, this agreement is executed to two identical counterparts, the parties have read and understood all terms and conditions of this agreement and have hereto appended their respective signatures and affixed their official seals (if any) and kept one identical of this agreement.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} != $V{PAGE_AMOUT}]]></printWhenExpression>
+			<staticText>
+				<reportElement x="0" y="0" width="234" height="42" uuid="38baa958-813f-436c-bd6f-59150c456742"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" rightIndent="40"/>
+				</textElement>
+				<text><![CDATA[Lessor ...................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="0" width="238" height="42" uuid="c36c31ad-a850-4c8d-b5c2-75e913fa1c3d"/>
+				<textElement verticalAlignment="Bottom" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2" leftIndent="40"/>
+				</textElement>
+				<text><![CDATA[Lessee ...................................]]></text>
+			</staticText>
+			<image>
+				<reportElement x="234" y="0" width="83" height="42" uuid="33a7e922-a5d6-41f1-914c-7d58dfddb37e"/>
+				<imageExpression><![CDATA[$P{REPORT_PATH}+"/HOME-BLACK-LOGO.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="250">
+			<staticText>
+				<reportElement x="0" y="24" width="276" height="34" uuid="e2cd5539-31d8-4502-95c5-7cf8cf6cf103"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Lessor ...................................]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="58" width="276" height="34" uuid="23f474b6-1188-4cbc-a190-fc384812bd36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{LESSOR} + ".......)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="24" width="279" height="34" uuid="3e071b93-ba15-4f16-93dc-d0431df31894"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Lessee ...................................]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="276" y="58" width="279" height="34" uuid="318895cf-8653-4934-b508-a20e0c0c4d59"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{LESSEE} + ".......)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="92" width="276" height="34" uuid="82064bc5-9ea3-426a-abd9-43009ca8fa04"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Witness  ...................................]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="126" width="276" height="34" uuid="c8f47cae-5d8b-4797-b677-569176d84008"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{WITNESS1} + ".......)"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="92" width="279" height="34" uuid="fcc214b4-138a-4742-8685-92592ab242df"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Witness ...................................]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="276" y="126" width="279" height="34" uuid="e770d491-d11d-4211-8da2-6ac99ae04dfd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font fontName="TH SarabunPSK" size="16"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(......." + $P{WITNESS2} + ".......)"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="234" y="188" width="83" height="42" uuid="3465aa84-2865-4ce0-b657-8d3e593513c0"/>
+				<imageExpression><![CDATA[$P{REPORT_PATH}+"/HOME-BLACK-LOGO.png"]]></imageExpression>
+			</image>
+		</band>
+	</summary>
+</jasperReport>
