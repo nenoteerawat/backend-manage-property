@@ -2,18 +2,28 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="112"/>
 	<parameter name="REPORT_PATH" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="SELLER" class="java.lang.String">
-		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
-	</parameter>
-	<parameter name="BUYER" class="java.lang.String">
-		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
-	</parameter>
-	<parameter name="WITNESS" class="java.lang.String"/>
-	<parameter name="AGENT" class="java.lang.String"/>
+	<parameter name="CO_BROKE_REF" class="java.lang.String"/>
+	<parameter name="ENQ_REF" class="java.lang.String"/>
+	<parameter name="DATE_REGISTRATION" class="java.lang.String"/>
+	<parameter name="COMPANY_NAME" class="java.lang.String"/>
+	<parameter name="REPRESENTATIVE_NAME" class="java.lang.String"/>
+	<parameter name="COMPANY_ADDRESS" class="java.lang.String"/>
+	<parameter name="CONTACT" class="java.lang.String"/>
+	<parameter name="TITLE" class="java.lang.String"/>
+	<parameter name="NAME" class="java.lang.String"/>
+	<parameter name="SURNAME" class="java.lang.String"/>
+	<parameter name="NATIONALITY" class="java.lang.String"/>
+	<parameter name="TEL" class="java.lang.String"/>
+	<parameter name="EMAIL" class="java.lang.String"/>
+	<parameter name="CHECKBOX_TYPE_BUY_CLIENT" class="java.lang.String"/>
+	<parameter name="CHECKBOX_TYPE_RENT_CLIENT" class="java.lang.String"/>
+	<parameter name="BUDGET" class="java.lang.String"/>
+	<parameter name="BEDROOM" class="java.lang.String"/>
+	<parameter name="PROJECT_NAME" class="java.lang.String"/>
 	<variable name="PAGE_AMOUT" class="java.lang.Integer">
 		<variableExpression><![CDATA[3]]></variableExpression>
 		<initialValueExpression><![CDATA[3]]></initialValueExpression>
@@ -31,6 +41,20 @@
 				</textElement>
 				<text><![CDATA[CO-BROKE: CLIENT REGISTRATION FORM]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="357" y="0" width="197" height="24" uuid="e94dd86d-e185-4caf-ae3b-3c424a2d31de"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Co-Broke Ref..."+$P{CO_BROKE_REF}+"......"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="357" y="24" width="198" height="24" uuid="043c3ccf-c0ab-4865-9bd8-bed1a52fcc4a"/>
+				<textElement markup="html">
+					<font fontName="TH SarabunPSK" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Enq. Ref......"+$P{ENQ_REF}+"........."]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
@@ -89,7 +113,7 @@
 					<font fontName="TH SarabunPSK" size="14" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{COMPANY_NAME}+"</u>"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="161" y="70" width="394" height="24" uuid="53d19c80-8331-4d52-83aa-7065f1594501"/>
@@ -97,7 +121,7 @@
 					<font fontName="TH SarabunPSK" size="14" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{REPRESENTATIVE_NAME}+"</u>"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="161" y="94" width="394" height="24" uuid="8210e221-fb93-45df-8319-35eda6084732"/>
@@ -105,7 +129,7 @@
 					<font fontName="TH SarabunPSK" size="14" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{COMPANY_ADDRESS}+"</u>"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="161" y="118" width="394" height="24" uuid="99257582-d4e5-4921-8dcc-3ec70520dbf7"/>
@@ -113,7 +137,7 @@
 					<font fontName="TH SarabunPSK" size="14" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{CONTACT}+"</u>"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="144" y="22" width="17" height="24" uuid="2e0f7a1c-4ded-4640-a546-ebd0b42d026b"/>
@@ -189,7 +213,7 @@
 					<font fontName="TH SarabunPSK" size="16" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{TITLE}+"</u>"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="97" y="217" width="33" height="24" uuid="6e445ef9-dac9-4e91-8753-6fd93635f637"/>
@@ -205,7 +229,7 @@
 					<font fontName="TH SarabunPSK" size="16" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{NAME}+"</u>"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="210" y="217" width="58" height="24" uuid="65b7f18a-5b8b-4b0d-9681-8a535c0d5aec"/>
@@ -221,7 +245,7 @@
 					<font fontName="TH SarabunPSK" size="16" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{SURNAME}+"</u>"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="357" y="217" width="58" height="24" uuid="f050572f-6e9f-432b-8d85-5e9614b966a7"/>
@@ -237,7 +261,7 @@
 					<font fontName="TH SarabunPSK" size="16" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{NATIONALITY}+"</u>"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="241" width="97" height="24" uuid="0fa21647-cd8f-498a-8031-f470769828f6"/>
@@ -253,7 +277,7 @@
 					<font fontName="TH SarabunPSK" size="16" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{TEL}+"</u>"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="268" y="241" width="45" height="24" uuid="b4a77475-03b3-42aa-8e58-53032d816567"/>
@@ -269,7 +293,7 @@
 					<font fontName="TH SarabunPSK" size="16" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{EMAIL}+"</u>"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="265" width="109" height="24" uuid="72bd5482-d182-434a-917f-af0bcc3a7018"/>
@@ -315,7 +339,7 @@
 					<font fontName="TH SarabunPSK" size="16" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{BUDGET}+"</u>"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="178" y="289" width="114" height="24" uuid="73f9c79f-08b7-43ae-ac27-a84402ec9e62"/>
@@ -331,7 +355,7 @@
 					<font fontName="TH SarabunPSK" size="16" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{BEDROOM}+"</u>"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="383" y="289" width="73" height="24" uuid="a53bc83b-4a06-474f-8df3-020ac1cf8dc2"/>
@@ -347,7 +371,7 @@
 					<font fontName="TH SarabunPSK" size="16" isUnderline="true"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{PROJECT_NAME}+"</u>"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="313" width="555" height="26" uuid="28b97c88-1db2-46b6-8632-6d1debc56050"/>
@@ -386,16 +410,20 @@
 			<textField>
 				<reportElement x="161" y="22" width="393" height="24" uuid="47c62f68-3df3-4773-9f42-84b92b4d981b"/>
 				<textElement markup="html">
-					<font fontName="TH SarabunPSK" size="14"/>
+					<font fontName="TH SarabunPSK" size="14" isItalic="false" isUnderline="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<u></u>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<u>"+$P{DATE_REGISTRATION}+"</u>"]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="115" y="268" width="17" height="17" uuid="e94c8f75-e775-4844-ad1f-1e95a3418d84"/>
+				<reportElement x="115" y="268" width="17" height="17" uuid="e94c8f75-e775-4844-ad1f-1e95a3418d84">
+					<printWhenExpression><![CDATA[$P{CHECKBOX_TYPE_BUY_CLIENT}.equalsIgnoreCase("true")]]></printWhenExpression>
+				</reportElement>
 				<imageExpression><![CDATA[$P{REPORT_PATH}+"/CHECKED.png"]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="224" y="268" width="17" height="17" uuid="c392c353-56e4-47c8-a133-e4f123d42286"/>
+				<reportElement x="224" y="268" width="17" height="17" uuid="c392c353-56e4-47c8-a133-e4f123d42286">
+					<printWhenExpression><![CDATA[$P{CHECKBOX_TYPE_RENT_CLIENT}.equalsIgnoreCase("true")]]></printWhenExpression>
+				</reportElement>
 				<imageExpression><![CDATA[$P{REPORT_PATH}+"/CHECKED.png"]]></imageExpression>
 			</image>
 		</band>

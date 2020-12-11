@@ -107,6 +107,10 @@ pdf-default-parameters:
     rangeDateStart: ${pdf-default-parameters.default-value}
     rangeDateEnd: ${pdf-default-parameters.default-value}
   sellAndPurchaseAgreement:
+    saller: ${pdf-default-parameters.default-value}
+    buyer: ${pdf-default-parameters.default-value}
+    witness: ${pdf-default-parameters.default-value}
+    agent: ${pdf-default-parameters.default-value}
     title1: ${pdf-default-parameters.default-value}
     title2: ${pdf-default-parameters.default-value}
     contract: ${pdf-default-parameters.default-value}
@@ -135,6 +139,10 @@ pdf-default-parameters:
     dateRegistry: ${pdf-default-parameters.default-value}
     addNewRule: ${pdf-default-parameters.default-value}
   exclusiveAgreement:
+    saller: ${pdf-default-parameters.default-value}
+    buyer: ${pdf-default-parameters.default-value}
+    witness: ${pdf-default-parameters.default-value}
+    agent: ${pdf-default-parameters.default-value}
     title1: ${pdf-default-parameters.default-value}
     title2: ${pdf-default-parameters.default-value}
     name: ${pdf-default-parameters.default-value}

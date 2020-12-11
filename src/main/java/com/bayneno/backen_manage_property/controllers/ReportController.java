@@ -2,11 +2,13 @@ package com.bayneno.backen_manage_property.controllers;
 
 import com.bayneno.backen_manage_property.properties.PdfDefaultParameters;
 import com.bayneno.backen_manage_property.services.ReportService;
+import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.Base64;
 import java.util.Map;
 
@@ -75,17 +77,19 @@ public class ReportController {
 
     @PostMapping(value = "/coBrokerForm", produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody String coBrokerForm(@RequestBody Map<String, Object> parametersFromController) throws IOException, JRException {
-        pdfDefaultParameters.getSellAndPurchaseAgreement().forEach((key, value) -> {
+        pdfDefaultParameters.getCoBrokerFrom().forEach((key, value) -> {
             if(!parametersFromController.containsKey(key)){
                 parametersFromController.put(key, value);
             }
         });
+        ZonedDateTime dateRegistration = ZonedDateTimeUtil.stringToZonedDateTime((String) parametersFromController.get("dateRegistration"), ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID);
+        parametersFromController.put("dateRegistration",ZonedDateTimeUtil.zonedDateTimeToString(dateRegistration, ZonedDateTimeUtil.DDMMYY, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID));
         return Base64.getEncoder().encodeToString(reportService.generateReport("classpath:jasper/coBrokerForm.jasper", parametersFromController));
     }
 
     @PostMapping(value = "/exclusiveAgreement", produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody String exclusiveAgreement(@RequestBody Map<String, Object> parametersFromController) throws IOException, JRException {
-        pdfDefaultParameters.getSellAndPurchaseAgreement().forEach((key, value) -> {
+        pdfDefaultParameters.getExclusiveAgreement().forEach((key, value) -> {
             if(!parametersFromController.containsKey(key)){
                 parametersFromController.put(key, value);
             }
