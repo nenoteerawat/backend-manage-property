@@ -3,6 +3,7 @@ package com.bayneno.backen_manage_property.controllers;
 import com.bayneno.backen_manage_property.enums.ERole;
 import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
 import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
+import com.bayneno.backen_manage_property.models.ActionLog;
 import com.bayneno.backen_manage_property.models.Lead;
 import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.User;
@@ -11,6 +12,7 @@ import com.bayneno.backen_manage_property.payload.request.LeadRequest;
 import com.bayneno.backen_manage_property.payload.response.ActionLogResponse;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.FileResponse;
+import com.bayneno.backen_manage_property.repository.ActionLogRepository;
 import com.bayneno.backen_manage_property.repository.LeadRepository;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.UserRepository;
@@ -45,12 +47,20 @@ public class LeadController {
 
     private final ListingRepository listingRepository;
 
-    public LeadController(LeadRepository leadRepository, UserRepository userRepository, LeadService leadService, ChangeServiceImpl changeService, ListingRepository listingRepository) {
+    private final ActionLogRepository actionLogRepository;
+
+    public LeadController(LeadRepository leadRepository
+            , UserRepository userRepository
+            , LeadService leadService
+            , ChangeServiceImpl changeService
+            , ListingRepository listingRepository
+            , ActionLogRepository actionLogRepository) {
         this.leadRepository = leadRepository;
         this.userRepository = userRepository;
         this.leadService = leadService;
         this.changeService = changeService;
         this.listingRepository = listingRepository;
+        this.actionLogRepository = actionLogRepository;
     }
 
     @GetMapping("/lead/selects")
@@ -71,6 +81,15 @@ public class LeadController {
             leads = leadRepository.findAllBySaleUserId(user.getId());
         } else {
             leads = leadRepository.findAll();
+        }
+
+        for (Lead lead: leads
+             ) {
+            List<ActionLog> actionLogs = actionLogRepository.findAllByLeadIdAndDoneOrderByActionDateTimeDesc(lead.getId(), "COMPLETED");
+            if(actionLogs.size() > 0)
+                lead.setStatus(actionLogs.get(actionLogs.size()-1).getStatus());
+            else
+                lead.setStatus("0");
         }
 
         leads = leads.stream().sorted(Comparator.comparing(Lead::getUpdatedDateTime).reversed())
