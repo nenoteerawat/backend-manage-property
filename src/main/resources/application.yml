@@ -22,7 +22,7 @@ spring:
 bezkoder:
   app:
     jwtSecret: bezKoderSecretKey
-    jwtExpirationMs: 86400000
+    jwtExpirationMs: 6311390400000
 
 # Aws Properties
 aws:
@@ -106,7 +106,72 @@ pdf-default-parameters:
     saleName: ${pdf-default-parameters.default-value}
     rangeDateStart: ${pdf-default-parameters.default-value}
     rangeDateEnd: ${pdf-default-parameters.default-value}
-  sellAndPurchaseAgreement:
+  sellAndPurchaseAgreementEng:
+    saller: ${pdf-default-parameters.default-value}
+    buyer: ${pdf-default-parameters.default-value}
+    witness: ${pdf-default-parameters.default-value}
+    agent: ${pdf-default-parameters.default-value}
+    titleYear1: ${pdf-default-parameters.default-value}
+    titleYear2: ${pdf-default-parameters.default-value}
+    title1: ${pdf-default-parameters.default-value}
+    title2: ${pdf-default-parameters.default-value}
+    contract: ${pdf-default-parameters.default-value}
+    address1: ${pdf-default-parameters.default-value}
+    idCardNumber1: ${pdf-default-parameters.default-value}
+    address2: ${pdf-default-parameters.default-value}
+    idCardNumber2: ${pdf-default-parameters.default-value}
+    roomName: ${pdf-default-parameters.default-value}
+    roomNumber: ${pdf-default-parameters.default-value}
+    floor: ${pdf-default-parameters.default-value}
+    area: ${pdf-default-parameters.default-value}
+    width: ${pdf-default-parameters.default-value}
+    long: ${pdf-default-parameters.default-value}
+    height: ${pdf-default-parameters.default-value}
+    address3: ${pdf-default-parameters.default-value}
+    address4: ${pdf-default-parameters.default-value}
+    road: ${pdf-default-parameters.default-value}
+    amphoe: ${pdf-default-parameters.default-value}
+    district: ${pdf-default-parameters.default-value}
+    province: ${pdf-default-parameters.default-value}
+    zipcode: ${pdf-default-parameters.default-value}
+    price: ${pdf-default-parameters.default-value}
+    contract2: ${pdf-default-parameters.default-value}
+    price2: ${pdf-default-parameters.default-value}
+    registry: ${pdf-default-parameters.default-value}
+    dateRegistry: ${pdf-default-parameters.default-value}
+    addNewRule: ${pdf-default-parameters.default-value}
+    contract3: ${pdf-default-parameters.default-value}
+    passport: ${pdf-default-parameters.default-value}
+    premises: ${pdf-default-parameters.default-value}
+    price3: ${pdf-default-parameters.default-value}
+    price4: ${pdf-default-parameters.default-value}
+    dateRegistry2: ${pdf-default-parameters.default-value}
+    contractTH: ${pdf-default-parameters.default-value}
+    address1TH: ${pdf-default-parameters.default-value}
+    idCardNumber1TH: ${pdf-default-parameters.default-value}
+    contract2TH: ${pdf-default-parameters.default-value}
+    address2TH: ${pdf-default-parameters.default-value}
+    idCardNumber2TH: ${pdf-default-parameters.default-value}
+    contract3TH: ${pdf-default-parameters.default-value}
+    passportTH: ${pdf-default-parameters.default-value}
+    roomNameTH: ${pdf-default-parameters.default-value}
+    roomNumberTH: ${pdf-default-parameters.default-value}
+    floorTH: ${pdf-default-parameters.default-value}
+    areaTH: ${pdf-default-parameters.default-value}
+    widthTH: ${pdf-default-parameters.default-value}
+    longTH: ${pdf-default-parameters.default-value}
+    heightTH: ${pdf-default-parameters.default-value}
+    premisesTH: ${pdf-default-parameters.default-value}
+    priceTH: ${pdf-default-parameters.default-value}
+    price2TH: ${pdf-default-parameters.default-value}
+    price3TH: ${pdf-default-parameters.default-value}
+    dateRegistryTH: ${pdf-default-parameters.default-value}
+    price4TH: ${pdf-default-parameters.default-value}
+    registryTH: ${pdf-default-parameters.default-value}
+    dateRegistry2TH: ${pdf-default-parameters.default-value}
+    tax: "0"
+    addNewRuleTH: ${pdf-default-parameters.default-value}
+  sellAndPurchaseAgreementTh:
     saller: ${pdf-default-parameters.default-value}
     buyer: ${pdf-default-parameters.default-value}
     witness: ${pdf-default-parameters.default-value}
@@ -137,6 +202,7 @@ pdf-default-parameters:
     price2: ${pdf-default-parameters.default-value}
     registry: ${pdf-default-parameters.default-value}
     dateRegistry: ${pdf-default-parameters.default-value}
+    tax: "0"
     addNewRule: ${pdf-default-parameters.default-value}
   exclusiveAgreement:
     saller: ${pdf-default-parameters.default-value}

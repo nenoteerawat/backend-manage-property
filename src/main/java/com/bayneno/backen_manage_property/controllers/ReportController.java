@@ -57,7 +57,7 @@ public class ReportController {
 
     @PostMapping(value = "/sellAndPurchaseAgreement", produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody String sellAndPurchaseAgreement(@RequestBody Map<String, Object> parametersFromController) throws IOException, JRException {
-        pdfDefaultParameters.getSellAndPurchaseAgreement().forEach((key, value) -> {
+        pdfDefaultParameters.getSellAndPurchaseAgreementTh().forEach((key, value) -> {
             if(!parametersFromController.containsKey(key)){
                 parametersFromController.put(key, value);
             }
@@ -67,7 +67,7 @@ public class ReportController {
 
     @PostMapping(value = "/sellAndPurchaseAgreementEng", produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody String sellAndPurchaseAgreementEng(@RequestBody Map<String, Object> parametersFromController) throws IOException, JRException {
-        pdfDefaultParameters.getSellAndPurchaseAgreement().forEach((key, value) -> {
+        pdfDefaultParameters.getSellAndPurchaseAgreementEng().forEach((key, value) -> {
             if(!parametersFromController.containsKey(key)){
                 parametersFromController.put(key, value);
             }

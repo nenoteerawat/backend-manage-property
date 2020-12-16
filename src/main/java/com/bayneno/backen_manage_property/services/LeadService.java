@@ -12,5 +12,6 @@ public interface LeadService {
     String editLead(LeadRequest leadRequest, User user);
 
 //    List<LeadResponse> getLead(LeadSearchRequest listingSearchRequest);
+    Integer calculateFillFieldValuePercentage(Object object);
 
 }

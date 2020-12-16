@@ -231,4 +231,10 @@ public class LeadServiceImpl implements LeadService {
 
 		return lead.getId();
 	}
+
+	@Override
+	public Integer calculateFillFieldValuePercentage(Object object) {
+
+		return null;
+	}
 }
