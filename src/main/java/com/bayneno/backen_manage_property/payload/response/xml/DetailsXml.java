@@ -26,4 +26,7 @@ public class DetailsXml {
 
     @JsonProperty("price-details")
     private PriceDetailsXml priceDetails;
+
+    private RoomXml room;
+    private String furnishing;
 }
