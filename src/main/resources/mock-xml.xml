@@ -1,0 +1,147 @@
+<listing-data>
+    <property>
+        <ref-id>
+            <![CDATA[11143]]>
+        </ref-id>
+        <location>
+            <streetname/>
+            <streetnumber/>
+            <post-code/>
+            <area-code/>
+            <district-code/>
+            <region-code>
+            </region-code>
+            <longitude/>
+            <latitude/>
+            <property-name/>
+            <property-id>1997</property-id>
+            <property-type-group>
+                <![CDATA[N]]>
+            </property-type-group>
+        </location>
+        <details>
+            <title>
+                <![CDATA[ขาย/ ใหเ้ชา่ คอนโด IDEO MOBI Rama 9]]>
+            </title>
+            <title_en>
+                <![CDATA[Ideo Mobi Rama 9 for Sale]]>
+            </title_en>
+            <description>
+                <![CDATA[ขาย/ใหเ้ชา่คอนโดIDEOMOBIRama9(ไอดโิอโมบิพระราม9)2หอ้งนอน 2 หอ้ งน้า 56 ตรม.]]></description>
+            <description_en>
+                <![CDATA[FLOOR 28, FULLY FURNISHED AND FULLY EQUIPPED WITH TV 59 INC., FRIDGE , MICROWAVE, WATER HEATER, WASHING MACHINE]]></description_en>
+            <features>
+                <![CDATA[PENT,CORN, AIRC , BATH,BAL,GAR , ]]>
+            </features>
+            <amenities>
+                <![CDATA[SEC, BAD]]>
+            </amenities>
+            <price-details>
+                <price>
+                    <![CDATA[3600000]]>
+                </price>
+                <price-unit>
+                    <![CDATA[]]>
+                </price-unit>
+                <price-description>
+                    <![CDATA[]]>
+                </price-description>
+                <price-type>
+                    <![CDATA[]]>
+                </price-type>
+                <currency-code>
+                    <![CDATA[]]>
+                </currency-code>
+            </price-details>
+            <rooms>
+                <num-bedrooms>
+                    <![CDATA[]]>
+                </num-bedrooms>
+                <extra-rooms>
+                    <![CDATA[]]>
+                </extra-rooms>
+                <num-bathrooms>
+                    <![CDATA[]]>
+                </num-bathrooms>
+            </rooms>
+            <furnishing>
+                <![CDATA[]]>
+            </furnishing>
+            <size-details>
+                <floor-area>
+                    <![CDATA[540]]>
+                </floor-area>
+                <floor-size-x>
+                    <![CDATA[]]>
+                </floor-size-x>
+                <floor-size-y>
+                    <![CDATA[]]>
+                </floor-size-y>
+                <land-area>
+                    <![CDATA[1224]]>
+                </land-area>
+                <land-size-x>
+                    <![CDATA[]]>
+                </land-size-x>
+                <land-size-y>
+                    <![CDATA[]]>
+                </land-size-y>
+            </size-details>
+            <parking-spaces>2</parking-spaces>
+            <numberoffloors>5</numberoffloors>
+            <floor-level>
+                <![CDATA[7]]>
+            </floor-level>
+            <facing>
+                <![CDATA[NWEST]]>
+            </facing>
+        </details>
+        <listing-type>
+            <![CDATA[SALE]]>
+        </listing-type>
+        <agent-id>1096299</agent-id>
+        <custom-name>
+            <![CDATA[Sukanya Panit]]>
+        </custom-name>
+        <custom-phone>
+            <![CDATA[0251215349]]>
+        </custom-phone>
+        <custom-mobile>
+            <![CDATA[0851113344]]>
+        </custom-mobile>
+        <custom-email>
+            <![CDATA[lermsak@agent123.com]]>
+        </custom-email>
+        <tenure>
+            <![CDATA[F]]>
+        </tenure>
+        <sold>NO</sold>
+        <status>ACTIVE</status>
+        <photo>
+            <picture-url>
+                <![CDATA[http://upload.tarad.com/images2/06/1d/061dd5082316731f308e08f6e44583eb.jpg]]>
+            </picture-url>
+            <picture-caption>
+                <![CDATA[front-view]]>
+            </picture-caption>
+        </photo>
+        <photo>
+            <picture-url>
+                <![CDATA[http://www.weekendhobby.com/camp/webboard/picture2011%5C198255414384.JPG]]>
+            </picture-url>
+            <picture-caption>
+                <![CDATA[back-view]]>
+            </picture-caption>
+        </photo>
+    </property>
+    <property/>
+</listing-data>
+
+
+
+
+price
+price-unit
+price-description
+price-type
+currency-code
