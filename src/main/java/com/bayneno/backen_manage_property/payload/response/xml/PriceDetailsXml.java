@@ -23,6 +23,4 @@ public class PriceDetailsXml {
 
     @JsonProperty("currency-code")
     private String currencyCode;
-
-    private DetailsXml details;
 }
