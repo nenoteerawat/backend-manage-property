@@ -4,6 +4,7 @@ import com.bayneno.backen_manage_property.enums.EQuery;
 import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.payload.request.*;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
+import com.bayneno.backen_manage_property.payload.response.xml.*;
 import com.bayneno.backen_manage_property.repository.ActionLogRepository;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;
@@ -303,5 +304,72 @@ public class ListingServiceImpl implements ListingService {
 		}
 
 		return listingResponses;
+	}
+
+	@Override
+	public List<PropertyXml> findPublish() {
+
+		List<Listing> listings = listingRepository.findAll();
+
+		return listings.stream().map(l -> PropertyXml.builder()
+//				.tenure("")
+				.status("ACTIVE")
+				.sold("NO")
+				.refId(l.getId())
+				.photo(l.getFiles().stream().map(f -> PhotoXml.builder()
+						.pictureUrl(f.getPath())
+//						.pictureCaption("")
+						.build()).collect(Collectors.toList()))
+				.location(LocationXml.builder()
+//						.streetNumber("")
+//						.regionCode("")
+//						.streetName("")
+//						.propertyTypeGroup("")
+						.propertyName(l.getRoom().getBuilding())
+						.propertyId(l.getRoom().getProjectId())
+//						.postCode("")
+//						.longitude("")
+//						.latitude("")
+//						.districtCode("")
+//						.areaCode("")
+						.build())
+				.listingType("SALE") // SALE or RENT
+				.details(DetailsXml.builder()
+//						.titleEn("")
+//						.title("")
+						.sizeDetails(SizeDetailsXml.builder()
+//								.landArea("")
+//								.floorSizeY("")
+//								.floorSizeX("")
+								.floorArea(l.getRoom().getArea().toString())
+								.build())
+						.room(RoomXml.builder()
+								.numBedrooms(l.getRoom().getBed())
+								.numBathrooms(l.getRoom().getToilet())
+//								.extraRooms("")
+								.build())
+						.priceDetails(PriceDetailsXml.builder()
+//								.priceUnit("")
+								.price(l.getRoom().getPrice().toString()) // do not include comma “,”
+//								.priceType("")
+//								.priceDescription("")
+								.currencyCode("THB")
+								.build())
+//						.parkingSpaces("")
+						.numberOfFloors(l.getRoom().getFloor())
+//						.furnishing("")
+//						.floorLevel("")
+//						.features("")
+//						.facing("")
+//						.descriptionEn("")
+//						.description("")
+//						.amenities("")
+						.build())
+				.customPhone(l.getOwner().getPhone())
+				.customName(l.getOwner().getName())
+//				.customMobile("")
+//				.agentId("")
+//				.externalId("")
+				.build()).collect(Collectors.toList());
 	}
 }

@@ -6,6 +6,7 @@ import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
 import com.bayneno.backen_manage_property.payload.request.MatchListingRequest;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
+import com.bayneno.backen_manage_property.payload.response.xml.PropertyXml;
 
 import java.util.List;
 
@@ -20,5 +21,7 @@ public interface ListingService {
     List<Listing> matchListing(MatchListingRequest matchListingRequest);
 
     List<ListingResponse> getListingByAppointment(String leadId, User user);
+
+    List<PropertyXml> findPublish();
 
 }
