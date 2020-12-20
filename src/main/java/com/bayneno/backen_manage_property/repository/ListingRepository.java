@@ -8,4 +8,6 @@ import java.util.List;
 public interface ListingRepository extends MongoRepository<Listing, String> {
 
     List<Listing> findAllBySaleUser(String saleUser);
+
+    List<Listing> findAllByFlag(boolean flag);
 }

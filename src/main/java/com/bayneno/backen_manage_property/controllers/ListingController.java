@@ -200,29 +200,14 @@ public class ListingController {
         return ResponseEntity.ok("delete success");
     }
 
-    @PostMapping("/listing/booking")
+    @PostMapping("/flagDDProperties")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
-    public ResponseEntity<?> listingBooking(@Valid @RequestBody BookingRequest bookingRequest, HttpServletRequest httpServletRequest, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName()).orElse(null);
-        Role role = user.getRoles().iterator().next();
-        Listing listing = listingRepository.findById(bookingRequest.getListingId()).orElse(null);
-        Lead lead = leadRepository.findById(bookingRequest.getLeadId()).orElse(null);
-        User sale = user;
-
-        if(role.getName().equals(ERole.ROLE_ADMIN)) {
-            sale = userRepository.findByUsername(bookingRequest.getSaleUsername()).orElse(null);
+    public ResponseEntity<?> flagDDProperties(@Valid @RequestBody BookingDDPropertiesRequest bookingRequest) {
+        Listing listing = listingRepository.findById(bookingRequest.getId()).orElse(null);
+        if(listing != null) {
+            listing.setFlag(bookingRequest.isFlag());
+            listingRepository.save(listing);
         }
-        actionLogRepository.save(
-                ActionLog.builder()
-                        .status(ETypeActionLog.BOOKING.name())
-                        .sale(sale)
-                        .lead(lead)
-                        .comment("auto comment")
-                        .listing(listing)
-                        .createdBy(user)
-                        .createdDateTime(ZonedDateTimeUtil.now())
-                        .build()
-        );
         return ResponseEntity.ok("");
     }
 

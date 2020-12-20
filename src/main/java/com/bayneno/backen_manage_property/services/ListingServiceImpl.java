@@ -85,6 +85,7 @@ public class ListingServiceImpl implements ListingService {
 						.projects(projects)
 						.files(listing.map(Listing::getFiles).orElse(new ArrayList<>()))
 						.id(listing.map(Listing::getId).orElse(null))
+						.flag(listing.map(Listing::isFlag).orElse(null))
 						.saleUser(listing.map(Listing::getSaleUser).orElse(""))
 						.build();
 				listings.add(listingResponse);
@@ -129,6 +130,7 @@ public class ListingServiceImpl implements ListingService {
 										, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
 								.saleUser(listing.getSaleUser())
 								.status(status)
+								.flag(listing.isFlag())
 								.build();
 							}
 
@@ -309,7 +311,7 @@ public class ListingServiceImpl implements ListingService {
 	@Override
 	public List<PropertyXml> findPublish() {
 
-		List<Listing> listings = listingRepository.findAll();
+		List<Listing> listings = listingRepository.findAllByFlag(true);
 
 		return listings.stream().map(l -> PropertyXml.builder()
 //				.tenure("")

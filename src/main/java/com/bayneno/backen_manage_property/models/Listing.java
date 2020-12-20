@@ -34,5 +34,6 @@ public class Listing {
     private User updatedBy;
     private ZonedDateTime updatedDateTime;
 
+    private boolean flag;
     private String saleUser;
 }
