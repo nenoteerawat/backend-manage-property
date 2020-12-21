@@ -23,7 +23,7 @@ spring:
 bezkoder:
   app:
     jwtSecret: bezKoderSecretKey
-    jwtExpirationMs: 86400000
+    jwtExpirationMs: 6311390400000
 
 # Aws Properties
 aws:
