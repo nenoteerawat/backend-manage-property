@@ -343,7 +343,7 @@ public class ListingServiceImpl implements ListingService {
 //								.landArea("")
 //								.floorSizeY("")
 //								.floorSizeX("")
-								.floorArea(l.getRoom().getArea().toString())
+								.floorArea(Optional.ofNullable(l.getRoom()).map(RoomRequest::getArea).map(area -> Double.toString(area)).orElse(""))
 								.build())
 						.room(RoomXml.builder()
 								.numBedrooms(l.getRoom().getBed())
@@ -352,7 +352,7 @@ public class ListingServiceImpl implements ListingService {
 								.build())
 						.priceDetails(PriceDetailsXml.builder()
 //								.priceUnit("")
-								.price(l.getRoom().getPrice().toString()) // do not include comma “,”
+								.price(Optional.of(l.getRoom()).map(RoomRequest::getPrice).map(price -> Double.toString(price)).orElse("")) // do not include comma “,”
 //								.priceType("")
 //								.priceDescription("")
 								.currencyCode("THB")
