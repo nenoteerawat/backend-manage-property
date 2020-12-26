@@ -1,5 +1,6 @@
 package com.bayneno.backen_manage_property.services;
 
+import com.bayneno.backen_manage_property.enums.EPropertyTypeGroupLog;
 import com.bayneno.backen_manage_property.enums.EQuery;
 import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.payload.request.*;
@@ -313,65 +314,90 @@ public class ListingServiceImpl implements ListingService {
 
 		List<Listing> listings = listingRepository.findAllByFlag(true);
 
-		return listings.stream().map(l -> PropertyXml.builder()
-//				.tenure("")
-				.status("ACTIVE")
-				.sold("NO")
-				.refId(l.getId())
-				.photo(l.getFiles().stream().map(f -> PhotoXml.builder()
-						.pictureUrl(f.getPath())
-//						.pictureCaption("")
-						.build()).collect(Collectors.toList()))
-				.location(LocationXml.builder()
-//						.streetNumber("")
-//						.regionCode("")
-//						.streetName("")
-//						.propertyTypeGroup("")
-						.propertyName(l.getRoom().getBuilding())
-						.propertyId(l.getRoom().getProjectId())
-//						.postCode("")
-//						.longitude("")
-//						.latitude("")
-//						.districtCode("")
-//						.areaCode("")
-						.build())
-				.listingType("SALE") // SALE or RENT
-				.details(DetailsXml.builder()
-//						.titleEn("")
-//						.title("")
-						.sizeDetails(SizeDetailsXml.builder()
-//								.landArea("")
-//								.floorSizeY("")
-//								.floorSizeX("")
-								.floorArea(Optional.ofNullable(l.getRoom()).map(RoomRequest::getArea).map(area -> Double.toString(area)).orElse(""))
-								.build())
-						.room(RoomXml.builder()
-								.numBedrooms(l.getRoom().getBed())
-								.numBathrooms(l.getRoom().getToilet())
-//								.extraRooms("")
-								.build())
-						.priceDetails(PriceDetailsXml.builder()
-//								.priceUnit("")
-								.price(Optional.of(l.getRoom()).map(RoomRequest::getPrice).map(price -> Double.toString(price)).orElse("")) // do not include comma “,”
-//								.priceType("")
-//								.priceDescription("")
-								.currencyCode("THB")
-								.build())
-//						.parkingSpaces("")
-						.numberOfFloors(l.getRoom().getFloor())
-//						.furnishing("")
-//						.floorLevel("")
-//						.features("")
-//						.facing("")
-//						.descriptionEn("")
-//						.description("")
-//						.amenities("")
-						.build())
-				.customPhone(l.getOwner().getPhone())
-				.customName(l.getOwner().getName())
-//				.customMobile("")
-//				.agentId("")
-//				.externalId("")
-				.build()).collect(Collectors.toList());
+		return listings.stream().map(l ->
+				{
+					String listingType;
+					String listingTypeTH;
+					String listingTypeEN;
+					Project project = projectRepository.findById(l.getRoom().getProjectId()).orElse(null);
+					if(l.getRoom().getType().equals("2")) {
+						listingType = "RENT";
+						listingTypeTH = "เช่า";
+						listingTypeEN = "Rent";
+					} else {
+						listingType = "SALE";
+						listingTypeTH = "ขาย";
+						listingTypeEN = "Sale";
+					}
+					List<BuildingRequest> buildingRequestList = project.getBuildings().stream().filter(p -> p.getBuilding().equals(l.getRoom().getBuilding())).collect(Collectors.toList());
+
+					return PropertyXml.builder()
+							.refNo(l.getOwner().getListingCode())
+							.location(LocationXml.builder()
+									.streetNumber("")
+									.regionCode("")
+									.streetName("")
+									.propertyTypeGroup("N")
+									.propertyName(project.getName() + " ( ตึก " + l.getRoom().getBuilding() + ")")
+									.postCode(project.getZipcode())
+									.longitude("")
+									.latitude("")
+									.districtCode("")
+									.areaCode("")
+									.build()
+							)
+							.details(
+									DetailsXml.builder()
+											.title(listingTypeTH+" "+project.getName())
+											.titleEn(listingTypeEN+" "+project.getName())
+											.description(l.getRoom().getDescription())
+											.descriptionEn(l.getRoom().getDescription())
+											.features("")
+											.amenities("")
+											.priceDetails(PriceDetailsXml.builder()
+													.priceUnit("")
+													.price(Optional.of(l.getRoom()).map(RoomRequest::getPrice).map(price -> Double.toString(price)).orElse("")) // do not include comma “,”
+													.priceType("BAH")
+													.priceDescription("")
+													.currencyCode("THB")
+													.build())
+											.room(RoomXml.builder()
+													.numBedrooms(l.getRoom().getBed())
+													.numBathrooms(l.getRoom().getToilet())
+													.extraRooms("")
+													.build())
+											.furnishing("")
+											.sizeDetails(SizeDetailsXml.builder()
+													.floorArea(Optional.ofNullable(l.getRoom()).map(RoomRequest::getArea).map(area -> Double.toString(area)).orElse(""))
+													.landArea("")
+													.floorSizeY("")
+													.floorSizeX("")
+													.landSizeX("")
+													.langSizeY("")
+													.build())
+											.parkingSpaces("")
+											.numberOfFloors(buildingRequestList.get(0).getFloor())
+											.floorLevel(l.getRoom().getFloor())
+											.facing("")
+											.build()
+							)
+							.listingType(listingType) // SALE or RENT
+							.agentId("")
+							.customPhone("")
+							.customName("")
+							.customMobile("")
+							.externalId("")
+							.tenure("")
+							.sold("NO")
+							.status("ACTIVE")
+							.photo(l.getFiles().stream().map(f -> PhotoXml.builder()
+									.pictureUrl(f.getPath())
+									.pictureCaption("")
+									.build()).collect(Collectors.toList())
+							)
+					.build();
+				}
+
+		).collect(Collectors.toList());
 	}
 }

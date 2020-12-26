@@ -35,8 +35,8 @@ public class LocationXml {
     @JsonProperty("property-name")
     private String propertyName;
 
-    @JsonProperty("property-id")
-    private String propertyId;
+//    @JsonProperty("property-id")
+//    private String propertyId;
 
     @JsonProperty("property-type-group")
     private String propertyTypeGroup;
