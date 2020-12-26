@@ -315,89 +315,90 @@ public class ListingServiceImpl implements ListingService {
 		List<Listing> listings = listingRepository.findAllByFlag(true);
 
 		return listings.stream().map(l ->
-				{
-					String listingType;
-					String listingTypeTH;
-					String listingTypeEN;
-					Project project = projectRepository.findById(l.getRoom().getProjectId()).orElse(null);
-					if(l.getRoom().getType().equals("2")) {
-						listingType = "RENT";
-						listingTypeTH = "เช่า";
-						listingTypeEN = "Rent";
-					} else {
-						listingType = "SALE";
-						listingTypeTH = "ขาย";
-						listingTypeEN = "Sale";
-					}
-					List<BuildingRequest> buildingRequestList = project.getBuildings().stream().filter(p -> p.getBuilding().equals(l.getRoom().getBuilding())).collect(Collectors.toList());
-
-					return PropertyXml.builder()
-							.refNo(l.getOwner().getListingCode())
-							.location(LocationXml.builder()
-									.streetNumber("")
-									.regionCode("")
-									.streetName("")
-									.propertyTypeGroup("N")
-									.propertyName(project.getName() + " ( ตึก " + l.getRoom().getBuilding() + ")")
-									.postCode(project.getZipcode())
-									.longitude("")
-									.latitude("")
-									.districtCode("")
-									.areaCode("")
-									.build()
-							)
-							.details(
-									DetailsXml.builder()
-											.title(listingTypeTH+" "+project.getName())
-											.titleEn(listingTypeEN+" "+project.getName())
-											.description(l.getRoom().getDescription())
-											.descriptionEn(l.getRoom().getDescription())
-											.features("")
-											.amenities("")
-											.priceDetails(PriceDetailsXml.builder()
-													.priceUnit("")
-													.price(Optional.of(l.getRoom()).map(RoomRequest::getPrice).map(price -> Double.toString(price)).orElse("")) // do not include comma “,”
-													.priceType("BAH")
-													.priceDescription("")
-													.currencyCode("THB")
-													.build())
-											.room(RoomXml.builder()
-													.numBedrooms(l.getRoom().getBed())
-													.numBathrooms(l.getRoom().getToilet())
-													.extraRooms("")
-													.build())
-											.furnishing("")
-											.sizeDetails(SizeDetailsXml.builder()
-													.floorArea(Optional.ofNullable(l.getRoom()).map(RoomRequest::getArea).map(area -> Double.toString(area)).orElse(""))
-													.landArea("")
-													.floorSizeY("")
-													.floorSizeX("")
-													.landSizeX("")
-													.langSizeY("")
-													.build())
-											.parkingSpaces("")
-											.numberOfFloors(buildingRequestList.get(0).getFloor())
-											.floorLevel(l.getRoom().getFloor())
-											.facing("")
-											.build()
-							)
-							.listingType(listingType) // SALE or RENT
-							.agentId("")
-							.customPhone("")
-							.customName("")
-							.customMobile("")
-							.externalId("")
-							.tenure("")
-							.sold("NO")
-							.status("ACTIVE")
-							.photo(l.getFiles().stream().map(f -> PhotoXml.builder()
-									.pictureUrl(f.getPath())
-									.pictureCaption("")
-									.build()).collect(Collectors.toList())
-							)
-					.build();
+			{
+				String listingType;
+				String listingTypeTH;
+				String listingTypeEN;
+				Project project = projectRepository.findById(l.getRoom().getProjectId()).orElse(null);
+				if(l.getRoom().getType().equals("2")) {
+					listingType = "RENT";
+					listingTypeTH = "เช่า";
+					listingTypeEN = "Rent";
+				} else {
+					listingType = "SALE";
+					listingTypeTH = "ขาย";
+					listingTypeEN = "Sale";
 				}
+				List<BuildingRequest> buildingRequestList = project.getBuildings().stream().filter(p -> p.getBuilding().equals(l.getRoom().getBuilding())).collect(Collectors.toList());
 
+			return PropertyXml.builder()
+				.refNo(l.getOwner().getListingCode())
+				.location(LocationXml.builder()
+					.streetNumber("")
+					.regionCode("")
+					.streetName("")
+					.propertyTypeGroup("N")
+					.propertyName(project.getName() + " ( ตึก " + l.getRoom().getBuilding() + ")")
+					.postCode(project.getZipcode())
+					.longitude("")
+					.latitude("")
+					.districtCode("")
+					.areaCode("")
+					.build()
+				)
+				.details(DetailsXml.builder()
+					.title(listingTypeTH+" "+project.getName())
+					.titleEn(listingTypeEN+" "+project.getName())
+					.description(l.getRoom().getDescription())
+					.descriptionEn(l.getRoom().getDescription())
+					.features("")
+					.amenities("")
+					.priceDetails(PriceDetailsXml.builder()
+						.priceUnit("")
+						.price(Optional.of(l.getRoom()).map(RoomRequest::getPrice).map(price -> Double.toString(price)).orElse("")) // do not include comma “,”
+						.priceType("BAH")
+						.priceDescription("")
+						.currencyCode("THB")
+						.build()
+					)
+					.room(RoomXml.builder()
+						.numBedrooms(l.getRoom().getBed())
+						.numBathrooms(l.getRoom().getToilet())
+						.extraRooms("")
+						.build()
+					)
+					.furnishing("")
+					.sizeDetails(SizeDetailsXml.builder()
+						.floorArea(Optional.ofNullable(l.getRoom()).map(RoomRequest::getArea).map(area -> Double.toString(area)).orElse(""))
+						.landArea("")
+						.floorSizeY("")
+						.floorSizeX("")
+						.landSizeX("")
+						.langSizeY("")
+						.build()
+					)
+					.parkingSpaces("")
+					.numberOfFloors(buildingRequestList.get(0).getFloor())
+					.floorLevel(l.getRoom().getFloor())
+					.facing("")
+					.build()
+				)
+				.listingType(listingType) // SALE or RENT
+				.agentId("")
+				.customPhone("")
+				.customName("")
+				.customMobile("")
+				.externalId("")
+				.tenure("")
+				.sold("NO")
+				.status("ACTIVE")
+				.photo(l.getFiles().stream().map(f -> PhotoXml.builder()
+					.pictureUrl(f.getPath())
+					.pictureCaption("")
+					.build()).collect(Collectors.toList())
+				)
+				.build();
+			}
 		).collect(Collectors.toList());
 	}
 }
