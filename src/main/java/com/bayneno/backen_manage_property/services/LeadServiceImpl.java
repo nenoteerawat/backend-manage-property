@@ -233,7 +233,7 @@ public class LeadServiceImpl implements LeadService {
 	}
 
 	@Override
-	public Integer calculateFillFieldValuePercentage(Object object) {
+	public Integer calculateFillFieldValuePercentage(Lead lead) {
 
 		return null;
 	}
