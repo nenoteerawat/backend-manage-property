@@ -17,8 +17,8 @@ public class PropertyXml {
     @JsonProperty("external-id")
     private String externalId;
 
-    @JsonProperty("ref-id")
-    private String refId;
+    @JsonProperty("ref-no")
+    private String refNo;
 
     private LocationXml location;
 

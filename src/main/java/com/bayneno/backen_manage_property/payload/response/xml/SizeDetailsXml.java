@@ -21,4 +21,10 @@ public class SizeDetailsXml {
 
     @JsonProperty("land-area")
     private String landArea;
+
+    @JsonProperty("land-size-x")
+    private String landSizeX;
+
+    @JsonProperty("land-size-y")
+    private String langSizeY;
 }
