@@ -1,11 +1,11 @@
 package com.bayneno.backen_manage_property.services;
 
-import com.bayneno.backen_manage_property.enums.EPropertyTypeGroupLog;
 import com.bayneno.backen_manage_property.enums.EQuery;
 import com.bayneno.backen_manage_property.models.*;
 import com.bayneno.backen_manage_property.payload.request.*;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
 import com.bayneno.backen_manage_property.payload.response.xml.*;
+import com.bayneno.backen_manage_property.properties.DDPropertiesParameters;
 import com.bayneno.backen_manage_property.repository.ActionLogRepository;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;
@@ -31,14 +31,18 @@ public class ListingServiceImpl implements ListingService {
 
 	private final ActionLogRepository actionLogRepository;
 
+	private final DDPropertiesParameters ddPropertiesParameters;
+
 	public ListingServiceImpl(ListingRepository listingRepository
 			, ProjectRepository projectRepository
 			, MongoTemplate mongoTemplate
-			, ActionLogRepository actionLogRepository) {
+			, ActionLogRepository actionLogRepository
+			, DDPropertiesParameters ddPropertiesParameters) {
 		this.listingRepository = listingRepository;
 		this.projectRepository = projectRepository;
 		this.mongoTemplate = mongoTemplate;
 		this.actionLogRepository = actionLogRepository;
+		this.ddPropertiesParameters = ddPropertiesParameters;
 	}
 
 	@Override
@@ -313,6 +317,9 @@ public class ListingServiceImpl implements ListingService {
 	public List<PropertyXml> findPublish() {
 
 		List<Listing> listings = listingRepository.findAllByFlag(true);
+		Map<String, String> facingMaster = ddPropertiesParameters.getFacing();
+		Map<String, String> amenitiesMaster = ddPropertiesParameters.getAmenities();
+		Map<String, String> furnishingMaster = ddPropertiesParameters.getFurnishing();
 
 		return listings.stream().map(l ->
 			{
@@ -330,6 +337,14 @@ public class ListingServiceImpl implements ListingService {
 					listingTypeEN = "Sale";
 				}
 				List<BuildingRequest> buildingRequestList = project.getBuildings().stream().filter(p -> p.getBuilding().equals(l.getRoom().getBuilding())).collect(Collectors.toList());
+				String facing = facingMaster.get(l.getRoom().getDirection());
+				String amenities = project.getFacilities()
+						.stream()
+						.filter(f -> amenitiesMaster.containsKey(f.replace(" ","")))
+						.map(f -> amenitiesMaster.get(f.replace(" ","")))
+						.collect(Collectors.toList())
+						.toString().replace("[", "").replace("]","");
+				String furnishing = furnishingMaster.getOrDefault(l.getRoom().getFeature(), "");
 
 			return PropertyXml.builder()
 				.refNo(l.getOwner().getListingCode())
@@ -352,7 +367,7 @@ public class ListingServiceImpl implements ListingService {
 					.description(l.getRoom().getDescription())
 					.descriptionEn(l.getRoom().getDescription())
 					.features("")
-					.amenities("")
+					.amenities(amenities)
 					.priceDetails(PriceDetailsXml.builder()
 						.priceUnit("")
 						.price(Optional.of(l.getRoom()).map(RoomRequest::getPrice).map(price -> Double.toString(price)).orElse("")) // do not include comma “,”
@@ -367,7 +382,7 @@ public class ListingServiceImpl implements ListingService {
 						.extraRooms("")
 						.build()
 					)
-					.furnishing("")
+					.furnishing(furnishing)
 					.sizeDetails(SizeDetailsXml.builder()
 						.floorArea(Optional.ofNullable(l.getRoom()).map(RoomRequest::getArea).map(area -> Double.toString(area)).orElse(""))
 						.landArea("")
@@ -380,7 +395,7 @@ public class ListingServiceImpl implements ListingService {
 					.parkingSpaces("")
 					.numberOfFloors(buildingRequestList.get(0).getFloor())
 					.floorLevel(l.getRoom().getFloor())
-					.facing("")
+					.facing(facing)
 					.build()
 				)
 				.listingType(listingType) // SALE or RENT
