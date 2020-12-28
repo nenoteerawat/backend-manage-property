@@ -20,6 +20,9 @@ public class PropertyXml {
     @JsonProperty("ref-no")
     private String refNo;
 
+    @JsonProperty("ref-id")
+    private String refId;
+
     private LocationXml location;
 
     private DetailsXml details;
