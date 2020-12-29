@@ -404,7 +404,6 @@ public class ListingServiceImpl implements ListingService {
 				.customPhone("")
 				.customName("")
 				.customMobile("")
-				.externalId("")
 				.tenure("")
 				.sold("NO")
 				.status("ACTIVE")
