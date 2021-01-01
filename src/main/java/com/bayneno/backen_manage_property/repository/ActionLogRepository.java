@@ -1,12 +1,10 @@
 package com.bayneno.backen_manage_property.repository;
 
 import com.bayneno.backen_manage_property.models.ActionLog;
-import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 
 
 public interface ActionLogRepository extends MongoRepository<ActionLog, String> {

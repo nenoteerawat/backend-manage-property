@@ -1,19 +1,10 @@
 package com.bayneno.backen_manage_property.controllers;
 
-import com.bayneno.backen_manage_property.models.Project;
-import com.bayneno.backen_manage_property.payload.request.ProjectRequest;
-import com.bayneno.backen_manage_property.payload.request.ProjectSearchRequest;
-import com.bayneno.backen_manage_property.payload.request.TransportRequest;
-import com.bayneno.backen_manage_property.payload.response.ProjectResponse;
 import com.bayneno.backen_manage_property.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

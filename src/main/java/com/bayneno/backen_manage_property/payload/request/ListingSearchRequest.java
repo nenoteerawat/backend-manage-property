@@ -1,6 +1,5 @@
 package com.bayneno.backen_manage_property.payload.request;
 
-import com.bayneno.backen_manage_property.models.Role;
 import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.response.FileResponse;
 import lombok.AllArgsConstructor;

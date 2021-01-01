@@ -1,6 +1,8 @@
 package com.bayneno.backen_manage_property.services;
 
-import com.bayneno.backen_manage_property.models.*;
+import com.bayneno.backen_manage_property.models.Lead;
+import com.bayneno.backen_manage_property.models.Listing;
+import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.LeadRequest;
 import com.bayneno.backen_manage_property.repository.*;
 import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;

@@ -4,7 +4,6 @@ import com.bayneno.backen_manage_property.models.Project;
 import com.bayneno.backen_manage_property.payload.request.OwnerRequest;
 import com.bayneno.backen_manage_property.payload.request.RoomRequest;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import java.util.List;
 

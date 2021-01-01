@@ -2,20 +2,14 @@ package com.bayneno.backen_manage_property.controllers;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.util.Base64;
 import com.bayneno.backen_manage_property.payload.request.FileRequest;
 import com.bayneno.backen_manage_property.payload.response.FileResponse;
 import com.bayneno.backen_manage_property.properties.AwsProp;
 import com.bayneno.backen_manage_property.services.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
