@@ -14,9 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 public class PropertyXml {
 
-    @JsonProperty("external-id")
-    private String externalId;
-
     @JsonProperty("ref-no")
     private String refNo;
 

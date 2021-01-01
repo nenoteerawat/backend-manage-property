@@ -1,6 +1,7 @@
 package com.bayneno.backen_manage_property.configs;
 
 import com.bayneno.backen_manage_property.properties.ActionLogCalendar;
+import com.bayneno.backen_manage_property.properties.DDPropertiesParameters;
 import com.bayneno.backen_manage_property.properties.PdfDefaultParameters;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
@@ -22,7 +23,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc
-@EnableConfigurationProperties({ActionLogCalendar.class, PdfDefaultParameters.class})
+@EnableConfigurationProperties({ActionLogCalendar.class, PdfDefaultParameters.class, DDPropertiesParameters.class})
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
