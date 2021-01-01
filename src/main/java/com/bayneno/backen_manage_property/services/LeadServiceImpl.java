@@ -6,6 +6,8 @@ import com.bayneno.backen_manage_property.repository.*;
 import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+
 @Service
 public class LeadServiceImpl implements LeadService {
 
@@ -46,8 +48,7 @@ public class LeadServiceImpl implements LeadService {
 			listingBySale = listingRepository.findById(leadRequest.getListingBySale().getValue()).orElse(null);
 		if(!"0".equals(leadRequest.getListingLifeStyleBySale().getValue()) && !"-1".equals(leadRequest.getListingLifeStyleBySale().getValue()))
 			listingLifeStyleBySale = listingRepository.findById(leadRequest.getListingLifeStyleBySale().getValue()).orElse(null);
-		Lead lead = leadRepository.save(
-				Lead
+		Lead lead = Lead
 				.builder()
 				.painPoints(leadRequest.getPainPoints())
 				.painSales(leadRequest.getPaintSales())
@@ -125,10 +126,11 @@ public class LeadServiceImpl implements LeadService {
 				.updatedDateTime(ZonedDateTimeUtil.now())
 				.saleUser(sale)
 				.file(leadRequest.getFile())
-				.build()
-		);
+				.build();
+		lead.setInfo(calculateFillFieldValuePercentage(lead));
+		Lead leadSaved = leadRepository.save(lead);
 
-		return lead.getId();
+		return leadSaved.getId();
 	}
 
 	@Override
@@ -226,6 +228,7 @@ public class LeadServiceImpl implements LeadService {
 			lead.setUpdatedDateTime(ZonedDateTimeUtil.now());
 			lead.setSaleUser(sale);
 			lead.setFile(leadRequest.getFile());
+			lead.setInfo(calculateFillFieldValuePercentage(lead));
 			leadRepository.save(lead);
 		}
 
@@ -233,8 +236,38 @@ public class LeadServiceImpl implements LeadService {
 	}
 
 	@Override
-	public Integer calculateFillFieldValuePercentage(Lead lead) {
+	public int calculateFillFieldValuePercentage(Lead lead) {
+		Field[] fields = Lead.class.getDeclaredFields();
+		int unFillField = 0;
+		int totalField = fields.length;
+		for(Field field : fields){
+			try {
+				if(field.isAnnotationPresent(NonInfo.class)) {
+					field.setAccessible(true);
+					Object fieldValue = field.get(lead);
+					if (fieldValue instanceof String) {
+						String fieldValueString = (String) fieldValue;
+						if (fieldValueString.equalsIgnoreCase("")) {
+							unFillField++;
+						}
+					} else if (fieldValue instanceof Integer) {
+						int fieldValueInteger = (int) fieldValue;
+						if (fieldValueInteger == 0) {
+							unFillField++;
+						}
+					} else {
+						if (fieldValue == null) {
+							unFillField++;
+						}
+					}
+					field.setAccessible(false);
+				} else {
+					totalField--;
+				}
+			} catch (IllegalAccessException e){
 
-		return null;
+			}
+		}
+		return unFillField * 100 / totalField;
 	}
 }

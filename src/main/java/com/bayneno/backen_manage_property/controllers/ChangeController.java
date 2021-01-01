@@ -137,6 +137,14 @@ public class ChangeController {
                 excludeField.add("directionListingByAdmin");
                 excludeField.add("listingByAdminNotes");
                 excludeField.add("zoneListingByAdmin");
+
+                excludeField.add("file");
+                excludeField.add("books");
+                excludeField.add("leasePDF");
+                excludeField.add("sellPDF");
+                excludeField.add("agentAgreementPDF");
+                excludeField.add("exclusivePDF");
+                excludeField.add("coBrokePDF");
             }
 
             for (Field oldField : fromValue.getClass().getDeclaredFields()) {
