@@ -1,7 +1,10 @@
 package com.bayneno.backen_manage_property.services;
 
 import com.bayneno.backen_manage_property.enums.EQuery;
-import com.bayneno.backen_manage_property.models.*;
+import com.bayneno.backen_manage_property.models.ActionLog;
+import com.bayneno.backen_manage_property.models.Listing;
+import com.bayneno.backen_manage_property.models.Project;
+import com.bayneno.backen_manage_property.models.User;
 import com.bayneno.backen_manage_property.payload.request.*;
 import com.bayneno.backen_manage_property.payload.response.ListingResponse;
 import com.bayneno.backen_manage_property.payload.response.xml.*;

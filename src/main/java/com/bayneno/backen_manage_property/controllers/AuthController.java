@@ -1,14 +1,13 @@
 package com.bayneno.backen_manage_property.controllers;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
-
+import com.bayneno.backen_manage_property.enums.ERole;
+import com.bayneno.backen_manage_property.models.Role;
+import com.bayneno.backen_manage_property.models.User;
+import com.bayneno.backen_manage_property.payload.request.LoginRequest;
+import com.bayneno.backen_manage_property.payload.request.SignupRequest;
 import com.bayneno.backen_manage_property.payload.response.JwtResponse;
 import com.bayneno.backen_manage_property.payload.response.MessageResponse;
+import com.bayneno.backen_manage_property.repository.RoleRepository;
 import com.bayneno.backen_manage_property.repository.UserRepository;
 import com.bayneno.backen_manage_property.security.jwt.JwtUtils;
 import com.bayneno.backen_manage_property.security.services.UserDetailsImpl;
@@ -20,18 +19,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.bayneno.backen_manage_property.enums.ERole;
-import com.bayneno.backen_manage_property.models.Role;
-import com.bayneno.backen_manage_property.models.User;
-import com.bayneno.backen_manage_property.payload.request.LoginRequest;
-import com.bayneno.backen_manage_property.payload.request.SignupRequest;
-import com.bayneno.backen_manage_property.repository.RoleRepository;
+import javax.validation.Valid;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController

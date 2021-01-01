@@ -1,16 +1,12 @@
 package com.bayneno.backen_manage_property.controllers;
 
-import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
-import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
 import com.bayneno.backen_manage_property.enums.ERole;
-import com.bayneno.backen_manage_property.models.Lead;
-import com.bayneno.backen_manage_property.models.Listing;
+import com.bayneno.backen_manage_property.enums.ESubmitTypeChangeLog;
+import com.bayneno.backen_manage_property.enums.ETypeChangeLog;
 import com.bayneno.backen_manage_property.models.Project;
 import com.bayneno.backen_manage_property.models.User;
-import com.bayneno.backen_manage_property.payload.request.OwnerRequest;
 import com.bayneno.backen_manage_property.payload.request.ProjectRequest;
 import com.bayneno.backen_manage_property.payload.request.ProjectSearchRequest;
-import com.bayneno.backen_manage_property.payload.request.RoomRequest;
 import com.bayneno.backen_manage_property.payload.request.change_log.SubmitReq;
 import com.bayneno.backen_manage_property.payload.response.ProjectResponse;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;

@@ -1,6 +1,7 @@
 package com.bayneno.backen_manage_property.models;
 
 import com.bayneno.backen_manage_property.payload.response.FileResponse;
+import com.bayneno.backen_manage_property.services.NonInfo;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -18,9 +19,11 @@ import java.util.Map;
 @Document(collection = "lead")
 public class Lead {
 
+  @NonInfo
   @Id
   private String id;
 
+  @NonInfo
   @DBRef
   private Listing listingByLead;
   private String buildingListingByLead;
@@ -32,6 +35,7 @@ public class Lead {
   private String directionListingByLead;
   private String zoneListingByLead;
   private String listingByLeadNotes;
+  @NonInfo
   @DBRef
   private Listing listingByAdmin;
   private String buildingListingByAdmin;
@@ -43,6 +47,7 @@ public class Lead {
   private String directionListingByAdmin;
   private String zoneListingByAdmin;
   private String listingByAdminNotes;
+  @NonInfo
   @DBRef
   private Listing listingBySale;
   private String buildingListingBySale;
@@ -54,6 +59,7 @@ public class Lead {
   private String directionListingBySale;
   private String zoneListingBySale;
   private String listingBySaleNotes;
+  @NonInfo
   @DBRef
   private Listing listingLifeStyleBySale;
   private String buildingListingLifeStyleBySale;
@@ -103,21 +109,32 @@ public class Lead {
   private String contract;
   private String typePay;
 
+  @NonInfo
   private FileResponse file;
+  @NonInfo
   private List<FileResponse> books;
+  @NonInfo
   private Map<String , String> leasePDF;
+  @NonInfo
   private Map<String , String> sellPDF;
+  @NonInfo
   private Map<String , String> agentAgreementPDF;
+  @NonInfo
   private Map<String , String> exclusivePDF;
+  @NonInfo
   private Map<String , String> coBrokePDF;
 
   @DBRef
   private User saleUser;
 
+  @NonInfo
   @DBRef
   private User createdBy;
+  @NonInfo
   private ZonedDateTime createdDateTime;
+  @NonInfo
   @DBRef
   private User updatedBy;
+  @NonInfo
   private ZonedDateTime updatedDateTime;
 }
