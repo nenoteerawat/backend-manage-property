@@ -78,6 +78,8 @@ public class ListingController {
                             .files(listingRequest.getFiles())
                             .createdBy(createdByUser)
                             .createdDateTime(ZonedDateTimeUtil.now())
+                            .updatedBy(createdByUser)
+                            .updatedDateTime(ZonedDateTimeUtil.now())
                             .saleUser(listingRequest.getSaleUser())
                             .build())
                     .build());
