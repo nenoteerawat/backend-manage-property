@@ -75,6 +75,8 @@ public class ProjectController {
                             .zone(projectRequest.getZone())
                             .createdBy(createdByUser)
                             .createdDateTime(ZonedDateTimeUtil.now())
+                            .updatedBy(createdByUser)
+                            .updatedDateTime(ZonedDateTimeUtil.now())
                             .build())
                     .build());
 
