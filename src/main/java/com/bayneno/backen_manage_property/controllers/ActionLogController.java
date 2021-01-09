@@ -69,7 +69,7 @@ public class ActionLogController {
             listing = listingRepository.findById(actionLogRequest.getListingId()).orElse(null);
 
         ZonedDateTime actionDateTime = ZonedDateTimeUtil.stringToZonedDateTime(actionLogRequest.getActionDateTime()
-                , ZonedDateTimeUtil.DDMMYYYYTHHMMSSSSSZ
+                , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ
                 , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID);
 
         String done = actionLogRequest.getDone().equals("1")? "PENDING" : "COMPLETED";
@@ -99,7 +99,7 @@ public class ActionLogController {
                         .done(actionLog.getDone())
                         .actionDateTime(ZonedDateTimeUtil.zonedDateTimeToString(
                                 actionLog.getActionDateTime()
-                                , ZonedDateTimeUtil.DDMMYYYYTHHMMSSSSSZ
+                                , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ
                                 , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID)
                         )
                         .build();
@@ -142,7 +142,7 @@ public class ActionLogController {
                 .done(actionLog.getDone())
                 .actionDateTime(ZonedDateTimeUtil.zonedDateTimeToString(
                     actionLog.getActionDateTime()
-                    , ZonedDateTimeUtil.DDMMYYYYTHHMMSSSSSZ
+                    , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ
                     , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID)
                 )
                 .build())
@@ -163,7 +163,7 @@ public class ActionLogController {
                         .color(actionLogCalendar.getTypeMapEventColor().getOrDefault(actionLog.getStatus(), ""))
                         .done(actionLog.getDone().equals("PENDING") ? "1" : "2")
                         .start(ZonedDateTimeUtil.zonedDateTimeToString(actionLog.getActionDateTime()
-                                , ZonedDateTimeUtil.DDMMYYYYTHHMMSSSSSZ, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
+                                , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
                         .build())
                 .collect(Collectors.toList());
         return ResponseEntity.ok(showCalendarResponses);
@@ -176,10 +176,10 @@ public class ActionLogController {
         return ResponseEntity.ok(ActionLogResponse.builder()
                 .comment(actionLog.getComment())
                 .actionDateTime(ZonedDateTimeUtil.zonedDateTimeToString(actionLog.getActionDateTime()
-                        , ZonedDateTimeUtil.DDMMYYYYTHHMMSSSSSZ, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
+                        , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
                 .createdBy(actionLog.getCreatedBy())
                 .createdDateTime(ZonedDateTimeUtil.zonedDateTimeToString(actionLog.getCreatedDateTime()
-                        , ZonedDateTimeUtil.DDMMYYYYTHHMMSSSSSZ, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
+                        , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
                 .done(actionLog.getDone().equals("PENDING") ? "1" : "2")
                 .id(actionLog.getId())
                 .lead(actionLog.getLead())
@@ -208,7 +208,7 @@ public class ActionLogController {
             listing = listingRepository.findById(actionLogRequest.getListingId()).orElse(null);
 
         ZonedDateTime actionDateTime = ZonedDateTimeUtil.stringToZonedDateTime(actionLogRequest.getActionDateTime()
-                , ZonedDateTimeUtil.DDMMYYYYTHHMMSSSSSZ
+                , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ
                 , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID);
 
         String done = actionLogRequest.getDone().equals("1")? "PENDING" : "COMPLETED";
@@ -233,7 +233,7 @@ public class ActionLogController {
                         .done(actionLog.getDone())
                         .actionDateTime(ZonedDateTimeUtil.zonedDateTimeToString(
                                 actionLog.getActionDateTime()
-                                , ZonedDateTimeUtil.DDMMYYYYTHHMMSSSSSZ
+                                , ZonedDateTimeUtil.YYYYMMDDTHHMMSSSSSZ
                                 , ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID)
                         )
                         .build();
