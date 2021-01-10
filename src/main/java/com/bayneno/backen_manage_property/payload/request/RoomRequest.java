@@ -30,8 +30,7 @@ public class RoomRequest {
     private String direction;
     @Builder.Default
     private List<String> position = new ArrayList<>();
-    @Builder.Default
-    private List<String> scenery = new ArrayList<>();
+    private String scenery;
     private String feature;
     @Builder.Default
     private List<String> tags = new ArrayList<>();
