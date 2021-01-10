@@ -13,6 +13,7 @@ import com.bayneno.backen_manage_property.repository.ActionLogRepository;
 import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;
 import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -22,7 +23,7 @@ import org.springframework.util.StringUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 @Service
 public class ListingServiceImpl implements ListingService {
 
@@ -275,8 +276,20 @@ public class ListingServiceImpl implements ListingService {
 				case IS: query.addCriteria(Criteria.where(searchKey[0]).is(searchValue[0])); break;
 				case BETWEEN:
 					String[] split = searchValue[0].split(",");
-					double lower = Double.parseDouble(split[0]);
-					double upper = Double.parseDouble(split[1]);
+					double upper = Double.MAX_VALUE;
+					double lower = Double.MIN_VALUE;
+					try {
+						upper = Double.parseDouble(split[1]);
+					} catch (Exception e) {
+						log.error("Can't parse upper search value", e);
+					}
+					try {
+						lower = Double.parseDouble(split[0]);
+					} catch (Exception e){
+						log.error("Can't parse lower search value", e);
+					}
+					if(upper <= lower)
+						upper = Double.MAX_VALUE;
 					if(upper > 0 && lower > 0 && upper > lower)
 						query.addCriteria(Criteria.where(searchKey[0]).gte(lower * multipleValue).lte(upper * multipleValue));
 					break;
