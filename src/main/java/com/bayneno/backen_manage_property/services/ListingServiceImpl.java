@@ -281,12 +281,12 @@ public class ListingServiceImpl implements ListingService {
 					try {
 						upper = Double.parseDouble(split[1]);
 					} catch (Exception e) {
-						log.error("Can't parse upper search value", e);
+
 					}
 					try {
 						lower = Double.parseDouble(split[0]);
 					} catch (Exception e){
-						log.error("Can't parse lower search value", e);
+
 					}
 					if(upper <= lower)
 						upper = Double.MAX_VALUE;
