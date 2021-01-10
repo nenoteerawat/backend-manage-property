@@ -304,6 +304,8 @@ pdf-default-parameters:
     dateRegistry: ${pdf-default-parameters.default-value}
     tax: "0"
     addNewRule: ${pdf-default-parameters.default-value}
+    YEAR_BUDDHIST: ""
+    YEAR_CHRISTIANITY: ""
   exclusiveAgreement:
     saller: ${pdf-default-parameters.default-value}
     buyer: ${pdf-default-parameters.default-value}

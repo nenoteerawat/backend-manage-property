@@ -3,6 +3,7 @@ package com.bayneno.backen_manage_property.utils;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.chrono.ThaiBuddhistDate;
 import java.time.format.DateTimeFormatter;
 
 public class ZonedDateTimeUtil {
@@ -45,5 +46,13 @@ public class ZonedDateTimeUtil {
 
     public static String nowString(){
         return nowString(YYYYMMDDTHHMMSS);
+    }
+
+    public static String buddhistYear(){
+        return ThaiBuddhistDate.now(ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID).format(DateTimeFormatter.ofPattern("yyyy"));
+    }
+
+    public static String christianityYear(){
+        return now().format(DateTimeFormatter.ofPattern("yyyy"));
     }
 }

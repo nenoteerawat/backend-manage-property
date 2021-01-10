@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
+import java.time.chrono.ThaiBuddhistDate;
 import java.util.Base64;
 import java.util.Map;
 
@@ -72,6 +73,8 @@ public class ReportController {
                 parametersFromController.put(key, value);
             }
         });
+        parametersFromController.put("YEAR_BUDDHIST", ZonedDateTimeUtil.buddhistYear());
+        parametersFromController.put("YEAR_CHRISTIANITY", ZonedDateTimeUtil.christianityYear());
         return Base64.getEncoder().encodeToString(reportService.generateReport("classpath:jasper/sellAndPurchaseAgreement-eng.jasper", parametersFromController));
     }
 

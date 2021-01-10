@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="leaseAgreement" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="849015d0-73f9-4eb1-9417-9279fb8950d9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="541"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="REPORT_PATH" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/Users/70005995/IdeaProjects/infra-property/backend-manage-property/src/main/resources/jasper"]]></defaultValueExpression>
 	</parameter>
@@ -74,6 +74,8 @@
 	<parameter name="DATE_REGISTRY2TH" class="java.lang.String"/>
 	<parameter name="TAX" class="java.lang.String"/>
 	<parameter name="ADD_NEW_RULE_TH" class="java.lang.String"/>
+	<parameter name="YEAR_BUDDHIST" class="java.lang.String"/>
+	<parameter name="YEAR_CHRISTIANITY" class="java.lang.String"/>
 	<variable name="PAGE_AMOUT" class="java.lang.Integer">
 		<variableExpression><![CDATA[6]]></variableExpression>
 		<initialValueExpression><![CDATA[6]]></initialValueExpression>
@@ -164,7 +166,7 @@
 					<font fontName="TH SarabunPSK" size="16"/>
 					<paragraph lineSpacing="1_1_2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["........"+$P{TITLE_YEAR1}+"..... 2563 / ......"+$P{TITLE_YEAR2}+"...... 2020"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["........"+$P{TITLE_YEAR1}+"..... "+$P{YEAR_BUDDHIST}+" / ......"+$P{TITLE_YEAR2}+"...... "+$P{YEAR_CHRISTIANITY}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="500">
