@@ -43,4 +43,6 @@ public class User {
   @DBRef
   private Set<Role> roles = new HashSet<>();
 
+  private String zone;
+
 }

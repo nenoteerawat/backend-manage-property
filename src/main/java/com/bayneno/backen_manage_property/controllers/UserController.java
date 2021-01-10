@@ -38,6 +38,7 @@ public class UserController {
             user.get().setNickName(signupRequest.getNickName());
             user.get().setPassword(signupRequest.getPassword());
             user.get().setEmail(signupRequest.getEmail());
+            user.get().setZone(signupRequest.getZone());
             userRepository.save(user.get());
         }
         return ResponseEntity.ok("success");

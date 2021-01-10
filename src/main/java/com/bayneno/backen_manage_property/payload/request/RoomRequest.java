@@ -24,7 +24,8 @@ public class RoomRequest {
     private Double area;
     private String floor;
     private Double price;
-    private String priceRent;
+    private Double priceDown;
+    private Double priceRent;
     private String rentDetail;
     private String direction;
     @Builder.Default
