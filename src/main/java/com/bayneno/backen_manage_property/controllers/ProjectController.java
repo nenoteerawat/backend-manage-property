@@ -73,6 +73,7 @@ public class ProjectController {
                             .facilities(projectRequest.getFacilities())
                             .transports(projectRequest.getTransports())
                             .zone(projectRequest.getZone())
+                            .team(projectRequest.getTeam())
                             .createdBy(createdByUser)
                             .createdDateTime(ZonedDateTimeUtil.now())
                             .updatedBy(createdByUser)
@@ -190,6 +191,7 @@ public class ProjectController {
                                         p.getProvince(),
                                         p.getZipcode(),
                                         p.getZone(),
+                                        p.getTeam(),
                                         p.getFacilities(),
                                         p.getTransports(),
                                         p.getBuildings(),
@@ -214,6 +216,7 @@ public class ProjectController {
                             project.getProvince(),
                             project.getZipcode(),
                             project.getZone(),
+                            project.getTeam(),
                             project.getFacilities(),
                             project.getTransports(),
                             project.getBuildings(),
