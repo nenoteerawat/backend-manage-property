@@ -31,6 +31,7 @@ public class Project {
     private String zipcode;
     private String zone;
     private String team;
+    private String facilityOther;
     @DBRef
     private User createdBy;
     private ZonedDateTime createdDateTime;

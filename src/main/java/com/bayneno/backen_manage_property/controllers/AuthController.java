@@ -94,6 +94,7 @@ public class AuthController {
 				.email(signUpRequest.getEmail())
 				.password(encoder.encode(signUpRequest.getPassword()))
 				.zone(signUpRequest.getZone())
+				.subZone(signUpRequest.getSubZone())
 				.build();
 
 		Set<String> strRoles = signUpRequest.getRoles();

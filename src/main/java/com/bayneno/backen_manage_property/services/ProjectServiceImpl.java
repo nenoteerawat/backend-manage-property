@@ -43,6 +43,7 @@ public class ProjectServiceImpl implements ProjectService  {
 						.transports(projectRequest.getTransports())
 						.zone(projectRequest.getZone())
 						.team(projectRequest.getTeam())
+						.facilityOther(projectRequest.getTeam())
 						.createdBy(user)
 						.createdDateTime(ZonedDateTimeUtil.now())
 						.updatedBy(user)
@@ -96,6 +97,7 @@ public class ProjectServiceImpl implements ProjectService  {
 			project.get().setTransports(projectRequest.getTransports());
 			project.get().setZone(projectRequest.getZone());
 			project.get().setTeam(projectRequest.getTeam());
+			project.get().setFacilityOther(projectRequest.getFacilityOther());
 			project.get().setUpdatedBy(project.get().getCreatedBy());
 			project.get().setUpdatedDateTime(project.get().getCreatedDateTime());
 			project.get().setUpdatedBy(user);

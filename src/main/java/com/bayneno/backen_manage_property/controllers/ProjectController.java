@@ -74,6 +74,7 @@ public class ProjectController {
                             .transports(projectRequest.getTransports())
                             .zone(projectRequest.getZone())
                             .team(projectRequest.getTeam())
+                            .facilityOther(projectRequest.getFacilityOther())
                             .createdBy(createdByUser)
                             .createdDateTime(ZonedDateTimeUtil.now())
                             .updatedBy(createdByUser)
