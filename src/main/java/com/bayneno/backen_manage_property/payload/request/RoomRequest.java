@@ -21,6 +21,7 @@ public class RoomRequest {
     private String grade;
     private String toilet;
     private String bed;
+    private String roomType;
     private Double area;
     private String floor;
     private Double price;
@@ -35,6 +36,9 @@ public class RoomRequest {
     @Builder.Default
     private List<String> tags = new ArrayList<>();
     private String sellDetail;
+	private String tax;
+	private String businessTax;
+	private String transferFee;
     private String description;
     private String remark;
     private Boolean exclusive;
