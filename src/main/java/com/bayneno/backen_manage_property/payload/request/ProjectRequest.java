@@ -26,6 +26,7 @@ public class ProjectRequest {
 	private String province;
 	private String zipcode;
 	private String zone;
+	private String subZone;
 	private String team;
 	private List<String> facilities;
 	private List<TransportRequest> transports;

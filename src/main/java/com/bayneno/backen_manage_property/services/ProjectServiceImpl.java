@@ -42,6 +42,7 @@ public class ProjectServiceImpl implements ProjectService  {
 						.facilities(projectRequest.getFacilities())
 						.transports(projectRequest.getTransports())
 						.zone(projectRequest.getZone())
+						.subZone(projectRequest.getSubZone())
 						.team(projectRequest.getTeam())
 						.facilityOther(projectRequest.getTeam())
 						.createdBy(user)
@@ -96,6 +97,7 @@ public class ProjectServiceImpl implements ProjectService  {
 			project.get().setFacilities(projectRequest.getFacilities());
 			project.get().setTransports(projectRequest.getTransports());
 			project.get().setZone(projectRequest.getZone());
+			project.get().setSubZone(projectRequest.getSubZone());
 			project.get().setTeam(projectRequest.getTeam());
 			project.get().setFacilityOther(projectRequest.getFacilityOther());
 			project.get().setUpdatedBy(project.get().getCreatedBy());

@@ -80,6 +80,7 @@ public class ProjectController {
                             .facilities(projectRequest.getFacilities())
                             .transports(projectRequest.getTransports())
                             .zone(projectRequest.getZone())
+                            .subZone(projectRequest.getSubZone())
                             .team(projectRequest.getTeam())
                             .facilityOther(projectRequest.getFacilityOther())
                             .createdBy(createdByUser)
@@ -121,6 +122,7 @@ public class ProjectController {
                             .facilities(projectRequest.getFacilities())
                             .transports(projectRequest.getTransports())
                             .zone(projectRequest.getZone())
+                            .subZone(projectRequest.getSubZone())
                             .updatedBy(updatedByUser)
                             .updatedDateTime(ZonedDateTimeUtil.now())
                             .build())
@@ -160,6 +162,7 @@ public class ProjectController {
                                 .name("")
                                 .type("")
                                 .zone("")
+                                .subZone("")
                                 .facilities(new ArrayList<>())
                                 .build())
                         .build());
@@ -195,6 +198,7 @@ public class ProjectController {
                                         p.getProvince(),
                                         p.getZipcode(),
                                         p.getZone(),
+                                        p.getSubZone(),
                                         p.getTeam(),
                                         p.getFacilities(),
                                         p.getTransports(),
@@ -220,6 +224,7 @@ public class ProjectController {
                             project.getProvince(),
                             project.getZipcode(),
                             project.getZone(),
+                            project.getSubZone(),
                             project.getTeam(),
                             project.getFacilities(),
                             project.getTransports(),

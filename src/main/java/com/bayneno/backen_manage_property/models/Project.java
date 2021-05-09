@@ -30,6 +30,7 @@ public class Project {
     private String province;
     private String zipcode;
     private String zone;
+    private String subZone;
     private String team;
     private String facilityOther;
     @DBRef
