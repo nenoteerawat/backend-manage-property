@@ -30,4 +30,5 @@ public class ProjectRequest {
 	private List<String> facilities;
 	private List<TransportRequest> transports;
 	private String comment;
+	private String facilityOther;
 }
