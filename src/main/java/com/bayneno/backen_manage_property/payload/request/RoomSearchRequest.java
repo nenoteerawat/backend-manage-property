@@ -18,6 +18,7 @@ public class RoomSearchRequest {
     private String grade;
     private String toilet;
     private String bed;
+    private String roomType;
     private String area;
     private String floor;
     private String price;

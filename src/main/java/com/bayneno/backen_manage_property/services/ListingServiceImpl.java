@@ -200,6 +200,8 @@ public class ListingServiceImpl implements ListingService {
 					-> addQueryIsIfNotEmpty(query, "room.type", type, EQuery.IS));
 			Optional.of(room).map(RoomSearchRequest::getBed).ifPresent(bed
 					-> addQueryIsIfNotEmpty(query, "room.bed", bed, EQuery.IS));
+			Optional.of(room).map(RoomSearchRequest::getRoomType).ifPresent(roomType
+					-> addQueryIsIfNotEmpty(query, "room.roomType", roomType, EQuery.IS));
 			Optional.of(room).map(RoomSearchRequest::getToilet).ifPresent(toilet
 					-> addQueryIsIfNotEmpty(query, "room.toilet", toilet, EQuery.IS));
 			Optional.of(room).map(RoomSearchRequest::getPrice).ifPresent(price

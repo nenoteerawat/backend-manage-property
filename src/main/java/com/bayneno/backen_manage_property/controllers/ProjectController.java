@@ -54,6 +54,13 @@ public class ProjectController {
     public ResponseEntity<?> projectCreate(@Valid @RequestBody ProjectRequest projectRequest, HttpServletRequest httpServletRequest, Principal principal) {
         String projectId = null;
         User createdByUser = userRepository.findByUsername(principal.getName()).orElse(null);
+
+		//validate project name
+		if (projectService.validateProjectName(projectRequest.getName())) {
+			// TODO Move error message to config file or config database
+			return ResponseEntity.badRequest().body("โครงการนี้มีในระบบแล้ว");
+		}
+
         if(httpServletRequest.isUserInRole(ERole.ROLE_SALE.name())){
             changeService.submit(SubmitReq.builder()
                     .comment(projectRequest.getComment())
@@ -83,10 +90,6 @@ public class ProjectController {
                     .build());
 
         } else {
-            //validate project name
-            if (projectService.validateProjectName(projectRequest.getName())) {
-                return ResponseEntity.badRequest().body("Project Name Duplicate");
-            }
             projectId = projectService.createProject(projectRequest, createdByUser);
         }
         assert projectId != null;
