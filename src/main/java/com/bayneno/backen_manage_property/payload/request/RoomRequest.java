@@ -22,6 +22,8 @@ public class RoomRequest {
     private String toilet;
     private String bed;
     private String roomType;
+    private String mateRoom;
+    private String storageRoom;
     private Double area;
     private String floor;
     private Double price;

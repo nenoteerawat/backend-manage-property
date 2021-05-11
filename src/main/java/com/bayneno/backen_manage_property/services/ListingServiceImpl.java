@@ -202,6 +202,10 @@ public class ListingServiceImpl implements ListingService {
 					-> addQueryIsIfNotEmpty(query, "room.bed", bed, EQuery.IS));
 			Optional.of(room).map(RoomSearchRequest::getRoomType).ifPresent(roomType
 					-> addQueryIsIfNotEmpty(query, "room.roomType", roomType, EQuery.IS));
+			Optional.of(room).map(RoomSearchRequest::getMateRoom).ifPresent(mateRoom
+					-> addQueryIsIfNotEmpty(query, "room.mateRoom", mateRoom, EQuery.IS));
+			Optional.of(room).map(RoomSearchRequest::getStorageRoom).ifPresent(storageRoom
+					-> addQueryIsIfNotEmpty(query, "room.storageRoom", storageRoom, EQuery.IS));
 			Optional.of(room).map(RoomSearchRequest::getToilet).ifPresent(toilet
 					-> addQueryIsIfNotEmpty(query, "room.toilet", toilet, EQuery.IS));
 			Optional.of(room).map(RoomSearchRequest::getPrice).ifPresent(price
@@ -278,6 +282,11 @@ public class ListingServiceImpl implements ListingService {
 				case IS: query.addCriteria(Criteria.where(searchKey[0]).is(searchValue[0])); break;
 				case BETWEEN:
 					String[] split = searchValue[0].split(",");
+
+					// For empty search case price and area with send to back end with ["", ""]
+					if(split.length < 2) {
+						break;
+					}
 					double upper = Double.MAX_VALUE;
 					double lower = Double.MIN_VALUE;
 					try {
