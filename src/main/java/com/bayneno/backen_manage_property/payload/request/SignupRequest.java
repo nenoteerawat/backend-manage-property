@@ -32,6 +32,7 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
     private String zone;
+    private String team;
     private String subZone;
     private List<String> subZoneTags = new ArrayList<>();
 

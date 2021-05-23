@@ -93,7 +93,7 @@ public class AuthController {
 				.nickName(signUpRequest.getNickName())
 				.email(signUpRequest.getEmail())
 				.password(encoder.encode(signUpRequest.getPassword()))
-				.zone(signUpRequest.getZone())
+				.team(signUpRequest.getTeam())
 				.subZone(signUpRequest.getSubZone())
 				.subZoneTags(signUpRequest.getSubZoneTags())
 				.build();

@@ -38,7 +38,7 @@ public class UserController {
             user.get().setNickName(signupRequest.getNickName());
             user.get().setPassword(signupRequest.getPassword());
             user.get().setEmail(signupRequest.getEmail());
-            user.get().setZone(signupRequest.getZone());
+            user.get().setTeam(signupRequest.getTeam());
             user.get().setSubZone(signupRequest.getSubZone());
             user.get().setSubZoneTags(signupRequest.getSubZoneTags());
             userRepository.save(user.get());

@@ -46,6 +46,7 @@ public class User {
   private Set<Role> roles = new HashSet<>();
 
   private String zone;
+  private String team;
   private String subZone;
   @Builder.Default
   private List<String> subZoneTags = new ArrayList<>();
