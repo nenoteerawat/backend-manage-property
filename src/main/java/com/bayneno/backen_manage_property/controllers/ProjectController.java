@@ -82,7 +82,8 @@ public class ProjectController {
                             .zone(projectRequest.getZone())
                             .subZone(projectRequest.getSubZone())
                             .team(projectRequest.getTeam())
-                            .facilityOther(projectRequest.getFacilityOther())
+                            .facilityOtherTags(projectRequest.getFacilityOtherTags())
+                            .subZoneTags(projectRequest.getSubZoneTags())
                             .createdBy(createdByUser)
                             .createdDateTime(ZonedDateTimeUtil.now())
                             .updatedBy(createdByUser)
@@ -120,6 +121,8 @@ public class ProjectController {
                             .province(projectRequest.getProvince())
                             .zipcode(projectRequest.getZipcode())
                             .facilities(projectRequest.getFacilities())
+                            .facilityOtherTags(projectRequest.getFacilityOtherTags())
+                            .subZoneTags(projectRequest.getSubZoneTags())
                             .transports(projectRequest.getTransports())
                             .zone(projectRequest.getZone())
                             .subZone(projectRequest.getSubZone())
@@ -164,6 +167,8 @@ public class ProjectController {
                                 .zone("")
                                 .subZone("")
                                 .facilities(new ArrayList<>())
+                                .facilityOtherTags(new ArrayList<>())
+                                .subZoneTags(new ArrayList<>())
                                 .build())
                         .build());
             } else {
@@ -198,9 +203,10 @@ public class ProjectController {
                                         p.getProvince(),
                                         p.getZipcode(),
                                         p.getZone(),
-                                        p.getSubZone(),
+                                        p.getSubZoneTags(),
                                         p.getTeam(),
                                         p.getFacilities(),
+                                        p.getFacilityOtherTags(),
                                         p.getTransports(),
                                         p.getBuildings(),
                                         p.getUpdatedBy(),
@@ -224,9 +230,10 @@ public class ProjectController {
                             project.getProvince(),
                             project.getZipcode(),
                             project.getZone(),
-                            project.getSubZone(),
+                            project.getSubZoneTags(),
                             project.getTeam(),
                             project.getFacilities(),
+                            project.getFacilityOtherTags(),
                             project.getTransports(),
                             project.getBuildings(),
                             project.getUpdatedBy(),

@@ -1,11 +1,9 @@
 package com.bayneno.backen_manage_property.payload.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -31,5 +29,6 @@ public class ProjectRequest {
 	private List<String> facilities;
 	private List<TransportRequest> transports;
 	private String comment;
-	private String facilityOther;
+	private List<String> subZoneTags = new ArrayList<>();
+	private List<String> facilityOtherTags = new ArrayList<>();
 }

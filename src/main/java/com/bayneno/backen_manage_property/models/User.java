@@ -8,7 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -45,5 +47,6 @@ public class User {
 
   private String zone;
   private String subZone;
-
+  @Builder.Default
+  private List<String> subZoneTags = new ArrayList<>();
 }

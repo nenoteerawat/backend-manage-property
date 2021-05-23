@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -29,9 +30,10 @@ public class ProjectResponse {
 	private String province;
 	private String zipcode;
 	private String zone;
-	private String subZone;
+	private List<String> subZoneTags;
 	private String team;
 	private List<String> facilities;
+	private List<String> facilityOtherTags = new ArrayList<>();
 	private List<TransportRequest> transports;
 	private List<BuildingRequest> buildings;
 	@DBRef

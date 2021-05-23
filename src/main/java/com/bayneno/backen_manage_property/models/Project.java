@@ -32,7 +32,6 @@ public class Project {
     private String zone;
     private String subZone;
     private String team;
-    private String facilityOther;
     @DBRef
     private User createdBy;
     private ZonedDateTime createdDateTime;
@@ -43,4 +42,8 @@ public class Project {
     private List<String> facilities = new ArrayList<>();
     @Builder.Default
     private List<TransportRequest> transports = new ArrayList<>();
+    @Builder.Default
+    private List<String> subZoneTags = new ArrayList<>();
+    @Builder.Default
+    private List<String> facilityOtherTags = new ArrayList<>();
 }

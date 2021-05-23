@@ -40,11 +40,11 @@ public class ProjectServiceImpl implements ProjectService  {
 						.province(projectRequest.getProvince())
 						.zipcode(projectRequest.getZipcode())
 						.facilities(projectRequest.getFacilities())
+						.facilityOtherTags(projectRequest.getFacilityOtherTags())
 						.transports(projectRequest.getTransports())
 						.zone(projectRequest.getZone())
-						.subZone(projectRequest.getSubZone())
+						.subZoneTags(projectRequest.getSubZoneTags())
 						.team(projectRequest.getTeam())
-						.facilityOther(projectRequest.getTeam())
 						.createdBy(user)
 						.createdDateTime(ZonedDateTimeUtil.now())
 						.updatedBy(user)
@@ -97,9 +97,9 @@ public class ProjectServiceImpl implements ProjectService  {
 			project.get().setFacilities(projectRequest.getFacilities());
 			project.get().setTransports(projectRequest.getTransports());
 			project.get().setZone(projectRequest.getZone());
-			project.get().setSubZone(projectRequest.getSubZone());
+			project.get().setSubZoneTags(projectRequest.getSubZoneTags());
 			project.get().setTeam(projectRequest.getTeam());
-			project.get().setFacilityOther(projectRequest.getFacilityOther());
+			project.get().setFacilityOtherTags(projectRequest.getFacilityOtherTags());
 			project.get().setUpdatedBy(project.get().getCreatedBy());
 			project.get().setUpdatedDateTime(project.get().getCreatedDateTime());
 			project.get().setUpdatedBy(user);

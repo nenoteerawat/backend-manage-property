@@ -40,6 +40,7 @@ public class UserController {
             user.get().setEmail(signupRequest.getEmail());
             user.get().setZone(signupRequest.getZone());
             user.get().setSubZone(signupRequest.getSubZone());
+            user.get().setSubZoneTags(signupRequest.getSubZoneTags());
             userRepository.save(user.get());
         }
         return ResponseEntity.ok("success");

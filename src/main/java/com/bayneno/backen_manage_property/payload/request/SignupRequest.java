@@ -1,13 +1,12 @@
 package com.bayneno.backen_manage_property.payload.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -34,5 +33,6 @@ public class SignupRequest {
     private String password;
     private String zone;
     private String subZone;
+    private List<String> subZoneTags = new ArrayList<>();
 
 }
