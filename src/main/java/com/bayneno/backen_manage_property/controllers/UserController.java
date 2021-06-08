@@ -7,6 +7,7 @@ import com.bayneno.backen_manage_property.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,9 @@ public class UserController {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    PasswordEncoder encoder;
+
     @PostMapping("/user/edit")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<?> userEdit(@RequestBody SignupRequest signupRequest, HttpServletRequest request, Principal principal) {
@@ -36,7 +40,10 @@ public class UserController {
             user.get().setFirstName(signupRequest.getFirstName());
             user.get().setLastName(signupRequest.getLastName());
             user.get().setNickName(signupRequest.getNickName());
-            user.get().setPassword(signupRequest.getPassword());
+
+            if(!user.get().getPassword().equals(signupRequest.getPassword()))
+                user.get().setPassword(encoder.encode(signupRequest.getPassword()));
+
             user.get().setEmail(signupRequest.getEmail());
             user.get().setTeam(signupRequest.getTeam());
             user.get().setSubZone(signupRequest.getSubZone());
