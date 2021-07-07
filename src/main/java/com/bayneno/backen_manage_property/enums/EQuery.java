@@ -4,5 +4,6 @@ public enum  EQuery {
     IS,
     BETWEEN,
     LIKE,
-    ALL
+    ALL,
+    CON
 }

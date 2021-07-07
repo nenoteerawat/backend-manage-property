@@ -73,7 +73,7 @@ public class UserController {
         } else {
             users = userRepository.findAll();
         }
-        users = users.stream().filter(user -> !user.getUsername().equals("manager") && !user.getUsername().equals("admin")).collect(Collectors.toList());
+//        users = users.stream().filter(user -> !user.getUsername().equals("manager") && !user.getUsername().equals("admin")).collect(Collectors.toList());
         return ResponseEntity.ok(users);
     }
 }

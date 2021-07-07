@@ -108,7 +108,21 @@ public class ListingServiceImpl implements ListingService {
 				.sorted(Comparator.comparing(Listing::getUpdatedDateTime).reversed())
 				.collect(Collectors.toList());
 		if (listingModels.size() > 0) {
-			List<String> projectIds = listingModels.stream().map(listing -> listing.getRoom().getProjectId()).collect(Collectors.toList());
+			if (!listingSearchRequest.getSaleUser().isEmpty()) {
+				listingModels = listingModels
+						.stream()
+						.filter(listing -> listing.getCreatedBy().getUsername().equals(listingSearchRequest.getSaleUser()))
+						.collect(Collectors.toList());
+			} else {
+				listingModels = listingModels
+						.stream()
+						.filter(listing -> listing.getCreatedBy().getUsername().equals(listingSearchRequest.getUser().getUsername()))
+						.collect(Collectors.toList());
+			}
+			List<String> projectIds = listingModels
+					.stream()
+					.map(listing -> listing.getRoom().getProjectId())
+					.collect(Collectors.toList());
 			List<Project> projects = projectRepository.findByIdIn(projectIds);
 			listings = listingModels
 					.stream()
@@ -186,7 +200,7 @@ public class ListingServiceImpl implements ListingService {
 //				.map(User::getUsername).ifPresent(username -> addQueryIsIfNotEmpty(query, "saleUser", username, EQuery.IS));
 
 		// Sale user criteria
-		Optional.of(criteria).map(ListingSearchRequest::getSaleUser).ifPresent(saleUser -> addQueryIsIfNotEmpty(query, "saleUser", saleUser, EQuery.IS));
+//		Optional.of(criteria).map(ListingSearchRequest::getSaleUser).ifPresent(saleUser -> addQueryIsIfNotEmpty(query, "saleUser", saleUser, EQuery.IS));
 
 		// Id criteria
 		Optional.of(criteria).map(ListingSearchRequest::getId).filter(id -> !StringUtils.isEmpty(id))
@@ -216,7 +230,7 @@ public class ListingServiceImpl implements ListingService {
 
 		// Search criteria
 		Optional.of(criteria).map(ListingSearchRequest::getSearch).ifPresent(search
-				-> addQueryIsIfNotEmpty(query, "owner.name", search, EQuery.LIKE));
+				-> addQueryIsIfNotEmpty(query, "owner.listingCodeManual", search, EQuery.LIKE));
 
 		if(StringUtils.isEmpty(Optional.of(criteria).map(ListingSearchRequest::getRoomSearchRequest)
 				.map(RoomSearchRequest::getProjectId).orElse(""))) {

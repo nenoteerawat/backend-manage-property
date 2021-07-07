@@ -14,4 +14,6 @@ public class OwnerRequest {
     private String line;
     private String phone;
     private String email;
+    private String listingCodeManual;
+
 }

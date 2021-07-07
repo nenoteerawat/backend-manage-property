@@ -25,7 +25,7 @@ public class ListingSearchRequest {
     private List<FileResponse> files;
 
     private User user;
-    private String saleUser;
+    private String saleUser = "";
     private String search;
     private String transportType;
     private String transportName;
