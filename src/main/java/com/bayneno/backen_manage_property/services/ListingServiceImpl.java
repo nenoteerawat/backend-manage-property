@@ -14,6 +14,7 @@ import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;
 import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -320,10 +321,10 @@ public class ListingServiceImpl implements ListingService {
 					break;
 				case LIKE:
 					i = 1;
-					Criteria criteria = Criteria.where(searchKey[0]).regex(".*" + searchValue[0] + ".*");
+					Criteria criteria = Criteria.where(searchKey[0]).regex(".*" + searchValue[0] + ".*", "i");
 					while (i < loopLength ) {
 						i++;
-						criteria.orOperator(Criteria.where(searchKey[i]).regex(".*" + searchValue[i] + ".*"));
+						criteria.orOperator(Criteria.where(searchKey[i]).regex(".*" + searchValue[i] + ".*", "i"));
 					}
 					query.addCriteria(criteria);
 					break;
@@ -457,4 +458,17 @@ public class ListingServiceImpl implements ListingService {
 			}
 		).collect(Collectors.toList());
 	}
+
+  @Override
+  public List<String> findListingCode(ListingCodeSearch req) {
+    final Query listingCodeQuery = new Query();
+    addQueryIsIfNotEmpty(listingCodeQuery, "owner.listingCode", req.getCode(), EQuery.IS);
+    if(req.getId() != null && !req.getId().isEmpty()) {
+      listingCodeQuery.addCriteria(Criteria.where("_id").ne(new ObjectId(req.getId())));
+    }
+    return mongoTemplate.find(listingCodeQuery, Listing.class).stream()
+      .map(Listing::getOwner)
+      .map(OwnerRequest::getListingCodeManual)
+      .collect(Collectors.toList());
+  }
 }
