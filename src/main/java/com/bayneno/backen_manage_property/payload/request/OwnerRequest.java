@@ -15,5 +15,6 @@ public class OwnerRequest {
     private String phone;
     private String email;
     private String listingCodeManual;
+    private String linkGoogleMap;
 
 }
