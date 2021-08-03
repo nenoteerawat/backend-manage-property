@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping("/user/list")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<?> projectList(@RequestBody SignupRequest signupRequest) {
 
         List<User> users = new ArrayList<>();

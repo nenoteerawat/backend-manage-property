@@ -109,15 +109,10 @@ public class ListingServiceImpl implements ListingService {
 				.sorted(Comparator.comparing(Listing::getUpdatedDateTime).reversed())
 				.collect(Collectors.toList());
 		if (listingModels.size() > 0) {
-			if (!listingSearchRequest.getSaleUser().isEmpty()) {
+			if (!listingSearchRequest.getSaleUser().isEmpty() && !listingSearchRequest.getSaleUser().equals("ALL")) {
 				listingModels = listingModels
 						.stream()
 						.filter(listing -> listing.getCreatedBy().getUsername().equals(listingSearchRequest.getSaleUser()))
-						.collect(Collectors.toList());
-			} else {
-				listingModels = listingModels
-						.stream()
-						.filter(listing -> listing.getCreatedBy().getUsername().equals(listingSearchRequest.getUser().getUsername()))
 						.collect(Collectors.toList());
 			}
 			List<String> projectIds = listingModels

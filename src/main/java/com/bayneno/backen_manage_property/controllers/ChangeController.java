@@ -49,7 +49,7 @@ public class ChangeController {
     }
 
     @GetMapping("/query")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public List<ChangeLogShowResponse> query(@RequestParam String state) {
         return changeLogRepository.findAllByState(state).stream().map(changeLog -> {
             ChangeLogShowResponse logShowResponse = new ChangeLogShowResponse();
