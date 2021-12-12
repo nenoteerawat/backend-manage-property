@@ -152,7 +152,6 @@ public class ListingServiceImpl implements ListingService {
 								.flag(listing.isFlag())
 								.build();
 							}
-
 					)
 					.collect(Collectors.toList());
 		}
