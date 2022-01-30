@@ -14,9 +14,13 @@ import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;
 import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -167,7 +171,7 @@ public class ListingServiceImpl implements ListingService {
 	}
 
 	public List<Listing> queryListing(ListingSearchRequest criteria){
-		Query query = new Query();
+		Query query = new Query().with(PageRequest.of(criteria.getPage(), criteria.getPageSize()));
 
 		// User criteria
 //		Optional.of(criteria).map(ListingSearchRequest::getUser)
@@ -233,7 +237,7 @@ public class ListingServiceImpl implements ListingService {
 			query.addCriteria(Criteria.where("room.projectId").in(projectIds));
 		}
 
-		return mongoTemplate.find(query, Listing.class);
+    return mongoTemplate.find(query, Listing.class);
 	}
 
 	public List<Listing> matchListing(MatchListingRequest matchListingRequest){

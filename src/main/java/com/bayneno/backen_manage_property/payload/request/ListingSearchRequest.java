@@ -29,4 +29,7 @@ public class ListingSearchRequest {
     private String search;
     private String transportType;
     private String transportName;
+
+    private int page;
+    private int pageSize;
 }

@@ -5,7 +5,14 @@ server:
 logging:
   level:
     ROOT: INFO
-
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG
+            repository:
+              query: DEBUG
 
 # Mongo Db Config
 spring:
@@ -17,6 +24,11 @@ spring:
       authentication-database: admin
       username: root
       password: p@ssw0rd
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
 
 # App Properties
