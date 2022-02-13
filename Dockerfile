@@ -1,12 +1,14 @@
 FROM openjdk:8-jdk-alpine as build
-WORKDIR /workspace/app
+ARG WORKHOME=/workspace/app
+WORKDIR ${WORKHOME}
 
+COPY .m2 ${WORKHOME}/.m2
 COPY mvnw .
-COPY .mvn .mvn
+COPY .mvn ${WORKHOME}/.mvn
 COPY pom.xml .
-COPY src src
+COPY src ${WORKHOME}/src
 
-RUN ./mvnw install -DskipTests
+RUN ./mvnw -s ./.mvn/settings.xml install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:8-jdk-alpine

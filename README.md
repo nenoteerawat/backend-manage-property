@@ -7,3 +7,12 @@ For more detail, please visit:
 ```
 mvn spring-boot:run
 ```
+
+## Build image on local
+
+Copy foder .m2 from home directory($HOME/.m2) to project directory(./)
+
+```
+docker build --platform linux/amd64 -t property123/api-manage-property:latest .
+docker push property123/api-manage-property:latest 
+```
