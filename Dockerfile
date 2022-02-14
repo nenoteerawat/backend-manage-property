@@ -8,7 +8,7 @@ COPY .mvn ${WORKHOME}/.mvn
 COPY pom.xml .
 COPY src ${WORKHOME}/src
 
-RUN ./mvnw -s ./.mvn/settings.xml install -DskipTests
+RUN ${WORKHOME}/mvnw -s ${WORKHOME}/.mvn/settings.xml install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM openjdk:8-jdk-alpine
