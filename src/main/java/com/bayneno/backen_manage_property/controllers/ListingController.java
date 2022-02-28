@@ -103,6 +103,12 @@ public class ListingController {
         return ResponseEntity.ok(listing);
     }
 
+    @PostMapping("code")
+    @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
+    public ResponseEntity<?> getListingCode(@Valid @RequestBody ListingCodeSearch req, Principal principal){
+        return ResponseEntity.ok(listingService.findListingCode(req));
+    }
+
     @GetMapping("listByAppointment")
     @PreAuthorize("hasRole('SALE') or hasRole('ADMIN') or hasRole('SALE_MANAGER') or hasRole('MANAGER')")
     public ResponseEntity<?> listingListByAppointment(@RequestParam String leadId, Principal principal) {

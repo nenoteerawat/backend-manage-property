@@ -45,4 +45,9 @@ public class RoomRequest {
     private String remark;
     private Boolean exclusive;
     private String exclusiveDate;
+    private String district;
+    private String amphoe;
+    private String province;
+    private String zipcode;
+    private String widthLand;
 }

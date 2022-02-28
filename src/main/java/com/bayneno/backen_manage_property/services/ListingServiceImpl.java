@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -112,7 +113,16 @@ public class ListingServiceImpl implements ListingService {
 				.sorted(Comparator.comparing(Listing::getUpdatedDateTime).reversed())
 				.collect(Collectors.toList());
 		if (listingModels.size() > 0) {
-			List<String> projectIds = listingModels.stream().map(listing -> listing.getRoom().getProjectId()).collect(Collectors.toList());
+			if (!listingSearchRequest.getSaleUser().isEmpty() && !listingSearchRequest.getSaleUser().equals("ALL")) {
+				listingModels = listingModels
+						.stream()
+						.filter(listing -> listing.getCreatedBy().getUsername().equals(listingSearchRequest.getSaleUser()))
+						.collect(Collectors.toList());
+			}
+			List<String> projectIds = listingModels
+					.stream()
+					.map(listing -> listing.getRoom().getProjectId())
+					.collect(Collectors.toList());
 			List<Project> projects = projectRepository.findByIdIn(projectIds);
 			listings = listingModels
 					.stream()
@@ -146,7 +156,6 @@ public class ListingServiceImpl implements ListingService {
 								.flag(listing.isFlag())
 								.build();
 							}
-
 					)
 					.collect(Collectors.toList());
 		}
@@ -190,7 +199,7 @@ public class ListingServiceImpl implements ListingService {
 //				.map(User::getUsername).ifPresent(username -> addQueryIsIfNotEmpty(query, "saleUser", username, EQuery.IS));
 
 		// Sale user criteria
-		Optional.of(criteria).map(ListingSearchRequest::getSaleUser).ifPresent(saleUser -> addQueryIsIfNotEmpty(query, "saleUser", saleUser, EQuery.IS));
+//		Optional.of(criteria).map(ListingSearchRequest::getSaleUser).ifPresent(saleUser -> addQueryIsIfNotEmpty(query, "saleUser", saleUser, EQuery.IS));
 
 		// Id criteria
 		Optional.of(criteria).map(ListingSearchRequest::getId).filter(id -> !StringUtils.isEmpty(id))
@@ -220,7 +229,7 @@ public class ListingServiceImpl implements ListingService {
 
 		// Search criteria
 		Optional.of(criteria).map(ListingSearchRequest::getSearch).ifPresent(search
-				-> addQueryIsIfNotEmpty(query, "owner.name", search, EQuery.LIKE));
+				-> addQueryIsIfNotEmpty(query, "owner.listingCodeManual", search, EQuery.LIKE));
 
 		if(StringUtils.isEmpty(Optional.of(criteria).map(ListingSearchRequest::getRoomSearchRequest)
 				.map(RoomSearchRequest::getProjectId).orElse(""))) {
@@ -310,10 +319,10 @@ public class ListingServiceImpl implements ListingService {
 					break;
 				case LIKE:
 					i = 1;
-					Criteria criteria = Criteria.where(searchKey[0]).regex(".*" + searchValue[0] + ".*");
+					Criteria criteria = Criteria.where(searchKey[0]).regex(".*" + searchValue[0] + ".*", "i");
 					while (i < loopLength ) {
 						i++;
-						criteria.orOperator(Criteria.where(searchKey[i]).regex(".*" + searchValue[i] + ".*"));
+						criteria.orOperator(Criteria.where(searchKey[i]).regex(".*" + searchValue[i] + ".*", "i"));
 					}
 					query.addCriteria(criteria);
 					break;
@@ -447,4 +456,17 @@ public class ListingServiceImpl implements ListingService {
 			}
 		).collect(Collectors.toList());
 	}
+
+  @Override
+  public List<String> findListingCode(ListingCodeSearch req) {
+    final Query listingCodeQuery = new Query();
+    addQueryIsIfNotEmpty(listingCodeQuery, "owner.listingCode", req.getCode(), EQuery.IS);
+    if(req.getId() != null && !req.getId().isEmpty()) {
+      listingCodeQuery.addCriteria(Criteria.where("_id").ne(new ObjectId(req.getId())));
+    }
+    return mongoTemplate.find(listingCodeQuery, Listing.class).stream()
+      .map(Listing::getOwner)
+      .map(OwnerRequest::getListingCodeManual)
+      .collect(Collectors.toList());
+  }
 }

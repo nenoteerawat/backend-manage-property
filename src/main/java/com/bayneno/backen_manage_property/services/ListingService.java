@@ -2,6 +2,7 @@ package com.bayneno.backen_manage_property.services;
 
 import com.bayneno.backen_manage_property.models.Listing;
 import com.bayneno.backen_manage_property.models.User;
+import com.bayneno.backen_manage_property.payload.request.ListingCodeSearch;
 import com.bayneno.backen_manage_property.payload.request.ListingRequest;
 import com.bayneno.backen_manage_property.payload.request.ListingSearchRequest;
 import com.bayneno.backen_manage_property.payload.request.MatchListingRequest;
@@ -23,5 +24,7 @@ public interface ListingService {
     List<ListingResponse> getListingByAppointment(String leadId, User user);
 
     List<PropertyXml> findPublish();
+
+    List<String> findListingCode(ListingCodeSearch req);
 
 }
