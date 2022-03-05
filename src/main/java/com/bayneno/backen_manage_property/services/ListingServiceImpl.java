@@ -14,14 +14,10 @@ import com.bayneno.backen_manage_property.repository.ListingRepository;
 import com.bayneno.backen_manage_property.repository.ProjectRepository;
 import com.bayneno.backen_manage_property.utils.ZonedDateTimeUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -129,7 +125,7 @@ public class ListingServiceImpl implements ListingService {
 					.map(listing -> {
 						List<ActionLog> actionLogs = actionLogRepository.findByListingId(listing.getId());
 						String status = "";
-						if(actionLogs.size() > 0)
+						if(!actionLogs.isEmpty())
 							status = actionLogs.stream()
 									.sorted(Comparator.comparing(ActionLog::getCreatedDateTime).reversed())
 									.collect(Collectors.toList())
@@ -180,7 +176,7 @@ public class ListingServiceImpl implements ListingService {
 	}
 
 	public List<Listing> queryListing(ListingSearchRequest criteria){
-		Query query = new Query().with(PageRequest.of(criteria.getPage(), criteria.getPageSize()));
+		Query query = new Query();
 
 		// User criteria
 //		Optional.of(criteria).map(ListingSearchRequest::getUser)
