@@ -123,14 +123,16 @@ public class ListingServiceImpl implements ListingService {
 			listings = listingModels
 					.stream()
 					.map(listing -> {
-						List<ActionLog> actionLogs = actionLogRepository.findByListingId(listing.getId());
-						String status = "";
-						if(!actionLogs.isEmpty())
-							status = actionLogs.stream()
-									.sorted(Comparator.comparing(ActionLog::getCreatedDateTime).reversed())
-									.collect(Collectors.toList())
-									.get(0)
-									.getStatus();
+//						List<ActionLog> actionLogs = actionLogRepository.findByListingId(listing.getId());
+//						String status = "";
+//						if(!actionLogs.isEmpty())
+//							status = actionLogs.stream()
+//									.sorted(Comparator.comparing(ActionLog::getCreatedDateTime).reversed())
+//									.collect(Collectors.toList())
+//									.get(0)
+//									.getStatus();
+								String createUserName = (listing.getCreatedBy() != null) ? listing.getCreatedBy().getFirstName() + " " + listing.getCreatedBy().getLastName() : "";
+								String updateUserName = (listing.getUpdatedBy() != null) ? listing.getUpdatedBy().getFirstName() + " " + listing.getUpdatedBy().getLastName() : "";
 						return ListingResponse
 								.builder()
 								.id(listing.getId())
@@ -141,14 +143,14 @@ public class ListingServiceImpl implements ListingService {
 										.filter(project -> project.getId().equals(listing.getRoom().getProjectId()))
 										.collect(Collectors.toList()))
 								.files(listing.getFiles())
-								.createdBy(listing.getCreatedBy().getFirstName() + " " + listing.getCreatedBy().getLastName())
+								.createdBy(createUserName)
 								.createdDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.getCreatedDateTime()
 										, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
-								.updatedBy(listing.getUpdatedBy().getFirstName() + " " + listing.getCreatedBy().getLastName())
+								.updatedBy(updateUserName)
 								.updatedDateTime(ZonedDateTimeUtil.zonedDateTimeToString(listing.getUpdatedDateTime()
 										, ZonedDateTimeUtil.DDMMYYHHMMSS, ZonedDateTimeUtil.BANGKOK_ASIA_ZONE_ID))
 								.saleUser(listing.getSaleUser())
-								.status(status)
+//								.status(status)
 								.flag(listing.isFlag())
 								.build();
 							}
